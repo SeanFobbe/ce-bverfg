@@ -173,7 +173,8 @@ varremove <- c("text",
                "ecli",
                "aktenzeichen",
                "pressemitteilung",
-               "zitiervorschlag")
+               "zitiervorschlag",
+               "kurzbeschreibung")
 
 
 
@@ -1235,31 +1236,46 @@ dt.meta.html$richter <- gsub(" ",
                              " ",
                              dt.meta.html$richter)
 
-dt.meta.html$aktenzeichen_alle <- gsub(" ",
-                                       " ",
-                                       dt.meta.html$aktenzeichen_alle)
-
 #+ echo = FALSE
 dt.segmented.full$richter <- gsub(" ",
                                   " ",
                                   dt.segmented.full$richter)
 
+#+ echo = FALSE
+dt.meta.html$aktenzeichen_alle <- gsub(" ",
+                                       " ",
+                                       dt.meta.html$aktenzeichen_alle)
+
+#+ echo = FALSE
 dt.segmented.full$aktenzeichen_alle <- gsub(" ",
                                             " ",
                                             dt.segmented.full$aktenzeichen_alle)
 
 
+#+ echo = FALSE
+dt.meta.html$kurzbeschreibung <- gsub(" ",
+                                       " ",
+                                       dt.meta.html$kurzbeschreibung)
+
+#+ echo = FALSE
+dt.segmented.full$kurzbeschreibung <- gsub(" ",
+                                            " ",
+                                            dt.segmented.full$kurzbeschreibung)
+
+
+#+ echo = FALSE
+dt.segmented.full$text <- gsub(" ",
+                               " ",
+                               dt.segmented.full$text)
+
 
 
 #'## Stichprobe Metadaten
-dt.meta.html[sample(.N, 100)]
+dt.meta.html[sample(.N, 50)]
 
 
 #'## Stichprobe Segmentierte Variante
 dt.segmented.full[sample(.N, 30)]
-
-
-
 
 
 
