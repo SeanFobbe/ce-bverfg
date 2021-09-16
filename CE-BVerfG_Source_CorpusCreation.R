@@ -1,0 +1,2932 @@
+#'---
+#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG-Source)"
+#'author: Seán Fobbe
+#'papersize: a4
+#'geometry: margin=3cm
+#'fontsize: 11pt
+#'output:
+#'  pdf_document:
+#'    toc: true
+#'    toc_depth: 3
+#'    number_sections: true
+#'    pandoc_args: --listings
+#'    includes:
+#'      in_header: General_Source_TEX_Preamble_DE.tex
+#'      before_body: [CE-BVerfG_Source_TEX_Definitions.tex,CE-BVerfG_Source_TEX_CompilationTitle.tex]
+#'bibliography: packages.bib
+#'nocite: '@*'
+#' ---
+
+
+
+#'\newpage
+#+
+#'# Einleitung
+#'
+#+
+#'## Überblick
+#' Dieses R-Skript lädt alle auf www.bundesverfassungsgericht.de verfügbaren Entscheidungen des Bundesverfassungsgerichts (BVerfG) herunter und verarbeitet sie in einen reichhaltigen menschen- und maschinenlesbaren Korpus. Es ist die Grundlage für den \textbf{\datatitle\ (\datashort )}.
+#'
+#' Alle mit diesem Skript erstellten Datensätze werden dauerhaft kostenlos und urheberrechtsfrei auf Zenodo, dem wissenschaftlichen Archiv des CERN, veröffentlicht. Alle Versionen sind mit einem persistenten Digital Object Identifier (DOI) versehen. Die neueste Version des Datensatzes ist immer über den Link der Concept DOI erreichbar: \dataconcepturldoi
+
+
+
+#+
+#'## Funktionsweise
+
+#' Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
+#' \begin{enumerate}
+#' \item Der volle Datensatz im CSV-Format
+#' \item Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
+#' \item [Optional] Tokenisierte Form aller Texte mit linguistischen Annotationen im CSV-Format
+#' \item Alle Entscheidungen im TXT-Format (reduzierter Umfang an Metadaten)
+#' \item Alle Entscheidungen im PDF-Format (reduzierter Umfang an Metadaten)
+#' \item Alle Analyse-Ergebnisse (Tabellen als CSV, Grafiken als PDF und PNG)
+#' \item Der Source Code und alle weiteren Quelldaten
+#' \end{enumerate}
+#'
+#' Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung").
+
+
+#+
+#'## Systemanforderungen
+#' Das Skript in seiner veröffentlichten Form kann nur unter Linux ausgeführt werden, da es Linux-spezifische Optimierungen (z.B. Fork Cluster) und Shell-Kommandos (z.B. OpenSSL) nutzt. Das Skript wurde unter Fedora Linux entwickelt und getestet. Die zur Kompilierung benutzte Version entnehmen Sie bitte dem **sessionInfo()**-Ausdruck am Ende dieses Berichts.
+#'
+#' In der Standard-Einstellung wird das Skript vollautomatisch die maximale Anzahl an Rechenkernen/Threads auf dem System zu nutzen. Wenn die Anzahl Threads (Variable "fullCores") auf 1 gesetzt wird, ist die Parallelisierung deaktiviert.
+#'
+#' Auf der Festplatte sollten 8 GB Speicherplatz vorhanden sein.
+#' 
+#' Um die PDF-Berichte kompilieren zu können benötigen Sie das R package **rmarkdown**, eine vollständige Installation von \LaTeX\ und alle in der Präambel-TEX-Datei angegebenen \LaTeX\ Packages.
+
+
+
+
+#+
+#'## Kompilierung
+
+#' Mit der Funktion **render()** von **rmarkdown** können der **vollständige Datensatz** und das **Codebook** kompiliert und die Skripte mitsamt ihrer Rechenergebnisse in ein gut lesbares PDF-Format überführt werden.
+#'
+#' Alle Kommentare sind im roxygen2-Stil gehalten. Die beiden Skripte können daher auch **ohne render()** regulär als R-Skripte ausgeführt werden. Es wird in diesem Fall kein PDF-Bericht erstellt und Diagramme werden nicht abgespeichert.
+
+#+
+#'### Datensatz 
+
+#' 
+#' Um den vollständigen Datensatz zu kompilieren und einen PDF-Bericht zu erstellen, kopieren Sie bitte alle im Source-Archiv bereitgestellten Dateien in einen leeren Ordner und führen mit R diesen Befehl aus:
+
+#+ eval = FALSE
+
+rmarkdown::render(input = "CE-BVerfG_Source_CorpusCreation.R",
+                  output_file = paste0("CE-BVerfG_",
+                                       Sys.Date(),
+                                       "_CompilationReport.pdf"),
+                  envir = new.env())
+
+
+#'### Codebook
+#' Um das **Codebook** zu kompilieren und einen PDF-Bericht zu erstellen führen Sie bitte im Anschluss an die Kompilierung des Datensatzes untenstehenden Befehl mit R aus.
+#'
+#' Bei der Prüfung der GPG-Signatur wird ein Fehler auftreten und im Codebook dokumentiert, weil die Daten nicht mit meiner Original-Signatur versehen sind. Dieser Fehler hat jedoch keine Auswirkungen auf die Funktionalität und hindert die Kompilierung nicht.
+
+#+ eval = FALSE
+
+rmarkdown::render(input = "CE-BVerfG_Source_CodebookCreation.R",
+                  output_file = paste0("CE-BVerfG_",
+                                       Sys.Date(),
+                                       "_Codebook.pdf"),
+                  envir = new.env())
+
+
+
+
+
+#'\newpage
+#+
+#'# Parameter
+
+#+
+#'## Name des Datensatzes
+datasetname <- "CE-BVerfG"
+
+#'## DOI des Datensatz-Konzeptes
+doi.concept <- "10.5281/zenodo.3902658" # checked
+
+#'## DOI der konkreten Version
+doi.version <- "???"
+
+#'## Lizenz
+license <- "Creative Commons Zero 1.0 Universal"
+
+
+#'## Verzeichnis für Analyse-Ergebnisse
+#' Hinweis: Muss mit einem Schrägstrich enden!
+
+outputdir <- paste0(getwd(),
+                    "/ANALYSE/") 
+
+
+
+#'## Modus: Debugging
+#' Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen. Nur für Test- und Demonstrationszwecke.  Kann mit anderen Modi kombiniert werden.
+
+mode.debug <- FALSE
+debug.scope <- 10
+
+
+
+#'## Modus: Linguistische Annotationen
+#' Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit anderen Modi kombiniert werden.
+
+mode.annotate <- TRUE
+
+
+
+
+#'## Optionen: Quanteda
+tokens_locale <- "de_DE"
+
+
+#'## Optionen: Knitr
+
+#+
+#'### Ausgabe-Formate
+dev <- c("pdf",
+         "png")
+
+#'### Auflösung der Raster-Grafiken
+dpi <- 300
+
+#'### Ausrichtung von Grafiken im Compilation Report
+fig.align <- "center"
+
+
+#'## Frequenztabellen: Ignorierte Variablen
+
+#' Diese Variablen werden bei der Erstellung der Frequenztabellen nicht berücksichtigt.
+
+varremove <- c("text",
+               "eingangsnummer",
+               "datum",
+               "doc_id",
+               "seite",
+               "name",
+               "ecli",
+               "aktenzeichen",
+               "pressemitteilung",
+               "zitiervorschlag")
+
+
+
+
+#'# Vorbereitung
+
+#'## Datumsstempel
+#' Dieser Datumsstempel wird in alle Dateinamen eingefügt. Er wird am Anfang des Skripts gesetzt, für den den Fall, dass die Laufzeit die Datumsbarriere durchbricht.
+
+datestamp <- Sys.Date()
+print(datestamp)
+
+
+#'## Datum und Uhrzeit (Beginn)
+begin.script <- Sys.time()
+print(begin.script)
+
+
+#'## Ordner für Analyse-Ergebnisse erstellen
+dir.create(outputdir)
+
+
+#+
+#'## Packages Laden
+
+library(mgsub)        # Mehrfache simultane String-Substitutions
+library(httr)         # HTTP-Werkzeuge
+library(rvest)        # HTML/XML-Extraktion
+library(knitr)        # Professionelles Reporting
+library(kableExtra)   # Verbesserte Kable Tabellen
+library(pdftools)     # Verarbeitung von PDF-Dateien
+library(doParallel)   # Parallelisierung
+library(ggplot2)      # Fortgeschrittene Datenvisualisierung
+library(scales)       # Skalierung von Diagrammen
+library(data.table)   # Fortgeschrittene Datenverarbeitung
+library(readtext)     # TXT-Dateien einlesen
+library(quanteda)     # Fortgeschrittene Computerlinguistik
+library(spacyr)       # Linguistische Annotationen
+
+
+
+#'## Zusätzliche Funktionen einlesen
+#' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
+
+source("General_Source_Functions.R")
+
+
+#'## Quanteda-Optionen setzen
+quanteda_options(tokens_locale = tokens_locale)
+
+
+#'## Knitr Optionen setzen
+knitr::opts_chunk$set(fig.path = outputdir,
+                      dev = dev,
+                      dpi = dpi,
+                      fig.align = fig.align)
+
+
+
+#'## Vollzitate statistischer Software
+knitr::write_bib(c(.packages()),
+                 "packages.bib")
+
+
+#'## Parallelisierung aktivieren
+#' Parallelisierung wird zur Beschleunigung der Konvertierung von PDF zu TXT und der Datenanalyse mittels **quanteda** und **data.table** verwendet. Die Anzahl threads wird automatisch auf das verfügbare Maximum des Systems gesetzt, kann aber auch nach Belieben auf das eigene System angepasst werden. Die Parallelisierung kann deaktiviert werden, indem die Variable **fullCores** auf 1 gesetzt wird.
+#'
+#' Der Download der Daten ist absichtlich nicht parallelisiert, damit das Skript nicht versehentlich als DoS-Tool verwendet wird.
+#'
+#' Die hier verwendete Funktion **makeForkCluster()** ist viel schneller als die Alternativen, funktioniert aber nur auf Unix-basierten Systemen (Linux, MacOS).
+
+#+
+#'### Anzahl logischer Kerne bestimmen
+
+fullCores <- detectCores()
+print(fullCores)
+
+#'### Quanteda
+quanteda_options(threads = fullCores) 
+
+#+
+#'### Data.table
+setDTthreads(threads = fullCores)  
+
+
+
+
+
+
+
+
+
+#'# Download: Weitere Datensätze
+
+#+
+#'## Registerzeichen und Verfahrensarten
+#'Die Registerzeichen werden im Laufe des Skripts mit ihren detaillierten Bedeutungen aus dem folgenden Datensatz abgeglichen: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564." Das Ergebnis des Abgleichs wird in die Variable "verfahrensart" in den Datensatz eingefügt.
+
+
+if (file.exists("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv") == FALSE){
+    download.file("https://zenodo.org/record/4569564/files/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv?download=1",
+ "AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv")
+    }
+
+
+
+#'## Personendaten zu Präsident:innen
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+
+
+if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv") == FALSE){
+    download.file("https://zenodo.org/record/4568682/files/PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv?download=1",
+                  "PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv")
+}
+
+
+
+
+#'## Personendaten zu Vize-Präsident:innen
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+
+
+if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == FALSE){
+    download.file("https://zenodo.org/record/4568682/files/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv?download=1",
+                  "PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv")
+}
+
+
+
+
+
+#'# Funktionen definieren
+
+
+
+
+
+#+
+#'## f.bverfg.extract.meta 
+#' Diese Funktion extrahiert relevante Metadaten aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de 
+
+f.bverfg.extract.meta <- function(HTML){
+
+    ## ECLI
+    ecli <- html_elements(HTML, "[class='ecli']") %>% html_text(trim = TRUE)
+
+    ## Alle Aktenzeichen
+    aktenzeichen_alle <- html_elements(HTML, "[class='az2']") %>% html_text(trim = TRUE)
+    aktenzeichen_alle <- gsub("-|,|",
+                   "",
+                   aktenzeichen_alle)
+    aktenzeichen_alle <- gsub(" +",
+                   " ",
+                   aktenzeichen_alle)
+    aktenzeichen_alle <- trimws(aktenzeichen_alle)
+    aktenzeichen_alle <- unique(aktenzeichen_alle)
+    aktenzeichen_alle <- paste(aktenzeichen_alle, collapse = "|")
+
+    ## Pressemitteilungen
+    pressemitteilung <- html_elements(HTML, "[class='pm']") %>% html_text(trim = TRUE)
+
+    if(length(pressemitteilung) == 0){
+        pressemitteilung <-  "NA"
+    }else{
+        pressemitteilung <- pressemitteilung[1]
+        }
+
+    ## Kurzbeschreibung
+
+    kurzbeschreibung <- HTML %>% html_elements("title") %>% html_text(trim = TRUE)
+    kurzbeschreibung <- gsub(".*Bundesverfassungsgericht.*-.*Entscheidungen.*-(.*)",
+                  "\\1",
+                  kurzbeschreibung)
+    kurzbeschreibung <- trimws(kurzbeschreibung)
+
+    
+    ## Verkündung ## hier treten noch Probleme auf
+    ##verkuendung <- html_elements(HTML, "[class='vvm2']") %>% html_text(trim = TRUE)
+
+    ##if(length(verkuendung) == 0){
+    ##    verkuendung <-  "NA"
+    ##}
+
+    
+    ## Zitiervorschlag
+    zitiervorschlag <- html_elements(HTML, "[class='cite']") %>% html_text(trim = TRUE)
+
+    ## Richter:innen
+    richter <- html_elements(HTML, "[class='st']") %>% html_elements("td") %>%  html_text(trim = TRUE)
+    richter <- unique(richter)
+    #richter <- richter[grep("ausgeschieden|gehindert|verhindert", richter, invert = TRUE)] # Verhinderungen entfernen
+    richter <- paste(richter, collapse = "|")
+    richter <- gsub("\\|+",
+                    "\\|",
+                    richter)
+    richter <- gsub("(^\\.*\\|)|(\\|$)",
+                    "",
+                    richter)
+    
+    ## Beschwerdeführer (idR anonymisiert, daher nicht aufgenommen)
+    ##beschwerdefuehrer <- html_elements(HTML, "[class='vb3']") %>% html_text(trim = TRUE)
+
+    meta <- data.table(ecli,
+                  pressemitteilung,
+                  aktenzeichen_alle,
+                  ##verkuendung,
+                  kurzbeschreibung,
+                  zitiervorschlag,
+                  richter)
+    
+
+    return(meta)
+
+}
+
+
+
+
+
+#'## f.bverfg.extract.content
+#' Diese Funktion extrahiert relevante Teile des Entscheidungstextes aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de 
+
+f.bverfg.extract.content <- function(HTML){
+
+    ## Leitsätze
+    leitsaetze <- unique(html_elements(HTML, ".ls") %>% html_text(trim = TRUE))
+
+    if (length(leitsaetze) != 0){
+        segment <- paste0("leitsatz-",
+                          1:length(leitsaetze))
+
+        dt.leitsaetze <- data.table(leitsaetze,
+                                    segment)
+        
+    }else{
+        dt.leitsaetze <- data.table("NA",
+                                    "NA")
+        
+    }
+
+
+    ## Gegenstand 
+    gegenstand <- html_elements(HTML, ".vgt3") %>% html_text(trim = TRUE)
+
+    if (length(gegenstand) == 0){
+        gegenstand <- html_elements(HTML, ".vg1") %>% html_text(trim = TRUE)
+        }
+
+    if (length(gegenstand) != 0){
+    
+    segment <- paste0("gegenstand-",
+                      1:length(gegenstand))
+
+    dt.gegenstand <- data.table(gegenstand,
+                                segment)
+
+    }else{
+        dt.gegenstand <- data.table("NA",
+                                    "NA")
+        
+    }
+
+
+
+    ## Formel
+    formel <- paste(html_elements(HTML, "[class='bf']") %>% html_text(trim = TRUE),
+                    collapse = " ")
+
+    if (length(formel) != 0){
+        
+        segment <- "formel"
+
+        dt.formel <- data.table(formel,
+                                segment)
+
+    }else{
+        dt.formel <- data.table("NA",
+                                "NA")
+        
+    }
+
+    ## Tenor
+    tenor <- html_elements(HTML, "ol .bs, .hr") %>% html_text(trim = TRUE) # Mehrere Tenorpunkte
+
+    if (length(tenor) == 0){
+    
+        tenor <- html_elements(HTML, ".bs, .hr") %>% html_text(trim = TRUE) # Ein Tenorpunkt
+
+    }
+
+
+    if (length(tenor) != 0){
+        segment <- paste0("tenor-",
+                          1:length(tenor))
+
+        dt.tenor <-  data.table(tenor,
+                                segment)
+
+    }else{
+        dt.tenor <- data.table("NA",
+                               "NA")
+        
+    }
+
+    
+
+    ## Gründe der Entscheidung
+    gruende.nodes <- html_elements(HTML, ".std, .lszb")
+
+    if (length(gruende.nodes) != 0){
+        
+        if(html_attr(gruende.nodes, "class")[1] == "lszb"){
+
+            ## Entferne Leitsatzüberschriften
+            gruende.classes <- html_attr(gruende.nodes, "class")
+            ueberschrift.indizes <- grep("lszb", gruende.classes[1:5])
+            
+            gruende.nodes <- gruende.nodes[-ueberschrift.indizes]
+        }
+
+        inhaltsverzeichnis.indizes <- grep("inhvz", html_attr(gruende.nodes, "class"))
+
+        if (length(inhaltsverzeichnis.indizes) > 0){
+            gruende.nodes <- gruende.nodes[-inhaltsverzeichnis.indizes] # Entferne Inhaltsverzeichnis
+        }
+
+
+        etstd.indizes <- grep("et std", html_attr(gruende.nodes, "class"))
+
+        if (length(etstd.indizes) > 0){
+
+            gruende.nodes <- gruende.nodes[-etstd.indizes] # Entferne Langzitate
+            
+        }
+
+        etzstd.indizes <- grep("(etz std)|(std etz)", html_attr(gruende.nodes, "class"))
+
+        if (length(etzstd.indizes) > 0){
+
+            gruende.nodes <- gruende.nodes[-etzstd.indizes] # Entferne Langzitatüberschriften
+            
+        }
+
+
+        
+        abw.vorhanden <- "lszb" %in% html_attr(gruende.nodes, "class")
+        
+        if (abw.vorhanden == TRUE){
+
+            gruende.classes <- html_attr(gruende.nodes, "class")
+            
+            abw.logical <- gruende.classes %in% "lszb"
+            
+            abw.pos.all <- which(abw.logical)
+            abw.pos.first <- abw.pos.all[1]
+
+            gruende.nodes <- gruende.nodes[-abw.pos.all] # Entferne Abw-Meinung-Überschriften
+            
+        }
+        
+        gruende <- html_text(gruende.nodes,
+                             trim = TRUE)
+
+        segment <- paste0("gruende-",
+                          1:length(gruende))
+
+        if (abw.vorhanden == TRUE){
+
+            abw.indizes <- abw.pos.first:length(segment)
+            segment[abw.indizes] <- paste0(segment[abw.indizes],
+                                           "-sondervotum")
+        }
+        
+
+        dt.gruende <- data.table(gruende,
+                                 segment)
+
+    }else{
+        dt.gruende <- data.table("NA",
+                                 "NA")
+    }
+
+
+    ## Unterschriften
+    unterschriften <- paste(html_elements(HTML, "[class='st']") %>% html_elements("td") %>%  html_text(trim = TRUE),
+                            collapse = " ")
+
+    segment <- "unterschriften"
+    dt.unterschriften <- data.table(unterschriften,
+                                    segment)
+
+    ## Segmentierter Inhalt
+
+    inhalt <- rbind(dt.leitsaetze,
+                    dt.gegenstand,
+                    dt.formel,
+                    dt.tenor,
+                    dt.gruende,
+                    dt.unterschriften,
+                    use.names = FALSE)
+
+    setnames(inhalt,
+             new = c("text",
+                     "segment"))
+
+    inhalt <- inhalt[grep("NA", inhalt$segment, invert = TRUE)]
+
+
+    inhalt[, text := lapply(.(text), f.remove.specialunderline)]
+
+
+    return(inhalt)
+
+}
+
+
+
+
+
+#'# Download vorbereiten: Entscheidungen des BVerfG
+
+#+
+#'## Zeitstempel: Linksammlung Beginn
+
+begin.links <- Sys.time()
+print(begin.links)
+
+
+#+
+#'## Funktion zeigen
+
+print(f.linkextract)
+
+
+#'## Maximale Seitenzahl auslesen
+
+temp <- f.linkextract("https://www.bundesverfassungsgericht.de/SiteGlobals/Forms/Suche/Entscheidungensuche_Formular.html?language_=de")
+
+temp1 <- grep("list.*253D([0-9]+).*",
+              temp,
+              value = TRUE)
+
+temp2 <- gsub(".*253D([0-9]+).*",
+              "\\1",
+              temp1)
+
+maxpage <- max(as.numeric(temp2))
+
+print(maxpage)
+
+
+#'## Auszuwertende Seiten
+
+pages <- seq_len(maxpage)
+
+
+
+#'## [Debugging Modus] Reduzierung der Seitenzahl
+
+if (mode.debug == TRUE){
+    pages <- sort(sample(pages,
+                    debug.scope))
+    }
+
+
+#'## Linkliste erstellen: Erstversuch
+
+breaks <- sort(sample(pages, 10))
+
+
+indices <- seq_along(pages)
+
+links.list <- vector("list",
+                     length(indices))
+
+
+print(pages)
+
+for (i in indices){
+
+    URL  <- paste0("https://www.bundesverfassungsgericht.de/SiteGlobals/Forms/Suche/Entscheidungensuche_Formular.html?gtp=5403124_list%253D",
+                   pages[i],
+                   "&language_=de")
+    
+    volatile <- f.linkextract(URL)
+    
+    links.l1 <- grep ("SharedDocs/Entscheidungen",
+                      volatile,
+                      ignore.case = TRUE,
+                      value = TRUE)
+
+    links.list[[i]] <- links.l1
+    
+    Sys.sleep(runif(1, 0.8, 2))
+    
+    if (i %in% breaks) Sys.sleep(runif(1, 2, 7))
+    
+    }
+
+
+Sys.sleep(runif(1, 20, 40))
+
+
+
+
+#'## Linkliste erstellen: Zweitversuch
+#' Jede Seite der Datenbank sollte im Idealfall 10 Entscheidungen enthalten. Alle Seiten, die diese Bedingung nicht erfüllen werden noch einmal geprüft. Die letzte Seite enthält fast immer weniger als 10 Entscheidungen, wird sicherheitshalber aber trotzdem geprüft, statt sie auszusortieren. Dabei entstehende Duplikate werden später durch **unique()** entfernt.
+
+retry.pages <- which(unlist(lapply(links.list,
+                                   function(x)length(x)<10)))
+
+retry.indices <- seq_along(retry.pages)
+
+retry.links.list <- vector("list",
+                           length(retry.pages))
+
+
+#' Anzeigen der Seiten die noch einmal geprüft werden.
+
+print(retry.pages)
+
+
+
+for (i in retry.indices){
+
+    URL  <- paste0("https://www.bundesverfassungsgericht.de/SiteGlobals/Forms/Suche/Entscheidungensuche_Formular.html?gtp=5403124_list%253D",
+                   retry.pages[i],
+                   "&language_=de")
+    
+    volatile <- f.linkextract(URL)
+    
+    links.l1 <- grep ("SharedDocs/Entscheidungen",
+                      volatile,
+                      ignore.case = TRUE,
+                      value = TRUE)
+
+    retry.links.list[[i]] <- links.l1
+    
+    Sys.sleep(runif(1, 0.8, 2))
+    
+    }
+
+
+#' Anzeigen der Links die beim Wiederholungsversuch gesammelt wurden.
+
+print(retry.links.list)
+
+
+#'## Zeitstempel: Linksammlung Ende
+
+end.links <- Sys.time()
+print(end.links)
+
+
+#'## Dauer: Linksammlung
+end.links - begin.links
+
+
+#'## Listen aus Erstversuch und Zweitversuch zusammenfügen
+
+links.relative <- c(unlist(links.list),
+                    unlist(retry.links.list))
+
+
+
+#'## Bereinigte HTML und PDF-Links erstellen
+
+links.raw <- paste0("https://www.bundesverfassungsgericht.de/",
+                    links.relative)
+
+links.html <- gsub("(.+\\.html).*",
+                   "\\1",
+                   links.raw)
+
+links.html <- unique(links.html)
+
+links.pdf <- gsub("Entscheidungen",
+                  "Downloads",
+                  links.html)
+
+links.pdf <- gsub("\\.html.*",
+                  "\\.pdf\\?__blob=publicationFile\\&v\\=1",
+                  links.pdf)
+
+
+links.pdf <- unique(links.pdf)
+
+
+
+
+
+
+#'## Dateinamen erstellen
+
+#+
+#'### Extrahieren relevanter Metadaten
+#' Die Links zu jeder Entscheidung enthalten das Ordinalzahl-Element ihres jeweiligen ECLI-Codes. Struktur und Inhalt der ECLI für deutsche Gerichte sind auf dem Europäischen Justizportal näher erläutert. \footnote{\url{https://e-justice.europa.eu/content_european_case_law_identifier_ecli-175-de-de.do?member=1}}
+
+filenames <- basename(links.pdf)
+
+filenames <- gsub("[?].*",
+                  "",
+                  filenames)
+
+
+#' **Normale Struktur**
+
+filenames1 <- gsub("[a-z]([a-z])([0-9]{4})([0-9]{2})([0-9]{2})_([0-9])([a-z]*)([0-9]{4})([0-9]{2}).*",
+                   "BVerfG_\\2-\\3-\\4_\\1_\\5_\\6_\\7_\\8_NA",
+                   filenames)
+
+
+#' **Struktur von Verzögerungsrügen**
+
+filenames1 <- gsub("_vz", "NA_Vz", filenames1)
+
+filenames1 <- gsub("[a-z]([a-z])([0-9]{4})([0-9]{2})([0-9]{2})(NA)_(Vz)([0-9]{4})([0-9]{2}).*",
+                   "BVerfG_\\2-\\3-\\4_\\1_\\5_\\6_\\7_\\8_NA",
+                   filenames1)
+
+
+#' **Struktur von Entscheidungen mit Kollisions-Variable**
+
+filenames1 <- gsub("[a-z]([a-z])([0-9]{4})([0-9]{2})([0-9]{2})([a-z0-9])_([0-9])([a-z]*)([0-9]{4})([0-9]{2}).*",
+                   "BVerfG_\\2-\\3-\\4_\\1_\\6_\\7_\\8_\\9_\\5",
+                   filenames1)
+
+
+
+
+#'### Formatierung von Registerzeichen anpassen
+
+filenames1 <- gsub("_bv([a-z])_",
+                   "_Bv\\U\\1_",
+                   perl = TRUE,
+                   filenames1)
+
+
+filenames1 <- gsub("pbvu",
+                   "PBvU",
+                   filenames1)
+
+
+#'### Formatierung von Spruchkörper-Typ anpassen
+
+filenames1 <- gsub("_([kpsb])_",
+                   "_\\U\\1_",
+                   perl = TRUE,
+                   filenames1)
+
+
+
+
+#'### Erste strenge REGEX-Validierung der Dateinamen
+
+regex.test1 <- grep("BVerfG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[A-Z]_[0-9NA]+_[A-Za-z]+_[0-9]{4}_[0-9]{2}_[0-9a-zNA]+$",
+                    filenames1,
+                    invert = TRUE,
+                    value = TRUE)
+
+
+#'### Ergebnis der ersten REGEX-Validierung
+#' Das Ergebnis sollte ein leerer Vektor sein!
+
+print(regex.test1)
+
+
+#'### Skript stoppen falls erste REGEX-Validierung gescheitert
+
+if (length(regex.test1) != 0){
+    stop("REGEX VALIDIERUNG 1 GESCHEITERT: AKTENZEICHEN ENTSPRECHEN NICHT DEM CODEBOOK-SCHEMA!")
+    }
+
+
+
+
+
+
+#'### Zusätzliche Variablen einfügen
+
+extravariablen <- fread("C-BVerfGE_Source_Variablen_NameBandSeite.csv")
+
+extravariablen$newname <- paste(extravariablen$oldname,
+                                extravariablen$name,
+                                extravariablen$band,
+                                extravariablen$seite,
+                                sep = "_")
+
+extravariablen$newname <- paste0(extravariablen$newname,
+                                 ".pdf")
+
+
+filenames2 <- filenames1
+
+
+targetindices <- match(extravariablen$oldname,
+                       filenames2)
+
+newname <- extravariablen$newname
+
+dt <- data.table(targetindices, newname)[complete.cases(targetindices)]
+
+
+
+if(dt[,.N] > 0){
+    
+filenames2 <- replace(filenames2,
+                      dt$targetindices,
+                      dt$newname)
+}
+
+
+
+#'### NAs einfügen für nicht benannte Entscheidungen
+
+values <- grep(".pdf",
+               filenames2,
+               invert = TRUE,
+               value = TRUE)
+
+indices <- grep(".pdf",
+                filenames2,
+                invert = TRUE)
+
+filenames2[indices] <- paste0(values,
+                              "_NA_NA_NA.pdf")
+
+
+
+
+#'### Zweite strenge REGEX-Validierung der Dateinamen
+
+regex.test2 <- grep("^BVerfG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[SPKB]_[0-9NA]+_[A-Za-z]+_[0-9]{4}_[0-9]{2}_[0-9a-zNA]+_[0-9ÄÜÖäüöA-Za-z\\-]+_[NA0-9]+_[NA0-9]+\\.pdf$",
+                    filenames2,
+                    value = TRUE,
+                    invert = TRUE)
+
+
+#'### Ergebnis der zweiten REGEX-Validierung
+#' Das Ergebnis sollte ein leerer Vektor sein!
+
+print(regex.test2)
+
+
+#'### Skript stoppen falls zweite REGEX-Validierung gescheitert
+
+if (length(regex.test2) != 0){
+    stop("REGEX VALIDIERUNG 2 GESCHEITERT: AKTENZEICHEN ENTSPRECHEN NICHT DEM CODEBOOK-SCHEMA!")
+    }
+
+
+
+
+
+#'# PDF-Download
+
+#+
+#'## Data Table für PDF-Download erstellen
+
+dt <- data.table(links.pdf,
+                 filenames2)
+
+
+
+#'## Zeitstempel: PDF-Download Beginn
+
+begin.download <- Sys.time()
+print(begin.download)
+
+
+
+#'## PDF-Download durchführen
+#' **Hinweis:** Es ist nötig jeden Link auf das Vorhandensein einer PDF-Datei zu prüfen, weil für manche Entscheidungen zwar HTML-Seiten vorhanden sind, aber keine korrespondierende PDF-Datei.
+
+
+for (i in seq_len(dt[,.N])){
+    
+    response <- GET(dt$links.pdf[i])
+    
+    Sys.sleep(runif(1, 0.25, 0.75))
+    
+    if (response$headers$"content-type" == "application/pdf;charset=UTF-8" & response$status_code == 200){
+        tryCatch({download.file(url = dt$links.pdf[i],
+                                destfile = dt$filenames2[i])
+        },
+        error=function(cond) {
+            return(NA)}
+        )     
+    }else{
+        print(paste0(dt$filenames2[i],
+                     " : kein PDF vorhanden"))  
+    }
+    Sys.sleep(runif(1, 0.3, 1))
+}   
+
+
+#'## Zeitstempel: PDF-Download Ende
+
+end.download <- Sys.time()
+print(end.download)
+
+
+#'## Dauer: PDF-Download 
+end.download - begin.download
+
+
+
+
+#'## PDF-Download: Ergebnis
+
+#+
+#'### Anzahl herunterzuladender Dateien
+dt[,.N]
+
+#'### Anzahl heruntergeladener Dateien
+files.pdf <- list.files(pattern = "\\.pdf")
+length(files.pdf)
+
+#'### Fehlbetrag
+N.missing.pdf <- dt[,.N] - length(files.pdf)
+print(N.missing.pdf)
+
+#'### Fehlende Dateien
+missing.pdf <- setdiff(dt$filenames2,
+                   files.pdf)
+
+print(missing.pdf)
+
+
+
+
+
+#'## PDF-Wiederholungsversuch
+#' Download für fehlende Dokumente wiederholen.
+
+if(N.missing.pdf > 0){
+
+    dt.retry <- dt[filenames2 %in% missing.pdf]
+    
+    for (i in seq_len(dt.retry[,.N])){
+        
+        response <- GET(dt.retry$links.pdf[i])
+        
+        Sys.sleep(runif(1, 0.25, 0.75))
+        
+        if (response$headers$"content-type" == "application/pdf;charset=UTF-8" & response$status_code == 200){
+            
+            tryCatch({download.file(url = dt.retry$links.pdf[i],
+                                    destfile = dt.retry$filenames2[i])
+                                    
+            },
+            error = function(cond) {
+                return(NA)}
+            )     
+        }else{
+            print(paste0(dt.retry$filenames2[i],
+                         " : kein PDF vorhanden"))  
+        }
+        Sys.sleep(runif(1, 0.5, 1.5))
+    } 
+}
+
+
+#'## PDF-Download: Gesamtergebnis
+
+#+
+#'### Anzahl herunterzuladender Dateien
+dt[,.N]
+
+#'### Anzahl heruntergeladener Dateien
+files.pdf <- list.files(pattern = "\\.pdf")
+length(files.pdf)
+
+#'### Fehlbetrag
+N.missing.pdf <- dt[,.N] - length(files.pdf)
+print(N.missing.pdf)
+
+#'### Fehlende Dateien
+missing.pdf <- setdiff(dt$filenames2, files.pdf)
+print(missing.pdf)
+
+
+#'### Abschließende Hinweise
+#' **Hinweis:** Für die Entscheidung vom 1.10.2001 zur Rückgabe von EDV-Anlagen im Rahmen des NPD-Verfahrens war auch nach manueller Suche keine PDF-Datei auffindbar.
+
+
+
+
+
+#'# HTML-Download
+
+
+#'## Data Table für HTML-Download erstellen
+
+names.html <- basename(links.html)
+
+dt.download.html <- data.table(links.html,
+                               names.html)
+
+
+
+#'## Zeitstempel: HTML-Download Beginn
+
+begin.download <- Sys.time()
+print(begin.download)
+
+
+#'## HTML-Download durchführen
+
+
+for (i in sample(dt.download.html[,.N])){
+    
+        tryCatch({download.file(dt.download.html$links.html[i],
+                                dt.download.html$names.html[i])
+        },
+        error = function(cond) {
+            return(NA)}
+        )
+    
+    Sys.sleep(runif(1, 0.3, 1))
+    
+}
+
+
+
+#'## Zeitstempel: HTML-Download Ende
+
+end.download <- Sys.time()
+print(end.download)
+
+
+#'## Dauer: HTML-Download 
+end.download - begin.download
+
+
+
+
+#'## HTML-Download: Ergebnis
+
+#+
+#'### Anzahl herunterzuladender Dateien
+dt.download.html[,.N]
+
+#'### Anzahl heruntergeladener Dateien
+files.html <- list.files(pattern = "\\.html")
+length(files.html)
+
+#'### Fehlbetrag
+N.missing <- dt.download.html[,.N] - length(files.html)
+print(N.missing)
+
+#'### Fehlende Dateien
+missing <- setdiff(dt.download.html$names.html,
+                   files.html)
+
+print(missing)
+
+
+
+
+
+#'## HTML-Wiederholungsversuch
+#' Download für fehlende Dokumente wiederholen.
+
+if(N.missing > 0){
+
+    dt.retry <- dt.download.html[names.html %in% missing]
+    
+    for (i in seq_len(dt.retry[,.N])){
+        
+        tryCatch({download.file(dt.retry$links.html[i],
+                                dt.retry$names.html[i])
+        },
+        error = function(cond) {
+            return(NA)}
+        )
+        
+        Sys.sleep(runif(1, 0.5, 1.5))
+    } 
+}
+
+
+
+
+#'## HTML-Download: Gesamtergebnis
+
+#+
+#'### Anzahl herunterzuladender Dateien
+dt.download.html[,.N]
+
+#'### Anzahl heruntergeladener Dateien
+files.html <- list.files(pattern = "\\.html")
+length(files.html)
+
+#'### Fehlbetrag
+N.missing <- dt.download.html[,.N] - length(files.html)
+print(N.missing)
+
+#'### Fehlende Dateien
+missing <- setdiff(dt.download.html$names.html,
+                   files.html)
+
+print(missing)
+
+
+
+
+
+
+
+#'# HTML Parsen
+
+#+
+#'## HTML-Dateien definieren
+
+files.html <- list.files(pattern = "\\.html")
+
+
+#'## HTML-Dateien einlesen
+
+html.list <- mclapply(files.html,
+                    read_html)
+
+
+#'## HTML-Dateien parsen
+
+meta.list <- mclapply(html.list,
+                    f.bverfg.extract.meta)
+
+content.list <- mclapply(html.list,
+                       f.bverfg.extract.content)
+
+segmented.full.list <- vector("list",
+                              length(meta.list))
+
+for (i in 1:length(meta.list)){
+    content.rows <- content.list[[i]][,.N]
+    meta.replicate <- meta.list[[i]][rep(1, content.rows)]
+    segmented.full.list[[i]] <- cbind(content.list[[i]],
+                                      meta.replicate)
+
+    }
+
+
+
+#'## Data Table mit allen Metadaten (inkl. ECLI)
+dt.meta.html <-  rbindlist(meta.list)
+
+
+#'## Data Table mit vollständiger segmentierter Variante
+dt.segmented.full <- rbindlist(segmented.full.list)
+
+
+
+ ## testing
+dt.meta.html[sample(.N, 100)]
+
+
+
+ ## testing
+dt.segmented.full[sample(.N, 30)]
+
+
+
+
+
+
+
+
+
+ ## testing
+save.image("2021-09-09test.RData")
+
+
+#load("2021-09-09test.RData")
+
+
+
+
+
+
+
+#+
+#'# Text-Extraktion aus PDF
+
+#+
+#'## Vektor der zu extrahierenden Dateien erstellen
+
+files.pdf <- list.files(pattern = "\\.pdf$",
+                        ignore.case = TRUE)
+
+
+#'## Anzahl zu extrahierender Dateien
+length(files.pdf)
+
+
+
+#'## PDF extrahieren: Funktion anzeigen
+#+ results = "asis"
+print(f.dopar.pdfextract)
+
+
+#'## Text Extrahieren
+
+#+ results = "hide"
+result <- f.dopar.pdfextract(files.pdf,
+                             threads = fullCores)
+
+
+
+
+
+
+#'# Korpus Erstellen
+
+#+
+#'## TXT-Dateien Einlesen
+
+txt.bverfg <- readtext("./*.txt",
+                    docvarsfrom = "filenames", 
+                    docvarnames = c("gericht",
+                                    "datum",
+                                    "spruchkoerper_typ",
+                                    "spruchkoerper_az",
+                                    "registerzeichen",
+                                    "eingangsnummer",
+                                    "eingangsjahr_az",
+                                    "kollision",
+                                    "name",
+                                    "band",
+                                    "seite"),
+                    dvsep = "_", 
+                    encoding = "UTF-8")
+
+
+#'## In Data Table umwandeln
+setDT(txt.bverfg)
+
+
+
+#'## Durch Zeilenumbruch getrennte Wörter zusammenfügen
+#' Durch Zeilenumbrüche getrennte Wörter stellen bei aus PDF-Dateien gewonnene Text-Korpora ein erhebliches Problem dar. Wörter werden dadurch in zwei sinnentleerte Tokens getrennt, statt ein einzelnes und sinnvolles Token zu bilden. Dieser Schritt entfernt die Bindestriche, den Zeilenumbruch und ggf. dazwischenliegende Leerzeichen.
+
+#+
+#'### Funktion anzeigen
+print(f.hyphen.remove)
+
+#'### Funktion ausführen
+txt.bverfg[, text := lapply(.(text), f.hyphen.remove)]
+dt.segmented.full[, text := lapply(.(text), f.hyphen.remove)]
+
+
+
+#'## Variable "datum" als Datentyp "IDate" kennzeichnen
+txt.bverfg$datum <- as.IDate(txt.bverfg$datum)
+
+
+#'## Variable "entscheidungsjahr" hinzufügen
+txt.bverfg$entscheidungsjahr <- year(txt.bverfg$datum)
+
+
+#'## Variable "eingangsjahr_iso" hinzufügen
+txt.bverfg$eingangsjahr_iso <- f.year.iso(txt.bverfg$eingangsjahr_az)
+
+
+
+
+#'## Datensatz nach Datum sortieren
+#' Aufgrund der Position der Datums-Variable ist der Datensatz vermutlich schon von Linux nach Datum sortiert worden. Die Erstellung der Variablen für Präsidenten und Vize-Präsidenten trifft allerdings die starke Annahme, dass eine aufsteigende Sortierung nach Datum besteht. Wäre das nicht der Fall, würden dort Fehler auftreten. Diese Sortierung ist als fail-safe gedacht.
+
+setorder(txt.bverfg,
+         datum)
+
+
+
+#'## Variable "praesi" hinzufügen
+#' Diese Variable dokumentiert für jede Entscheidung welche/r Präsident:in am Tag der Entscheidung im Amt war.
+
+#+
+#'### Lebensdaten einlesen
+
+praesi <- fread("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv")
+praesi <- praesi[court == "BVerfG", c(1:3, 5:6)]
+
+
+#'### Personaldaten anzeigen
+
+kable(praesi,
+      format = "latex",
+      align = "r",
+      booktabs = TRUE,
+      longtable = TRUE) %>% kable_styling(latex_options = "repeat_header")
+
+
+
+#'### Hypothethisches Amtsende für PräsidentIn
+#' Weil der/die aktuelle PräsidentIn noch im Amt ist, ist der Wert für das Amtsende "NA". Dieser ist aber für die verwendete Logik nicht greifbar, weshalb an dieser Stelle ein hypothetisches Amtsende in einem Jahr ab dem Tag der Datensatzerstellung fingiert wird. Es wird nur an dieser Stelle verwendet und danach verworfen.
+
+praesi[is.na(term_end_date)]$term_end_date <- Sys.Date() + 365
+
+
+#'### Schleife vorbereiten
+
+N <- praesi[,.N]
+
+praesi.list <- vector("list", N)
+
+
+#'### Vektor erstellen
+
+for (i in seq_len(N)){
+    praesi.N <- txt.bverfg[datum >= praesi$term_begin_date[i] & datum <= praesi$term_end_date[i], .N]
+    praesi.list[[i]] <- rep(praesi$name_last[i],
+                            praesi.N)
+}
+
+
+
+#'### Vektor einfügen
+txt.bverfg$praesi <- unlist(praesi.list)
+
+
+
+#'## Variable "v_praesi" hinzufügen
+#' Diese Variable dokumentiert für jede Entscheidung welche/r Vize-PräsidentIn am Tag der Entscheidung im Amt war.
+
+
+#+
+#'### Personaldaten einlesen
+
+vpraesi <- fread("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv")
+vpraesi <- vpraesi[court == "BVerfG", c(1:3, 5:6)]
+
+
+#'### Personaldaten anzeigen
+
+kable(vpraesi,
+      format = "latex",
+      align = "r",
+      booktabs = TRUE,
+      longtable = TRUE) %>% kable_styling(latex_options = "repeat_header")
+
+
+
+#'### Hypothethisches Amtsende für Vize-PräsidentIn
+#' Weil der/die aktuelle Vize-PräsidentIn noch im Amt ist, ist der Wert für das Amtsende "NA". Dieser ist aber für die verwendete Logik nicht greifbar, weshalb an dieser Stelle ein hypothetisches Amtsende in einem Jahr ab dem Tag der Datensatzerstellung fingiert wird. Es wird nur an dieser Stelle verwendet und danach verworfen.
+
+vpraesi[is.na(term_end_date)]$term_end_date <- Sys.Date() + 365
+
+
+#'### Schleife vorbereiten
+
+N <- vpraesi[,.N]
+
+vpraesi.list <- vector("list", N)
+
+
+
+#'### Vektor erstellen
+
+for (i in seq_len(N)){
+    vpraesi.N <- txt.bverfg[datum >= vpraesi$term_begin_date[i] & datum < vpraesi$term_end_date[i], .N]
+    vpraesi.list[[i]] <- rep(vpraesi$name_last[i],
+                            vpraesi.N)
+}
+
+
+
+#'### Vektor einfügen
+
+txt.bverfg$v_praesi <- unlist(vpraesi.list)
+
+
+
+
+#'## Variable "verfahrensart" hinzufügen
+#'Die Registerzeichen werden an dieser Stelle mit ihren detaillierten Bedeutungen aus dem folgenden Datensatz abgeglichen: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564." Das Ergebnis des Abgleichs wird in der Variable "verfahrensart" in den Datensatz eingefügt.
+
+
+
+#+
+#'### Datensatz einlesen
+az.source <- fread("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv")
+
+
+
+
+#'### Datensatz auf relevante Daten reduzieren
+az.bverfg <- az.source[stelle == "BVerfG" & position == "hauptzeichen"]
+
+
+#'### Indizes bestimmen
+targetindices <- match(txt.bverfg$registerzeichen,
+                       az.bverfg$zeichen_code)
+
+#'### Vektor der Verfahrensarten erstellen und einfügen
+txt.bverfg$verfahrensart <- az.bverfg$bedeutung[targetindices]
+
+
+
+
+
+#'## Variable "aktenzeichen" hinzufügen
+
+txt.bverfg$aktenzeichen <- paste0(txt.bverfg$spruchkoerper_az,
+                                  " ",
+                                  txt.bverfg$registerzeichen,
+                                  " ",
+                                  txt.bverfg$eingangsnummer,
+                                  "/",
+                                  txt.bverfg$eingangsjahr_az)
+
+
+
+
+#' Bei Entscheidungen der Verzögerungskammer fehlt das Spruchkörper-Element des Aktenzeichens. Diese Zeile entfernt die "NA"-Angabe um ein korrektes Aktenzeichen herzustellen.
+
+txt.bverfg$aktenzeichen <- gsub("NA ",
+                                "",
+                                txt.bverfg$aktenzeichen)
+
+
+
+
+#'## Variable "doi_concept" hinzufügen
+
+txt.bverfg$doi_concept <- rep(doi.concept,
+                              txt.bverfg[,.N])
+
+
+#'## Variable "doi_version" hinzufügen
+
+txt.bverfg$doi_version <- rep(doi.version,
+                              txt.bverfg[,.N])
+
+
+#'## Variable "version" hinzufügen
+
+txt.bverfg$version <- as.character(rep(datestamp,
+                                       txt.bverfg[,.N]))
+
+
+#'## Variable "lizenz" hinzufügen
+txt.bverfg$lizenz <- as.character(rep(license,
+                                   txt.bverfg[,.N]))
+
+
+
+
+
+
+
+#'## Variable "ecli" hinzufügen
+#' Struktur und Inhalt der ECLI für deutsche Gerichte sind auf dem Europäischen Justizportal näher erläutert. \footnote{\url{https://e-justice.europa.eu/content_european_case_law_identifier_ecli-175-de-de.do?member=1}}
+#'
+#' Sofern die Variablen korrekt extrahiert wurden lässt sich die ECLI vollständig rekonstruieren.
+
+ecli.ordinalzahl <- paste0(gsub("Bv([A-Z])",
+                                "\\1",
+                                txt.bverfg$registerzeichen),
+                           txt.bverfg$spruchkoerper_typ,
+                           txt.bverfg$datum,
+                           txt.bverfg$kollision,
+                           ".",
+                           txt.bverfg$spruchkoerper_az,
+                           txt.bverfg$registerzeichen,
+                           formatC(txt.bverfg$eingangsnummer,
+                                   width = 4,
+                                   flag = "0"),
+                           formatC(txt.bverfg$eingangsjahr_az,
+                                   width = 2,
+                                   flag = "0"))
+
+ecli.ordinalzahl <- gsub("NA",
+                         "",
+                         ecli.ordinalzahl)
+
+ecli.ordinalzahl <- gsub("-",
+                         "",
+                         ecli.ordinalzahl)
+
+
+ecli.ordinalzahl <- tolower(ecli.ordinalzahl)
+
+ecli.ordinalzahl <- gsub("vzb",
+                         "vb",
+                         ecli.ordinalzahl)
+
+ecli.ordinalzahl <- gsub("pup",
+                         "up",
+                         ecli.ordinalzahl)
+
+
+
+txt.bverfg$ecli <- paste0("ECLI:DE:BVerfG:",
+                          txt.bverfg$entscheidungsjahr,
+                          ":",
+                          ecli.ordinalzahl)
+
+
+
+
+#'### Metadaten mit ECLI-Duplikaten entfernen
+#' Für eine Entscheidung wird versehentlich auch die englischsprachige Zusammenfassung abgerufen, diese wird hier entfernt.
+
+dt.meta.html <- dt.meta.html[grep("Order",
+                                  dt.meta.html$zitiervorschlag,
+                                  invert = TRUE)]
+
+
+#'### Fehlerhafte ECLI korrigieren (HTML Meta)
+
+
+dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:1951:rs19580115.1bvr040051",
+                          "ECLI:DE:BVerfG:1958:rs19580115.1bvr040051",
+                          dt.meta.html$ecli) ## Lüth
+
+dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:2003:rk20030407.2bvr212902",
+                          "ECLI:DE:BVerfG:2003:rk20030407.1bvr212902",
+                          dt.meta.html$ecli)
+
+
+dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:2007:rk20060529.1bvr043003",
+                          "ECLI:DE:BVerfG:2006:rk20060529.1bvr043003",
+                          dt.meta.html$ecli)
+
+## Die folgende ECLI ist auf der Homepage des BVerfG fehlerhaft. Sie betrifft das Vorverfahren statt die Verzögerungsbeschwerde. Auf rechtsprechung-im-internet.de ist sie korrekt nachgewiesen: https://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&docid=KVRE412291501&psml=bsjrsprod.psml&max=true
+
+dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:2015:rs20151208a.1bvr009911",
+                          "ECLI:DE:BVerfG:2015:vb20151208.vz000115",
+                          dt.meta.html$ecli)
+
+
+
+
+
+#'### Fehlerhafte ECLI korrigieren (HTML Full)
+
+
+dt.segmented.full$ecli <- gsub("ECLI:DE:BVerfG:1951:rs19580115.1bvr040051",
+                               "ECLI:DE:BVerfG:1958:rs19580115.1bvr040051",
+                               dt.segmented.full$ecli) ## Lüth
+
+dt.segmented.full$ecli <- gsub("ECLI:DE:BVerfG:2003:rk20030407.2bvr212902",
+                          "ECLI:DE:BVerfG:2003:rk20030407.1bvr212902",
+                          dt.segmented.full$ecli)
+
+
+dt.segmented.full$ecli <- gsub("ECLI:DE:BVerfG:2007:rk20060529.1bvr043003",
+                          "ECLI:DE:BVerfG:2006:rk20060529.1bvr043003",
+                          dt.segmented.full$ecli)
+
+## Die folgende ECLI ist auf der Homepage des BVerfG fehlerhaft. Sie betrifft das Vorverfahren statt die Verzögerungsbeschwerde. Auf rechtsprechung-im-internet.de ist sie korrekt nachgewiesen: https://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&docid=KVRE412291501&psml=bsjrsprod.psml&max=true
+
+dt.segmented.full$ecli <- gsub("ECLI:DE:BVerfG:2015:rs20151208a.1bvr009911",
+                          "ECLI:DE:BVerfG:2015:vb20151208.vz000115",
+                          dt.segmented.full$ecli)
+
+
+
+
+
+#'### ECLI-Test 1: ECLI die in PDF, aber nicht in HTML vorhanden sind
+sort(setdiff(txt.bverfg$ecli, dt.segmented.full$ecli))
+
+
+#'### ECLI-Test 2: ECLI die in HTML, aber nicht in PDF vorhanden sind
+sort(setdiff(dt.segmented.full$ecli, txt.bverfg$ecli))
+
+#'### Zum Vergleich: Beim Download fehlende PDF-Dateien
+print(sort(missing.pdf))
+
+
+
+#'### ECLI Merge: Metadaten aus Hauptdatensatz in segmentierte Variante mergen
+
+meta.bverfg <- txt.bverfg[,!"text"]
+
+dt.segmented.full <- merge(dt.segmented.full,
+                           meta.bverfg,
+                           by = "ecli",
+                           all.x = TRUE,
+                           sort = FALSE)
+
+
+
+#'### ECLI Merge: Metadaten aus HTML-Extraktion in Hauptdatensatz mergen
+
+txt.bverfg <- merge(txt.bverfg,
+                    dt.meta.html,
+                    by = "ecli",
+                    all.x = TRUE,
+                    sort = FALSE)
+
+
+
+
+
+
+#'## Variable "entscheidung_typ" hinzufügen
+
+
+#+
+#'### Zitiervorschläge parsen
+entscheidung_typ.main <- gsub(".*(Beschluss|Urteil|Verfügung).*",
+                              "\\1",
+                              txt.bverfg$zitiervorschlag,
+                              ignore.case = TRUE)
+
+
+entscheidung_typ.segmented <- gsub(".*(Beschluss|Urteil|Verfügung).*",
+                                   "\\1",
+                                   dt.segmented.full$zitiervorschlag,
+                                   ignore.case = TRUE)
+
+
+
+#'### Kürzen
+
+lang.etyp <- c("Urteil",
+               "Beschluss",
+               "Verfügung")
+
+kurz.etyp <- c("U",
+               "B",
+               "V")
+
+
+entscheidung_typ.main <- mgsub(entscheidung_typ.main,
+                               lang.etyp,
+                               kurz.etyp,
+                               ignore.case = TRUE)
+
+entscheidung_typ.segmented <- mgsub(entscheidung_typ.segmented,
+                                    lang.etyp,
+                                    kurz.etyp,
+                                    ignore.case = TRUE)
+
+
+
+#'### Vektor in Datensatz einfügen
+
+txt.bverfg$entscheidung_typ <- entscheidung_typ.main
+
+dt.segmented.full$entscheidung_typ <- entscheidung_typ.segmented
+
+
+
+
+
+
+
+
+#'# Frequenztabellen erstellen
+
+#+
+#'## Funktion anzeigen
+
+#+ results = "asis"
+print(f.fast.freqtable)
+
+
+#'## Ignorierte Variablen
+print(varremove)
+
+
+
+#'## Liste zu prüfender Variablen
+
+varlist <- names(txt.bverfg)
+varlist <- grep(paste(varremove,
+                      collapse = "|"),
+                varlist,
+                invert = TRUE,
+                value = TRUE)
+print(varlist)
+
+
+
+#'## Frequenztabellen erstellen
+
+prefix <- paste0(datasetname,
+                 "_01_Frequenztabelle_var-")
+
+
+#+ results = "asis"
+f.fast.freqtable(txt.bverfg,
+                 varlist = varlist,
+                 sumrow = TRUE,
+                 output.list = FALSE,
+                 output.kable = TRUE,
+                 output.csv = TRUE,
+                 outputdir = outputdir,
+                 prefix = prefix,
+                 align = c("p{5cm}",
+                           rep("r", 4)))
+
+
+
+
+
+#'# Frequenztabellen visualisieren
+
+#'## Präfix erstellen
+
+prefix <- paste0("ANALYSE/",
+                 datasetname,
+                 "_01_Frequenztabelle_var-")
+
+
+#'## Tabellen einlesen
+
+
+table.entsch.typ <- fread(paste0(prefix,
+                                 "entscheidung_typ.csv"))
+
+table.spruch.typ <- fread(paste0(prefix,
+                                 "spruchkoerper_typ.csv"))
+
+table.spruch.az <- fread(paste0(prefix,
+                                "spruchkoerper_az.csv"))
+
+table.regz <- fread(paste0(prefix,
+                           "registerzeichen.csv"))
+
+table.jahr.eingangISO <- fread(paste0(prefix,
+                                      "eingangsjahr_iso.csv"))
+
+table.jahr.entscheid <- fread(paste0(prefix,
+                                     "entscheidungsjahr.csv"))
+
+table.output.praesi <- fread(paste0(prefix,
+                                    "praesi.csv"))
+
+table.output.vpraesi <- fread(paste0(prefix,
+                                     "v_praesi.csv"))
+
+
+
+
+
+
+#'\newpage
+#'## Diagramm: Typ der Entscheidung
+
+freqtable <- table.entsch.typ[-.N]
+
+
+#+ CE-BVerfG_02_Barplot_Entscheidung_Typ, fig.height = 5, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = reorder(entscheidung_typ,
+                             -N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black",
+             width = 0.4) +
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Typ"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Typ der Entscheidung",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+
+
+
+
+#'\newpage
+#'## Diagramm: Typ des Spruchkörpers
+
+freqtable <- table.spruch.typ[-.N]
+
+
+#+ CE-BVerfG_03_Barplot_Spruchkoerper_Typ, fig.height = 5, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = reorder(spruchkoerper_typ,
+                             -N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black",
+             width = 0.4) +
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Spruchkörper-Typ"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Typ des Spruchkörpers",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+
+#'\newpage
+#'## Diagramm: Spruchkörper nach Aktenzeichen
+
+freqtable <- table.spruch.az[-.N]
+
+
+#+ CE-BVerfG_04_Barplot_Spruchkoerper_AZ, fig.height = 5, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = spruchkoerper_az,
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black",
+             width = 0.4) +
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Senat (Aktenzeichen)"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Senat",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'## Diagramm: Registerzeichen
+
+freqtable <- table.regz[-.N]
+
+#+ CE-BVerfG_05_Barplot_Registerzeichen, fig.height = 10, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = reorder(registerzeichen,
+                             N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black") +
+    coord_flip()+
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Registerzeichen"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Registerzeichen",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'## Diagramm: Präsident:in
+
+freqtable <- table.output.praesi[-.N]
+
+#+ CE-BVerfG_06_Barplot_PraesidentIn, fig.height = 5.5, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = reorder(praesi,
+                             N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black") +
+    coord_flip()+
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Präsident:in"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Präsident:in",
+        y = "Entscheidungen"
+    )+
+    theme(
+        axis.title.y = element_blank(),
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'## Diagramm: Vize-Präsident:in
+
+freqtable <- table.output.vpraesi[-.N]
+
+#+ CE-BVerfG_07_Barplot_VizePraesidentIn, fig.height = 5.5, fig.width = 8
+ggplot(data = freqtable) +
+    geom_bar(aes(x = reorder(v_praesi,
+                             N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black") +
+    coord_flip()+
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Vize-Präsident:in"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Vize-Präsident:in",
+        y = "Entscheidungen"
+    )+
+    theme(
+        axis.title.y = element_blank(),
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'## Diagramm: Entscheidungsjahr
+
+freqtable <- table.jahr.entscheid[-.N][,lapply(.SD, as.numeric)]
+
+#+ CE-BVerfG_08_Barplot_Entscheidungsjahr, fig.height = 7, fig.width = 11
+ggplot(data = freqtable) +
+    geom_bar(aes(x = entscheidungsjahr,
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129") +
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Entscheidungsjahr"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Entscheidungsjahr",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 16),
+        plot.title = element_text(size = 16,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'## Diagramm: Eingangsjahr (ISO)
+
+freqtable <- table.jahr.eingangISO[-.N][,lapply(.SD, as.numeric)]
+
+
+
+#+ CE-BVerfG_09_Barplot_EingangsjahrISO, fig.height = 7, fig.width = 11
+ggplot(data = freqtable) +
+    geom_bar(aes(x = eingangsjahr_iso,
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129") +
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Entscheidungen je Eingangsjahr (ISO)"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Eingangsjahr (ISO)",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 16),
+        plot.title = element_text(size = 16,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+
+
+#'# Korpus-Analytik
+#'
+
+#+
+#'## Berechnung linguistischer Kennwerte
+#' An dieser Stelle werden für jedes Dokument die Anzahl Zeichen, Tokens, Typen und Sätze berechnet und mit den jeweiligen Metadaten verknüpft. Das Ergebnis ist grundsätzlich identisch mit dem eigentlichen Datensatz, nur ohne den Text der Entscheidungen.
+
+
+#+
+#'### Funktion anzeigen
+print(f.summarize.iterator)
+
+
+
+
+#'### Berechnung durchführen
+summary.corpus <- f.summarize.iterator(txt.bverfg,
+                                       threads = fullCores,
+                                       chunksize = 1)
+
+
+
+#'## Variablen-Namen anpassen
+
+setnames(summary.corpus,
+         old = c("nchars",
+                 "ntokens",
+                 "ntypes",
+                 "nsentences"),
+         new = c("zeichen",
+                 "tokens",
+                 "typen",
+                 "saetze"))
+
+
+#'## Kennwerte dem Korpus hinzufügen
+
+txt.bverfg <- cbind(txt.bverfg,
+                    summary.corpus)
+
+
+#'## Variante mit Metadaten erstellen
+meta.bverfg <- txt.bverfg[, !"text"]
+
+
+
+#'## Linguistische Kennwerte
+
+#+
+#'### Zusammenfassungen berechnen
+
+dt.summary.ling <- meta.bverfg[, lapply(.SD,
+                                           function(x)unclass(summary(x))),
+                                  .SDcols = c("zeichen",
+                                              "tokens",
+                                              "typen",
+                                              "saetze")]
+
+
+dt.sums.ling <- meta.bverfg[,
+                            lapply(.SD, sum),
+                            .SDcols = c("zeichen",
+                                        "tokens",
+                                        "typen",
+                                        "saetze")]
+
+
+
+tokens.temp <- tokens(corpus(txt.bverfg),
+                      what = "word",
+                      remove_punct = FALSE,
+                      remove_symbols = FALSE,
+                      remove_numbers = FALSE,
+                      remove_url = FALSE,
+                      remove_separators = TRUE,
+                      split_hyphens = FALSE,
+                      include_docvars = FALSE,
+                      padding = FALSE
+                      )
+
+
+dt.sums.ling$typen <- nfeat(dfm(tokens.temp))
+
+
+
+
+dt.stats.ling <- rbind(dt.sums.ling,
+                       dt.summary.ling)
+
+dt.stats.ling <- transpose(dt.stats.ling,
+                           keep.names = "names")
+
+
+setnames(dt.stats.ling, c("Variable",
+                          "Sum",
+                          "Min",
+                          "Quart1",
+                          "Median",
+                          "Mean",
+                          "Quart3",
+                          "Max"))
+
+
+
+#'### Zusammenfassungen anzeigen
+
+kable(dt.stats.ling,
+      format.args = list(big.mark = ","),
+      format = "latex",
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+
+
+#'### Zusammenfassungen speichern
+
+fwrite(dt.stats.ling,
+       paste0(outputdir,
+              datasetname,
+              "_00_KorpusStatistik_ZusammenfassungLinguistisch.csv"),
+       na = "NA")
+
+
+
+
+
+#'\newpage
+#'## Quantitative Variablen
+
+
+#+
+#'### Entscheidungsdatum
+
+summary(as.IDate(meta.bverfg$datum))
+
+
+
+#'### Zusammenfassungen berechnen
+
+dt.summary.docvars <- meta.bverfg[,
+                                  lapply(.SD, function(x)unclass(summary(na.omit(x)))),
+                                  .SDcols = c("entscheidungsjahr",
+                                              "eingangsjahr_iso",
+                                              "band",
+                                              "eingangsnummer")]
+
+
+dt.unique.docvars <- meta.bverfg[,
+                                 lapply(.SD, function(x)length(unique(na.omit(x)))),
+                                 .SDcols = c("entscheidungsjahr",
+                                             "eingangsjahr_iso",
+                                             "band",
+                                             "eingangsnummer")]
+
+
+dt.stats.docvars <- rbind(dt.unique.docvars,
+                          dt.summary.docvars)
+
+dt.stats.docvars <- transpose(dt.stats.docvars,
+                              keep.names = "names")
+
+
+setnames(dt.stats.docvars, c("Variable",
+                             "Anzahl",
+                             "Min",
+                             "Quart1",
+                             "Median",
+                             "Mean",
+                             "Quart3",
+                             "Max"))
+
+
+#'\newpage
+#'### Zusammenfassungen anzeigen
+
+kable(dt.stats.docvars,
+      format = "latex",
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+
+#'### Zusammenfassungen speichern
+
+fwrite(dt.stats.docvars,
+       paste0(outputdir,
+              datasetname,
+              "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv"),
+       na = "NA")
+
+
+
+
+#'\newpage
+#'## Verteilungen linguistischer Kennwerte
+
+#+
+#'### Diagramm: Verteilung Zeichen
+
+#+ CE-BVerfG_10_Density_Zeichen, fig.height = 6, fig.width = 9
+ggplot(data = meta.bverfg)+
+    geom_density(aes(x = zeichen),
+                 fill = "#ca2129")+
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    coord_cartesian(xlim = c(1, 10^6))+
+    theme_bw()+
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Zeichen je Dokument"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Zeichen",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#+
+#'### Diagramm: Verteilung Tokens
+
+#+ CE-BVerfG_11_Density_Tokens, fig.height = 6, fig.width = 9
+ggplot(data = meta.bverfg)+
+    geom_density(aes(x = tokens),
+                 fill = "#ca2129")+
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    coord_cartesian(xlim = c(1, 10^6))+
+    theme_bw()+
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Tokens je Dokument"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Tokens",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'### Diagramm: Verteilung Typen
+
+#+ CE-BVerfG_12_Density_Typen, fig.height = 6, fig.width = 9
+ggplot(data = meta.bverfg)+
+    geom_density(aes(x = typen),
+                 fill = "#ca2129")+
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    coord_cartesian(xlim = c(1, 10^6))+
+    theme_bw()+
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Typen je Dokument"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Typen",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'\newpage
+#'### Diagramm: Verteilung Sätze
+
+#+ CE-BVerfG_13_Density_Saetze, fig.height = 6, fig.width = 9
+ggplot(data = meta.bverfg)+
+    geom_density(aes(x = saetze),
+                 fill = "#ca2129")+
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    coord_cartesian(xlim = c(1, 10^6))+
+    theme_bw()+
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Sätze je Dokument"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Sätze",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+
+#'## Anzahl Variablen im Korpus
+length(txt.bverfg)
+
+#'## Namen der Variablen im Korpus
+names(txt.bverfg)
+
+#'## Anzahl Variablen der Metadaten
+length(meta.bverfg)
+
+#'## Namen der Variablen der Metadaten
+names(meta.bverfg)
+
+
+
+
+
+#'# Linguistische Annotationen berechnen
+
+#+
+#'## Berechnung der Annotationen durchführen
+
+if (mode.annotate == TRUE){
+
+    txt.annotated <- f.dopar.spacyparse(txt.bverfg,
+                                        threads = detectCores(),
+                                        chunksize = 1,
+                                        model = "de_core_news_sm",
+                                        pos = TRUE,
+                                        tag = TRUE,
+                                        lemma = TRUE,
+                                        entity = TRUE,
+                                        dependency = TRUE,
+                                        nounphrase = TRUE)
+
+}
+
+
+#'## Anzahl Variablen für linguistische Annotationen
+length(txt.annotated)
+
+
+#'## Namen der Variablen für linguistische Annotationen
+names(txt.annotated)
+
+
+
+
+#'# CSV-Dateien erstellen
+
+#'## CSV mit vollem Datensatz speichern
+
+csvname.full <- paste(datasetname,
+                      datestamp,
+                      "DE_CSV_Datensatz.csv",
+                      sep = "_")
+
+fwrite(txt.bverfg,
+       csvname.full,
+       na = "NA")
+
+
+
+
+#'## CSV mit Metadaten speichern
+#' Diese Datei ist grundsätzlich identisch mit dem eigentlichen Datensatz, nur ohne den Text der Entscheidungen.
+
+csvname.meta <- paste(datasetname,
+                      datestamp,
+                      "DE_CSV_Metadaten.csv",
+                      sep = "_")
+
+fwrite(meta.bverfg,
+       csvname.meta,
+       na = "NA")
+
+
+
+#'## CSV mit Segmenten speichern
+
+csvname.segmented <- paste(datasetname,
+                           datestamp,
+                           "DE_CSV_Segmentiert.csv",
+                           sep = "_")
+
+fwrite(dt.segmented.full,
+       csvname.segmented,
+       na = "NA")
+
+
+#'## CSV mit Annotationen speichern
+
+if (mode.annotate == TRUE){
+
+    csvname.annotated <- paste(datasetname,
+                               datestamp,
+                               "DE_CSV_Annotiert.csv",
+                               sep = "_")
+
+    fwrite(txt.annotated,
+           csvname.annotated,
+           na = "NA")
+
+}
+
+
+
+
+#'# Dateigrößen analysieren
+
+#+
+#'## Gesamtgröße
+
+#'### Korpus-Objekt in RAM (MB)
+
+print(object.size(txt.bverfg),
+      standard = "SI",
+      humanReadable = TRUE,
+      units = "MB")
+
+
+#'### CSV Korpus (MB)
+file.size(csvname.full) / 10 ^ 6
+
+#'### CSV Metadaten (MB)
+file.size(csvname.meta) / 10 ^ 6
+
+#'### CSV Annotiert (MB)
+file.size(csvname.annotated) / 10 ^ 6
+
+#'### CSV Segmentiert (MB)
+file.size(csvname.segmented) / 10 ^ 6
+
+
+#'### PDF-Dateien (MB)
+
+files.pdf <- list.files(pattern = "\\.pdf$",
+                        ignore.case = TRUE)
+
+pdf.MB <- file.size(files.pdf) / 10^6
+sum(pdf.MB)
+
+
+
+#'### TXT-Dateien (MB)
+
+files.txt <- list.files(pattern = "\\.txt$",
+                        ignore.case = TRUE)
+
+txt.MB <- file.size(files.txt) / 10^6
+sum(txt.MB)
+
+
+
+
+
+#'\newpage
+#'## Diagramm: Verteilung der Dateigrößen (PDF)
+
+dt.plot <- data.table(pdf.MB)
+
+#+ CE-BVerfG_14_Density_Dateigroessen_PDF, fig.height = 6, fig.width = 9
+ggplot(data = dt.plot,
+       aes(x = pdf.MB)) +
+    geom_density(fill = "#ca2129") +
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Dateigrößen (PDF)"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Dateigröße in MB",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        panel.spacing = unit(0.1, "lines"),
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+#'\newpage
+#'## Diagramm: Verteilung der Dateigrößen (TXT)
+
+dt.plot <- data.table(txt.MB)
+
+#+ CE-BVerfG_15_Density_Dateigroessen_TXT, fig.height = 6, fig.width = 9
+ggplot(data = dt.plot,
+       aes(x = txt.MB)) +
+    geom_density(fill = "#ca2129") +
+    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)))+
+    annotation_logticks(sides = "b")+
+    theme_bw() +
+    labs(
+        title = paste(datasetname,
+                      "| Version",
+                      datestamp,
+                      "| Verteilung der Dateigrößen (TXT)"),
+        caption = paste("DOI:",
+                        doi.version,
+                        "| Fobbe"),
+        x = "Dateigröße in MB",
+        y = "Dichte"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        panel.spacing = unit(0.1, "lines"),
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+#'# Erstellen der ZIP-Archive
+
+#+
+#'## Verpacken der CSV-Dateien
+
+#+
+#'### Vollständiger Datensatz
+
+
+#+ results = 'hide'
+csvname.full.zip <- gsub(".csv",
+                         ".zip",
+                         csvname.full)
+
+zip(csvname.full.zip,
+    csvname.full)
+
+unlink(csvname.full)
+
+
+#+
+#'### Metadaten
+
+
+#+ results = 'hide'
+csvname.meta.zip <- gsub(".csv",
+                         ".zip",
+                         csvname.meta)
+
+zip(csvname.meta.zip,
+    csvname.meta)
+
+unlink(csvname.meta)
+
+
+#+
+#'### Segmentiert
+
+#+ results = 'hide'
+csvname.segmented.zip <- gsub(".csv",
+                              ".zip",
+                              csvname.segmented)
+
+zip(csvname.segmented.zip,
+    csvname.segmented)
+
+unlink(csvname.segmented)
+
+
+#+
+#'### Annotiert
+
+
+#+ results = 'hide'
+if (mode.annotate == TRUE){
+
+    csvname.annotated.zip <- gsub(".csv",
+                                  ".zip",
+                                  csvname.annotated)
+
+    zip(csvname.annotated.zip,
+        csvname.annotated)
+
+    unlink(csvname.annotated)
+
+}
+
+
+#'## Verpacken der PDF-Dateien
+
+files.pdf <- list.files(pattern = "\\.pdf",
+                         ignore.case = TRUE)
+
+#+ results = 'hide'
+zip(paste(datasetname,
+          datestamp,
+          "DE_PDF_Datensatz.zip",
+          sep = "_"),
+    files.pdf)
+
+unlink(files.pdf)
+
+
+
+#'## Verpacken der HTML-Dateien
+
+files.html <- list.files(pattern = "\\.html",
+                         ignore.case = TRUE)
+
+#+ results = 'hide'
+zip(paste(datasetname,
+          datestamp,
+          "DE_HTML_Datensatz.zip",
+          sep = "_"),
+    files.html)
+
+unlink(files.html)
+
+
+
+
+#'## Verpacken der TXT-Dateien
+
+
+files.txt <- list.files(pattern = "\\.txt",
+                        ignore.case = TRUE)
+
+#+ results = 'hide'
+zip(paste(datasetname,
+          datestamp,
+          "DE_TXT_Datensatz.zip",
+          sep = "_"),
+    files.txt)
+
+unlink(files.txt)
+
+
+
+
+#'## Verpacken der Analyse-Dateien
+
+zip(paste0(datasetname,
+           "_",
+           datestamp,
+           "_DE_",
+           basename(outputdir),
+           ".zip"),
+    basename(outputdir))
+
+
+
+
+#'## Verpacken der Source-Dateien
+
+files.source <- c(list.files(pattern = "Source"),
+                  "buttons")
+
+
+files.source <- grep("spin",
+                     files.source,
+                     value = TRUE,
+                     ignore.case = TRUE,
+                     invert = TRUE)
+
+zip(paste(datasetname,
+          datestamp,
+          "Source_Files.zip",
+          sep = "_"),
+    files.source)
+
+
+
+
+
+#'# Kryptographische Hashes
+#' Dieses Modul berechnet für jedes ZIP-Archiv zwei Arten von Hashes: SHA2-256 und SHA3-512. Mit diesen kann die Authentizität der Dateien geprüft werden und es wird dokumentiert, dass sie aus diesem Source Code hervorgegangen sind. Die SHA-2 und SHA-3 Algorithmen sind äußerst resistent gegenüber *collision* und *pre-imaging* Angriffen, sie gelten derzeit als kryptographisch sicher. Ein SHA3-Hash mit 512 bit Länge ist nach Stand von Wissenschaft und Technik auch gegenüber quantenkryptoanalytischen Verfahren unter Einsatz des *Grover-Algorithmus* hinreichend resistent.
+
+
+#+
+#'## Liste der ZIP-Archive erstellen
+files.zip <- list.files(pattern = "\\.zip$",
+                        ignore.case = TRUE)
+
+
+#'## Funktion anzeigen
+#+ results = "asis"
+print(f.dopar.multihashes)
+
+
+#'## Hashes berechnen
+multihashes <- f.dopar.multihashes(files.zip)
+
+
+#'## In Data Table umwandeln
+setDT(multihashes)
+
+
+
+#'## Index hinzufügen
+multihashes$index <- seq_len(multihashes[,.N])
+
+#'\newpage
+#'## In Datei schreiben
+fwrite(multihashes,
+       paste(datasetname,
+             datestamp,
+             "KryptographischeHashes.csv",
+             sep = "_"),
+       na = "NA")
+
+
+#'## Leerzeichen hinzufügen um Zeilenumbruch zu ermöglichen
+#' Hierbei handelt es sich lediglich um eine optische Notwendigkeit. Die normale 128 Zeichen lange Zeichenfolge wird ansonsten nicht umgebrochen und verschwindet über die Seitengrenze. Das Leerzeichen erlaubt den automatischen Zeilenumbruch und damit einen für Menschen sinnvoll lesbaren Abdruck im Codebook. Diese Variante wird nur zur Anzeige verwendet und danach verworfen.
+
+multihashes$sha3.512 <- paste(substr(multihashes$sha3.512, 1, 64),
+                              substr(multihashes$sha3.512, 65, 128))
+
+
+
+#'## In Bericht anzeigen
+
+kable(multihashes[,.(index,filename)],
+      format = "latex",
+      align = c("p{1cm}",
+                "p{13cm}"),
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+#'\newpage
+kable(multihashes[,.(index,sha2.256)],
+      format = "latex",
+      align = c("c",
+                "p{13cm}"),
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+kable(multihashes[,.(index,sha3.512)],
+      format = "latex",
+      align = c("c",
+                "p{13cm}"),
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+
+
+
+
+
+#'# Abschluss
+
+
+#+
+#'## Datumsstempel
+print(datestamp)
+
+
+#'## Datum und Uhrzeit (Anfang)
+print(begin.script)
+
+
+#'## Datum und Uhrzeit (Ende)
+end.script <- Sys.time()
+print(end.script)
+
+#'## Laufzeit des gesamten Skriptes
+print(end.script - begin.script)
+
+
+#'## Warnungen
+warnings()
+
+
+
+#'# Parameter für strenge Replikationen
+
+system2("openssl", "version", stdout = TRUE)
+
+sessionInfo()
+
+
+#'# Literaturverzeichnis
+
