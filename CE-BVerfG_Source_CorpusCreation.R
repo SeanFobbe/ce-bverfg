@@ -129,7 +129,7 @@ outputdir <- paste0(getwd(),
 #'## Modus: Debugging
 #' Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen. Nur für Test- und Demonstrationszwecke.  Kann mit anderen Modi kombiniert werden.
 
-mode.debug <- FALSE
+mode.debug <- TRUE
 debug.scope <- 10
 
 
