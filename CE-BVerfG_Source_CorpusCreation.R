@@ -1194,17 +1194,17 @@ files.html <- list.files(pattern = "\\.html")
 
 #'## HTML-Dateien einlesen
 
-html.list <- mclapply(files.html,
+html.list <- lapply(files.html,
                     read_html)
 
 
 #'## HTML-Dateien parsen
 
 meta.list <- mclapply(html.list,
-                    f.bverfg.extract.meta)
+                      f.bverfg.extract.meta)
 
 content.list <- mclapply(html.list,
-                       f.bverfg.extract.content)
+                         f.bverfg.extract.content)
 
 segmented.full.list <- vector("list",
                               length(meta.list))
