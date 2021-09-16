@@ -1227,28 +1227,38 @@ dt.meta.html <-  rbindlist(meta.list)
 dt.segmented.full <- rbindlist(segmented.full.list)
 
 
+#'## Special Character entfernen
+#' An dieser Stelle wird ein mysteriöser Unterstricht entfernt, vermutlich ein non-breaking space. Es ist allerdings unklar wieso dieser in den Daten auftaucht.
 
- ## testing
+#+ echo = FALSE
+dt.meta.html$richter <- gsub(" ",
+                             " ",
+                             dt.meta.html$richter)
+
+dt.meta.html$aktenzeichen_alle <- gsub(" ",
+                                       " ",
+                                       dt.meta.html$aktenzeichen_alle)
+
+#+ echo = FALSE
+dt.segmented.full$richter <- gsub(" ",
+                                  " ",
+                                  dt.segmented.full$richter)
+
+dt.segmented.full$aktenzeichen_alle <- gsub(" ",
+                                            " ",
+                                            dt.segmented.full$aktenzeichen_alle)
+
+
+
+
+#'## Stichprobe Metadaten
 dt.meta.html[sample(.N, 100)]
 
 
-
- ## testing
+#'## Stichprobe Segmentierte Variante
 dt.segmented.full[sample(.N, 30)]
 
 
-
-
-
-
-
-
-
- ## testing
-save.image("2021-09-09test.RData")
-
-
-#load("2021-09-09test.RData")
 
 
 
