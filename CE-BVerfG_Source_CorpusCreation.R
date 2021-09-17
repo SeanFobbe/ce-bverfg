@@ -388,12 +388,12 @@ f.bverfg.extract.meta <- function(HTML){
     ##beschwerdefuehrer <- html_elements(HTML, "[class='vb3']") %>% html_text(trim = TRUE)
 
     meta <- data.table(ecli,
-                  pressemitteilung,
-                  aktenzeichen_alle,
-                  ##verkuendung,
-                  kurzbeschreibung,
-                  zitiervorschlag,
-                  richter)
+                       pressemitteilung,
+                       aktenzeichen_alle,
+                       ##verkuendung,
+                       kurzbeschreibung,
+                       zitiervorschlag,
+                       richter)
     
 
     return(meta)

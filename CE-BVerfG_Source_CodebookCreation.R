@@ -502,25 +502,31 @@ df.bverfg <- readtext("*.txt",
 #' 
 #' doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
 #' text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bundesverfassungsgericht.de heruntergeladenen PDF-Datei dokumentiert ist.\\
-#' gericht & Alphabetisch & In diesem Datensatz ist nur der Wert \enquote{BVerfG} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{Bundesverfassungsgericht}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
+#' segment & String & (Nur segmentierte Variante) Das in der Variable \enquote{text} gespeicherte Segment der Entscheidung. Vorhandene Segmentarten sind \enquote{leitsatz} (Leitsätze)), \enquote{gegenstand} (Entscheidungsgegenstand), \enquote{formel} (Entscheidungsformel), \enquote{tenor} (Tenor), \enquote{gruende} (Entscheidungsgründe, ggf. mit Anmerkung ob Sondervotum) und \enquote{unterschriften} (Unterschriften der Richter:innen). Die Erkennung von Sondervoten ist noch fehleranfällig. Einzelne Segmente sind mit einer Kombination aus Art und Ordinalzahl definiert, z.B. \enquote{gruende-133-sondervotum}.\\
+#' gericht & String & In diesem Datensatz ist nur der Wert \enquote{BVerfG} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{Bundesverfassungsgericht}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
 #' datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
-#' entscheidung\_typ & Alphabetisch &  (Nur CSV-Datei) Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss) und \enquote{U} (Urteil) vergeben. Wurde durch \emph{regular expressions} aus der Variable \enquote{zitiervorschlag} berechnet.\\
-#' spruchkoerper\_typ & Alphabetisch & Der Typ des Spruchkörpers. Es sind die Werte \enquote{K} (Kammer), \enquote{S} (Senat), \enquote{P} (Plenum) und \enquote{B} (Beschwerdekammer gem. § 97c BVerfGG) vergeben.\\
+#' entscheidung\_typ & String &  (Nur CSV-Datei) Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss) und \enquote{U} (Urteil) vergeben. Wurde durch \emph{regular expressions} aus der Variable \enquote{zitiervorschlag} berechnet.\\
+#' spruchkoerper\_typ & String & Der Typ des Spruchkörpers. Es sind die Werte \enquote{K} (Kammer), \enquote{S} (Senat), \enquote{P} (Plenum) und \enquote{B} (Beschwerdekammer gem. § 97c BVerfGG) vergeben.\\
 #' spruchkoerper\_az & Natürliche Zahl & Der im Aktenzeichen angegebene Spruchkörper. Es sind nur die Werte \enquote{1} und \enquote{2} vergeben. Die Werte stehen für den 1. oder 2. Senat des Gerichts. Für Verzögerungsentscheidungen der Beschwerdekammer ist der Wert \enquote{NA}. \textbf{Achtung:} Um die Entscheidungen eines bestimmten Senats zu analysieren reicht es nicht, die Variable \enquote{spruchkoerper\_az} zu nutzen, es muss zusätzlich noch die Variable \enquote{spruchkoerper\_typ} auf \enquote{S} gesetzt werden, weil ansonsten noch mit dem Senat assoziierte Entscheidungen seiner Kammern und des Plenums mit ausgewählt werden. \\
-#' registerzeichen & Alphabetisch & Das amtliche Registerzeichen. Es gibt die Verfahrensart an, in der die Entscheidung ergangen ist. Eine Erläuterung der Registerzeichen findet sich unter Punkt \ref{register}.\\
+#' registerzeichen & String & Das amtliche Registerzeichen. Es gibt die Verfahrensart an, in der die Entscheidung ergangen ist. Eine Erläuterung der Registerzeichen findet sich unter Punkt \ref{register}.\\
 #' verfahrensart & String &  Die ausführliche Beschreibung der Verfahrensart, die dem Registerzeichen zugeordnet ist.  Eine Erläuterung der Registerzeichen und der zugehörigen Verfahrensarten findet sich unter Punkt \ref{register}.\\
 #' eingangsnummer & Natürliche Zahl & Verfahren des gleichen Eingangsjahres erhalten vom Gericht eine Nummer in der Reihenfolge ihres Eingangs. Die Zahl ist in den Dateinamen mit führenden Nullen (falls <1000) codiert.\\
 #' eingangsjahr\_az & Natürliche Zahl & Das im Aktenzeichen angegebene Jahr in dem das Verfahren beim Gericht anhängig wurde. Das Format ist eine zweistellige Jahreszahl (YY).\\
 #' eingangsjahr\_iso & Natürliche Zahl &  (Nur CSV-Datei) Das nach ISO-8601 codierte Jahr in dem das Verfahren beim Bundesverfassungsgericht anhängig wurde. Das Format ist eine vierstellige Jahreszahl (YYYY), um eine maschinenlesbare und eindeutige Jahreszahl für den Eingang zur Verfügung zu stellen. Wurde aus der Variable \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet, unter der Annahme, dass Jahreszahlen über 50 dem 20. Jahrhundert zugeordnet sind und andere Jahreszahlen dem 21. Jahrhundert.\\
 #' entscheidungsjahr & Natürliche Zahl & (Nur CSV-Datei) Das Jahr in dem die Entscheidung ergangen ist. Das Format ist eine vierstellige Jahreszahl (YYYY). Wurde aus der Variable \enquote{datum} durch den Autor des Datensatzes berechnet.\\
-#' kollision & Alphanumerisch & In wenigen Fällen sind am gleichen Tag mehrere Entscheidungen zum gleichen Aktenzeichen ergangen. Diese werden ab der zweiten Entscheidung pro Tag durch eine Kollisions-ID mit einem Kleinbuchstaben ausdifferenziert. Für die erste Entscheidung ist der Wert der Variable \enquote{NA}, also nicht vorhanden. Die zweite Entscheidung ist mit \enquote{a} identifiziert, die dritte mit \enquote{b} und so fort. In der offiziellen Beschreibung der ECLI-Ordinalzahl wird diese Variable als \enquote{Kollisionsnummer} bezeichnet. Buchstaben sind allerdings keine Nummern, daher die abweichende Bezeichnung. In einem einzigen Fall ist tatsächlich eine \enquote{1} vergeben. Es handelt sich hier vermutlich um einen Fehler.\\
+#' kollision & String & In wenigen Fällen sind am gleichen Tag mehrere Entscheidungen zum gleichen Aktenzeichen ergangen. Diese werden ab der zweiten Entscheidung pro Tag durch eine Kollisions-ID mit einem Kleinbuchstaben ausdifferenziert. Für die erste Entscheidung ist der Wert der Variable \enquote{NA}, also nicht vorhanden. Die zweite Entscheidung ist mit \enquote{a} identifiziert, die dritte mit \enquote{b} und so fort. In der offiziellen Beschreibung der ECLI-Ordinalzahl wird diese Variable als \enquote{Kollisionsnummer} bezeichnet. Buchstaben sind allerdings keine Nummern, daher die abweichende Bezeichnung. In einem einzigen Fall ist tatsächlich eine \enquote{1} vergeben. Es handelt sich hier vermutlich um einen Fehler.\\
 #' name & String & Der Name der Entscheidung. Für viele Entscheidungen aus der amtlichen Sammlung sind bekannte Namen vorhanden, diese wurden benutzt soweit möglich und auffindbar. Für weniger bekannte Entscheidungen wurde ein möglichst informativer Name vom Autor vergeben. Die konkrete Darstellung (ohne Leerzeichen, mit Bindestrichen usw.) ist Gründen der maschinellen Lesbarkeit geschuldet.\\
 #' band & Natürliche Zahl & Der Band der amtlichen Sammlung in dem die Entscheidung veröffentlicht ist.\\
 #' seite & Natürliche Zahl & Die genaue Fundstelle (Seitenzahl) der Entscheidung im jeweiligen Band der amtlichen Sammlung. Nur sinnvoll nutzbar im Zusammenspiel mit der Variable \enquote{band}.\\
-#' praesi & Alphabetisch & (Nur CSV-Datei) Der Nachname des oder der Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
-#' v\_praesi & Alphabetisch & (Nur CSV-Datei) Der Nachname des oder der Vize-Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
-#' aktenzeichen & String & (Nur CSV-Datei) Das amtliche Aktenzeichen. Die Variable wurde aus den Variablen \enquote{spruchkoerper\_az}, \enquote{registerzeichen}, \enquote{eingangsnummer} und \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet.\\
+#' aktenzeichen & String & (Nur CSV-Datei) Das amtliche Aktenzeichen. Die Variable wurde aus den Variablen \enquote{spruchkoerper\_az}, \enquote{registerzeichen}, \enquote{eingangsnummer} und \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet. Im Falle mehrere verbundener Verfahren mit einer einheitlichen Entscheidung ist dies das Aktenzeichen des Pilotverfahrens.\\
+#' aktenzeichen\_alle & String & (Nur CSV-Datei) Alle Aktenzeichen der mit der Entscheidung abgeschlossenen Verfahren, falls es sich um verbunden Verfahren mit einheitlicher Entscheidung handelt. Ansonsten ist der Wert dieser Variable identisch mit der Variable \enquote{aktenzeichen}.\\ 
 #' ecli & String & (Nur CSV-Datei) Der European Case Law Identifier (ECLI) der Entscheidung. Jeder Entscheidung ist eine einzigartige ECLI zugewiesen, ggf. mit Kollisisions-ID. Die ECLI ist vor allem dann hilfreich, wenn dieser Datensatz mit anderen Datensätzen zusammengeführt werden und Dopplungen vermieden werden sollen. Alle inhaltlichen Bestandteile der ECLI sind in diesem Datensatz zusätzlich auch anderen und besser verständlichen Variablen zugewiesen. Nutzen Sie bevorzugt diese anderen Variablen, statt Informationen aus der ECLI zu extrahieren. Die Variable wurde aus den Variablen \enquote{entscheidungsjahr}, \enquote{spruchkoerper\_typ}, \enquote{datum}, \enquote{kollision}, \enquote{spruchkoerper\_az}, \enquote{registerzeichen},  \enquote{eingangsnummer} und \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet.\\
+#' zitiervorschlag & String & Der vom BVerfG vorgegebene Zitiervorschlag.\\
+#' kurzbeschreibung & String & Kurzbeschreibung des Inhalts des Verfahrens wie auf der Website des BVerfG angegeben.\\
+#' pressemitteilung & String & Nummer und Tag der zugehörigen Pressemitteilung, falls vorhanden. Ansonsten \enquote{NA}.\\
+#' praesi & String & (Nur CSV-Datei) Der Nachname des oder der Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
+#' v\_praesi & String & (Nur CSV-Datei) Der Nachname des oder der Vize-Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
+#' richter & String & (Nur CSV-Datei) Die Nachnamen der Richter:innen, die die Entscheidung unterschrieben haben. Ggf. mit Angabe falls die Person verhindert war. Die einzelnen Namen sind jeweils durch vertikale Striche \enquote{|} voneinander getrennt.\\
 #' zeichen & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl Zeichen eines Dokumentes.\\
 #' tokens & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl Tokens (beliebige Zeichenfolge getrennt durch whitespace) eines Dokumentes. Diese Zahl kann je nach Tokenizer und verwendeten Einstellungen erheblich schwanken. Für diese Berechnung wurde eine reine Tokenisierung ohne Entfernung von Inhalten durchgeführt. Benutzen Sie diesen Wert eher als Anhaltspunkt für die Größenordnung denn als exakte Aussage und führen sie ggf. mit ihrer eigenen Software eine Kontroll-Rechnung durch.\\
 #' typen & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl \emph{einzigartiger} Tokens (beliebige Zeichenfolge getrennt durch whitespace) eines Dokumentes. Diese Zahl kann je nach Tokenizer und verwendeten Einstellungen erheblich schwanken. Für diese Berechnung wurde eine reine Tokenisierung und Typenzählung ohne Entfernung von Inhalten durchgeführt. Benutzen Sie diesen Wert eher als Anhaltspunkt für die Größenordnung denn als exakte Aussage und führen sie ggf. mit ihrer eigenen Software eine Kontroll-Rechnung durch.\\
@@ -813,7 +819,8 @@ ggplot(data = summary.corpus)+
                       datestamp,
                       "| Verteilung der Zeichen je Dokument"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Zeichen",
         y = "Dichte"
     )+
@@ -843,7 +850,8 @@ ggplot(data = summary.corpus) +
                       datestamp,
                       "| Verteilung der Tokens je Dokument"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Tokens",
         y = "Dichte"
     )+
@@ -873,7 +881,8 @@ ggplot(data = summary.corpus) +
                       datestamp,
                       "| Verteilung der Typen je Dokument"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Typen",
         y = "Dichte"
     )+
@@ -903,7 +912,8 @@ ggplot(data = summary.corpus) +
                       datestamp,
                       "| Verteilung der Sätze je Dokument"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Sätze",
         y = "Dichte"
     )+
@@ -968,9 +978,10 @@ ggplot(data = freqtable) +
         title = paste(datasetname,
                       "| Version",
                       datestamp,
-                      "| Entscheidungen je Typ"),
+                      "| Entscheidungen je Entscheidungs-Typ"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Typ der Entscheidung",
         y = "Entscheidungen"
     )+
@@ -1020,7 +1031,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Spruchkörper-Typ"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Typ des Spruchkörpers",
         y = "Entscheidungen"
     )+
@@ -1073,7 +1085,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Senat",
         y = "Entscheidungen"
     )+
@@ -1124,7 +1137,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Registerzeichen"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Registerzeichen",
         y = "Entscheidungen"
     )+
@@ -1172,7 +1186,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Präsident:in"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Präsident:in",
         y = "Entscheidungen"
     )+
@@ -1221,7 +1236,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Vize-Präsident:in"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Vize-Präsident:in",
         y = "Entscheidungen"
     )+
@@ -1272,7 +1288,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Entscheidungsjahr"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Entscheidungsjahr",
         y = "Entscheidungen"
     )+
@@ -1323,7 +1340,8 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
         caption = paste("DOI:",
-                        doi.version),
+                        doi.version,
+                        "| Fobbe"),
         x = "Eingangsjahr (ISO)",
         y = "Entscheidungen"
     )+
