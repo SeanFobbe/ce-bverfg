@@ -310,7 +310,6 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == 
 
 
 
-
 #+
 #'## f.bverfg.extract.meta 
 #' Diese Funktion extrahiert relevante Metadaten aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de 
@@ -328,6 +327,10 @@ f.bverfg.extract.meta <- function(HTML){
     aktenzeichen_alle <- gsub(" +",
                    " ",
                    aktenzeichen_alle)
+    aktenzeichen_alle <- tstrsplit(aktenzeichen_alle,
+                               split = "\n")
+    aktenzeichen_alle <- unlist(aktenzeichen_alle)
+    aktenzeichen_alle <- na.omit(aktenzeichen_alle)
     aktenzeichen_alle <- trimws(aktenzeichen_alle)
     aktenzeichen_alle <- unique(aktenzeichen_alle)
     aktenzeichen_alle <- paste(aktenzeichen_alle, collapse = "|")
@@ -363,8 +366,12 @@ f.bverfg.extract.meta <- function(HTML){
 
     ## Richter:innen
     richter <- html_elements(HTML, "[class='st']") %>% html_elements("td") %>%  html_text(trim = TRUE)
+    richter <- tstrsplit(richter,
+                         split = "\n")
+    richter <- unlist(richter)
+    richter <- na.omit(richter)
     richter <- unique(richter)
-    #richter <- richter[grep("ausgeschieden|gehindert|verhindert", richter, invert = TRUE)] # Verhinderungen entfernen
+    #richter <- richter[grep("ausgeschieden|gehindert|verhindert", richter, invert = TRUE)] # optional Verhinderungen entfernen; Verhinderungen werden zunächst nicht entfernt, da sie durchaus wertvolle Informationen enthalten.
     richter <- paste(richter, collapse = "|")
     richter <- gsub("\\|+",
                     "\\|",
