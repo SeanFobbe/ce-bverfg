@@ -38,7 +38,7 @@
 #' \begin{enumerate}
 #' \item Der volle Datensatz im CSV-Format
 #' \item Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
-#' \item [Optional] Tokenisierte Form aller Texte mit linguistischen Annotationen im CSV-Format
+#' \item (Optional) Tokenisierte Form aller Texte mit linguistischen Annotationen im CSV-Format
 #' \item Alle Entscheidungen im TXT-Format (reduzierter Umfang an Metadaten)
 #' \item Alle Entscheidungen im PDF-Format (reduzierter Umfang an Metadaten)
 #' \item Alle Analyse-Ergebnisse (Tabellen als CSV, Grafiken als PDF und PNG)
@@ -307,7 +307,6 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == 
 
 
 #'# Funktionen definieren
-
 
 
 
@@ -1063,10 +1062,10 @@ print(missing.pdf)
 
 
 
-
+#+
 #'# HTML-Download
 
-
+#+
 #'## Data Table für HTML-Download erstellen
 
 names.html <- basename(links.html)
@@ -1229,7 +1228,7 @@ dt.segmented.full <- rbindlist(segmented.full.list)
 
 
 #'## Special Character entfernen
-#' An dieser Stelle wird ein mysteriöser Unterstricht entfernt, vermutlich ein non-breaking space. Es ist allerdings unklar wieso dieser in den Daten auftaucht.
+#' An dieser Stelle wird ein mysteriöser Unterstricht entfernt, vermutlich ein non-breaking space. Es ist allerdings unklar wieso dieser in den Daten auftaucht. Der Code wird nicht im Compilation Report angezeigt, weil sich dieses Zeichen bei dem listings package zu Fehlern führt.
 
 #+ echo = FALSE
 dt.meta.html$richter <- gsub(" ",
@@ -1272,12 +1271,12 @@ dt.segmented.full$text <- gsub(" ",
 
 #'## Stichprobe Metadaten
 fwrite(dt.meta.html[sample(.N, 50)],
-       "QA_Stichprobe_HTML-Metadaten")
+       "QA_Stichprobe_HTML-Metadaten.csv")
 
 
 #'## Stichprobe Segmentierte Variante
 fwrite(dt.segmented.full[sample(.N, 50)],
-       "QA_Stichprobe_HTML-SegmentierterVolltext")
+       "QA_Stichprobe_HTML-SegmentierterVolltext.csv")
 
 
 
@@ -1628,7 +1627,7 @@ dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:2007:rk20060529.1bvr043003",
                           "ECLI:DE:BVerfG:2006:rk20060529.1bvr043003",
                           dt.meta.html$ecli)
 
-## Die folgende ECLI ist auf der Homepage des BVerfG fehlerhaft. Sie betrifft das Vorverfahren statt die Verzögerungsbeschwerde. Auf rechtsprechung-im-internet.de ist sie korrekt nachgewiesen: https://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&docid=KVRE412291501&psml=bsjrsprod.psml&max=true
+#' Die folgende ECLI ist auf der Homepage des BVerfG fehlerhaft. Sie betrifft das Vorverfahren statt die Verzögerungsbeschwerde. Auf rechtsprechung-im-internet.de ist sie korrekt nachgewiesen: \url{https://www.rechtsprechung-im-internet.de/jportal/?quelle=jlink&docid=KVRE412291501&psml=bsjrsprod.psml&max=true}
 
 dt.meta.html$ecli <- gsub("ECLI:DE:BVerfG:2015:rs20151208a.1bvr009911",
                           "ECLI:DE:BVerfG:2015:vb20151208.vz000115",
@@ -1864,7 +1863,7 @@ ggplot(data = freqtable) +
         title = paste(datasetname,
                       "| Version",
                       datestamp,
-                      "| Entscheidungen je Typ"),
+                      "| Entscheidungen je Entscheidungs-Typ"),
         caption = paste("DOI:",
                         doi.version,
                         "| Fobbe"),
