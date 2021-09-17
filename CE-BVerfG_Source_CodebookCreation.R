@@ -319,7 +319,7 @@ df.bverfg <- readtext("*.txt",
 #'## Beschreibung des Datensatzes
 #'Dieser Datensatz ist eine digitale Zusammenstellung von möglichst allen Entscheidungen, die auf der amtlichen Internetpräsenz des Bundesverfassungsgerichts (BVerfG) veröffentlicht sind. Er enthält alle Entscheidungen, die auf der offiziellen Webseite des Bundesverfassungsgerichts am jeweiligen Stichtag veröffentlicht waren. Die Stichtage für jede Version entsprechen exakt der Versionsnummer.
 #'
-#'Zusätzlich zu den einfach maschinenlesbaren Formaten (TXT und CSV) sind die PDF-Rohdaten enthalten, damit Analysten gegebenenfalls ihre eigene Konvertierung vornehmen können. Die PDF-Rohdaten wurden inhaltlich nicht verändert und nur die Dateinamen angepasst um die Lesbarkeit für Mensch und Maschine zu verbessern.
+#'Zusätzlich zu den einfach maschinenlesbaren Formaten (TXT und CSV) sind die PDF-Rohdaten enthalten, damit Analyst:innen gegebenenfalls ihre eigene Konvertierung vornehmen können. Die PDF-Rohdaten wurden inhaltlich nicht verändert und nur die Dateinamen angepasst um die Lesbarkeit für Mensch und Maschine zu verbessern.
 
 
 
@@ -361,8 +361,9 @@ df.bverfg <- readtext("*.txt",
 
 #+
 #'## Source Code und Compilation Report
-#' Der gesamte Source Code --- sowohl für die Erstellung des Datensatzes, als auch für dieses Codebook --- ist öffentlich einsehbar und dauerhaft erreichbar im wissenschaftlichen Archiv des CERN unter dieser Addresse hinterlegt: \softwareversionurldoi\
+#' Der gesamte Source Code --- sowohl für die Erstellung des Datensatzes, als auch für dieses Codebook --- ist öffentlich einsehbar und dauerhaft erreichbar im wissenschaftlichen Archiv des CERN unter dieser Addresse hinterlegt: \softwareversionurldoi
 #'
+#' 
 #' Mit jeder Kompilierung des vollständigen Datensatzes wird auch ein umfangreicher **Compilation Report** in einem attraktiv designten PDF-Format erstellt (ähnlich diesem Codebook). Der Compilation Report enthält den vollständigen Source Code, dokumentiert relevante Rechenergebnisse, gibt sekundengenaue Zeitstempel an und ist mit einem klickbaren Inhaltsverzeichnis versehen. Er ist zusammen mit dem Source Code hinterlegt. Wenn Sie sich für Details des Erstellungs-Prozesses interessieren, lesen Sie diesen bitte zuerst.
 
 #+
@@ -370,9 +371,9 @@ df.bverfg <- readtext("*.txt",
 #'Nutzer sollten folgende wichtige Grenzen beachten:
 #' 
 #'\begin{enumerate}
-#'\item Der Datensatz enthält nur das, was das Gericht auch tatsächlich veröffentlicht, nämlich begründete Entscheidungen (\emph{publication bias}).
+#'\item Der Datensatz enthält nur das, was das Gericht auch tatsächlich veröffentlicht, nämlich begründete Entscheidungen (\emph{publication bias}). Laut dem BVerfG sind dies \enquote{alle Senatsentscheidungen (nicht aber Nebenentscheidungen wie z.B. Streitwertbeschlüsse und Kostenfestsetzungen) und viele begründete Kammerbeschlüsse}.\footnote{\url{https://www.bundesverfassungsgericht.de/DE/Entscheidungen/Entscheidungen/Entscheidungen.html}} Bei mehreren gleichgelagerten Sachverhalten wird nur das Pilotverfahren veröffentlicht.
 #'\item Es kann aufgrund technischer Grenzen bzw. Fehler sein, dass manche --- im Grunde verfügbare --- Entscheidungen nicht oder nicht korrekt abgerufen werden (\emph{automation bias}).
-#'\item Es werden nur PDF-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. Die Metadaten der Entscheidungen ohne PDF-Datei werden explizit im Compilation Report dokumentiert.
+#'\item Es werden nur PDF- und HTML-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. Die Metadaten der Entscheidungen ohne PDF-Datei werden explizit im Compilation Report dokumentiert.
 #'\item Erst ab dem Jahr 1998 sind begründete Entscheidungen des BVerfG einigermaßen vollständig veröffentlicht, auch wenn frühere Entscheidungen vereinzelt auf der Webseite verfügbar sind (\emph{temporal bias}). Die Frequenztabellen geben hierzu genauer Auskunft.
 #'\end{enumerate}
 
@@ -381,6 +382,8 @@ df.bverfg <- readtext("*.txt",
 #'## Urheberrechtsfreiheit von Rohdaten und Datensatz 
 
 #'An den Entscheidungstexten und amtlichen Leitsätzen besteht gem. § 5 Abs. 1 UrhG kein Urheberrecht, da sie amtliche Werke sind. § 5 UrhG ist auf amtliche Datenbanken analog anzuwenden (BGH, Beschluss vom 28.09.2006, I ZR 261/03, \enquote{Sächsischer Ausschreibungsdienst}).
+#'
+#' Der HTML-Quelltext wurde --- wie in jeder HTML-Datei selbst dokumentiert ist --- mit dem Government Site Builder der Bundesverwaltung erstellt, d.h. computergeneriert. Durch Maschinen generierte Texte sind keine \enquote{persönliche geistige Schöpfung} iSv § 2 Abs. 2 UrhG und daher urheberrechtlich nicht geschützt. Den verbleibenden Text-Bestandteilen (z.B. Buttons) fehlt es mindestens an der Schöpfungshöhe. Bilder oder andere Texte als Entscheidungstexte werden nicht abgerufen.
 #'
 #' Alle eigenen Beiträge (z.B. durch Zusammenstellung und Anpassung der Metadaten) und damit den gesamten Datensatz stelle ich gemäß einer \emph{CC0 1.0 Universal Public Domain Lizenz} vollständig urheberrechtsfrei.
 
@@ -391,7 +394,7 @@ df.bverfg <- readtext("*.txt",
 
 #+
 #'### Allgemein
-#'Die Metadaten wurden weitgehend aus den Hyperlinks zur jeweiligen Datei extrahiert. Hinzugefügt wurden von mir eine Reihe weitere Variablen, sowie Unter- und Trennstriche um die Maschinenlesbarkeit zu erleichten. Der volle Satz an Metadaten ist nur in den CSV-Dateien enthalten. Alle hinzugefügten Metadaten sind zusammen mit dem Source Code vollständig maschinenlesbar dokumentiert und liegen entweder im CSV-Format vor oder sind direkt im Source Code enthalten.
+#'Die Metadaten wurden weitgehend aus den Hyperlinks zur jeweiligen Datei und dem HTML-Quelltext extrahiert. Hinzugefügt wurden von mir eine Reihe weitere Variablen, sowie Unter- und Trennstriche um die Maschinenlesbarkeit zu erleichten. Der volle Satz an Metadaten ist nur in den CSV-Dateien enthalten. Alle hinzugefügten Metadaten sind zusammen mit dem Source Code vollständig maschinenlesbar dokumentiert und liegen entweder im CSV-Format vor oder sind direkt im Source Code enthalten.
 #' 
 #'Die Dateinamen der PDF- und TXT-Dateien enthalten Gerichtsname, Datum (Langform nach ISO-8601, d.h. YYYY-MM-DD), den Typ des Spruchkörpers, das offizielle Aktenzeichen, eine Kollisions-ID, den Namen der Entscheidung, sowie die BVerfGE-Fundstelle (Band und Seite).
 
