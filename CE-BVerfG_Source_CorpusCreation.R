@@ -112,7 +112,7 @@ datasetname <- "CE-BVerfG"
 doi.concept <- "10.5281/zenodo.3902658" # checked
 
 #'## DOI der konkreten Version
-doi.version <- "???"
+doi.version <- "10.5281/zenodo.5514083"
 
 #'## Lizenz
 license <- "Creative Commons Zero 1.0 Universal"
@@ -342,14 +342,13 @@ f.bverfg.extract.meta <- function(HTML){
         pressemitteilung <-  "NA"
     }else{
         pressemitteilung <- pressemitteilung[1]
-        }
+    }
 
     ## Kurzbeschreibung
-
     kurzbeschreibung <- HTML %>% html_elements("title") %>% html_text(trim = TRUE)
     kurzbeschreibung <- gsub(".*Bundesverfassungsgericht.*-.*Entscheidungen.*-(.*)",
-                  "\\1",
-                  kurzbeschreibung)
+                             "\\1",
+                             kurzbeschreibung)
     kurzbeschreibung <- trimws(kurzbeschreibung)
 
     

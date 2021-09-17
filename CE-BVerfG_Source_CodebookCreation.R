@@ -58,7 +58,7 @@ source("General_Source_Functions.R")
 
 datasetname <- "CE-BVerfG"
 doi.concept <- "10.5281/zenodo.3902658" # checked
-doi.version <- "???" # checked
+doi.version <- "10.5281/zenodo.5514083" # checked
 
 
 files.zip <- list.files(pattern = "\\.zip")
