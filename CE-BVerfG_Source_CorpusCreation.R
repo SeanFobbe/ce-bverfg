@@ -35,6 +35,7 @@
 #'## Funktionsweise
 
 #' Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
+#' 
 #' \begin{enumerate}
 #' \item Der volle Datensatz im CSV-Format
 #' \item Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
@@ -67,6 +68,8 @@
 #' Mit der Funktion **render()** von **rmarkdown** können der **vollständige Datensatz** und das **Codebook** kompiliert und die Skripte mitsamt ihrer Rechenergebnisse in ein gut lesbares PDF-Format überführt werden.
 #'
 #' Alle Kommentare sind im roxygen2-Stil gehalten. Die beiden Skripte können daher auch **ohne render()** regulär als R-Skripte ausgeführt werden. Es wird in diesem Fall kein PDF-Bericht erstellt und Diagramme werden nicht abgespeichert.
+
+
 
 #+
 #'### Datensatz 
@@ -144,6 +147,8 @@ mode.annotate <- TRUE
 
 #'## Optionen: Quanteda
 tokens_locale <- "de_DE"
+
+
 
 
 #'## Optionen: Knitr
@@ -599,7 +604,7 @@ f.bverfg.extract.content <- function(HTML){
 
 
 
-#'# Download vorbereiten: Entscheidungen des BVerfG
+#'# Download vorbereiten: Alle Entscheidungen des BVerfG
 
 #+
 #'## Zeitstempel: Linksammlung Beginn
@@ -745,7 +750,7 @@ links.relative <- c(unlist(links.list),
 
 
 
-#'## Bereinigte HTML und PDF-Links erstellen
+#'## Bereinigte HTML-Links definieren
 
 links.raw <- paste0("https://www.bundesverfassungsgericht.de/",
                     links.relative)
@@ -755,6 +760,10 @@ links.html <- gsub("(.+\\.html).*",
                    links.raw)
 
 links.html <- unique(links.html)
+
+
+
+#'## Bereinigte PDF-Links definieren
 
 links.pdf <- gsub("Entscheidungen",
                   "Downloads",
@@ -1190,7 +1199,7 @@ print(missing)
 
 
 
-#'# HTML Parsen
+#'# HTML verarbeiten
 
 #+
 #'## HTML-Dateien definieren
