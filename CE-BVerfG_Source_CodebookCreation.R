@@ -1176,7 +1176,7 @@ ggplot(data = freqtable) +
                              N),
                  y = N),
              stat = "identity",
-             fill ="#ca2129",
+             fill = "#ca2129",
              color = "black") +
     coord_flip()+
     theme_bw() +
@@ -1460,8 +1460,8 @@ testresult <- system2("gpg2",
 testresult <- gsub('"', '', testresult)
 
 #+ echo = TRUE
-kable(testresult, format = "latex", booktabs=TRUE,
-      longtable=TRUE, col.names = c("Ergebnis"))
+kable(testresult, format = "latex", booktabs = TRUE,
+      longtable = TRUE, col.names = c("Ergebnis"))
 
 
 #'\newpage
@@ -1503,16 +1503,20 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #+
 #'# Changelog
 #'
-#'\ra{1.3}
+#'## Version \version
 #'
+#' \begin{itemize}
+#' \item Vollständige Aktualisierung der Daten
+#' \item Neue Variablen: Pressemitteilung, Zitiervorschlag, Aktenzeichen (alle), Kurzbeschreibung und Richter
+#' \item Neue Variante: Segmentiert
+#' \item Neue Variante: HTML
+#' \item Erweiterung der Codebook-Dokumentation
+#' \item Strenge Kontrolle und semantische Sortierung der Variablen-Namen
+#' \item Abgleich der selbst berechneten ECLI mit der in der HTML-Fassung dokumentierten ECLI
+#' \item Variable für Entscheidungstyp wird nun aus dem Zitiervorschlag berechnet um eine höhere Genaugikeit zu gewährleisten
+#' \end{itemize}\\
 #' 
-#'\begin{centering}
-#'\begin{longtable}{p{2.5cm}p{11.5cm}}
-#'\toprule
-#'Version &  Details\\
-#'\midrule
-#'
-#' \version  &
+#'## Version 2021-05-20
 #'
 #' \begin{itemize}
 #' \item Vollständige Aktualisierung der Daten
@@ -1522,9 +1526,9 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #' \item Neue Datenquellen für Präsident:in, Vize-Präsident:in und für Registerzeichen/Verfahrensarten
 #' \item Zusammenfügen von über Zeilengrenzen getrennten Wörtern in der Variable \enquote{text} (nur CSV-Formate)
 #' \item Einige Verbesserungen im Codebook
-#' \end{itemize}\\
+#' \end{itemize}
 #'
-#' 2021-01-08 & 
+#'## Version 2021-01-08
 #' 
 #' \begin{itemize}
 #' \item Vollständige Aktualisierung der Daten
@@ -1541,23 +1545,20 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #' \item Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
 #' \end{itemize}\\
 #' 
-#'2020-08-03  &
+#'## Version 2020-08-03
 #'
 #'\begin{itemize}
 #'\item Vollständige Aktualisierung der Daten
 #'\item Angleichung der Variablen-Namen an andere Datensätze der CE-Serie von \url{https://zenodo.org/communities/sean-fobbe-data/}
 #'\item Einführung der Variable \enquote{Suffix} um weitere Entscheidungen korrekt erfassen zu können; aufgrund der fehlenden Berücksichtigung des Suffix sind die Metadaten von 36 Entscheidungen der Version 2020-06-20 fehlerhaft. Bitte verwenden Sie daher nur die neue Version. Alternativ können Sie die fehlerhaften Dateien (erkennbar an einem dreistelligen Eingangsjahr) aus der Analyse ausschließen oder per Hand korrigieren.
-#'\end{itemize}\\
+#'\end{itemize}
 #' 
-#'2020-06-20  &
+#'## Version 2020-06-20
 #'
 #' \begin{itemize}
 #' \item Erstveröffentlichung
-#' \end{itemize}\\
-#' 
-#'\bottomrule
-#'\end{longtable}
-#'\end{centering}
+#' \end{itemize}
+
 
 #'\newpage
 #+
