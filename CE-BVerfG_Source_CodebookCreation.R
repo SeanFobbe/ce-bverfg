@@ -501,8 +501,8 @@ df.bverfg <- readtext("*.txt",
 #'\endhead
 #' 
 #' doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
-#' text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bundesverfassungsgericht.de heruntergeladenen PDF-Datei dokumentiert ist.\\
-#' segment & String & (Nur segmentierte Variante) Das in der Variable \enquote{text} gespeicherte Segment der Entscheidung. Vorhandene Segmentarten sind \enquote{leitsatz} (Leitsätze)), \enquote{gegenstand} (Entscheidungsgegenstand), \enquote{formel} (Entscheidungsformel), \enquote{tenor} (Tenor), \enquote{gruende} (Entscheidungsgründe, ggf. mit Anmerkung ob Sondervotum) und \enquote{unterschriften} (Unterschriften der Richter:innen). Die Erkennung von Sondervoten ist noch fehleranfällig. Einzelne Segmente sind mit einer Kombination aus Art und Ordinalzahl definiert, z.B. \enquote{gruende-133-sondervotum}.\\
+#' text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bundesverfassungsgericht.de heruntergeladenen PDF-Datei dokumentiert ist. In der segmentierten Variante stammt der Text aus der HTML-Dateien.\\
+#' segment & String & (Nur segmentierte Variante) Das Segment der Entscheidung. Bezieht sich auf die Variable \enquote{text}. Segmentarten sind \enquote{leitsatz} (Leitsätze)), \enquote{gegenstand} (Entscheidungsgegenstand), \enquote{formel} (Entscheidungsformel), \enquote{tenor} (Tenor), \enquote{gruende} (Entscheidungsgründe, ggf. mit Anmerkung ob Sondervotum) und \enquote{unterschriften} (Unterschriften der Richter:innen). Die Erkennung von Sondervoten ist noch fehleranfällig. Einzelne Segmente sind mit einer Kombination aus Art und Ordinalzahl definiert, z.B. \enquote{gruende-133-sondervotum}.\\
 #' gericht & String & In diesem Datensatz ist nur der Wert \enquote{BVerfG} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{Bundesverfassungsgericht}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
 #' datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
 #' entscheidung\_typ & String &  (Nur CSV-Datei) Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss) und \enquote{U} (Urteil) vergeben. Wurde durch \emph{regular expressions} aus der Variable \enquote{zitiervorschlag} berechnet.\\
@@ -776,7 +776,7 @@ kable(table.vpraesi.alter[grep("VACANCY", table.vpraesi.daten$name_last, invert 
 #'\end{longtable}
 #'\end{centering}
 #'
-#' Es handelt sich bei den Diagrammen jeweils um "Density Charts", die sich besonders dafür eignen die Schwerpunkte von Variablen mit stark schwankenden numerischen Werten zu visualisieren. Die Interpretation ist denkbar einfach: je höher die Kurve, desto dichter sind in diesem Bereich die Werte der Variable. Der Wert der y-Achse kann außer Acht gelassen werden, wichtig sind nur die relativen Flächenverhältnisse und die x-Achse.
+#' Es handelt sich bei den Diagrammen jeweils um \enquote{Density Charts}, die sich besonders dafür eignen die Schwerpunkte von Variablen mit stark schwankenden numerischen Werten zu visualisieren. Die Interpretation ist denkbar einfach: je höher die Kurve, desto dichter sind in diesem Bereich die Werte der Variable. Der Wert der y-Achse kann außer Acht gelassen werden, wichtig sind nur die relativen Flächenverhältnisse und die x-Achse.
 #'
 #' Vorsicht bei der Interpretation: Die x-Achse it logarithmisch skaliert, d.h. in 10er-Potenzen und damit nicht-linear. Die kleinen Achsen-Markierungen zwischen den Schritten der Exponenten sind eine visuelle Hilfestellung um diese nicht-Linearität zu verstehen.
 #'
@@ -1514,7 +1514,7 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #' \item Strenge Kontrolle und semantische Sortierung der Variablen-Namen
 #' \item Abgleich der selbst berechneten ECLI mit der in der HTML-Fassung dokumentierten ECLI
 #' \item Variable für Entscheidungstyp wird nun aus dem Zitiervorschlag berechnet um eine höhere Genaugikeit zu gewährleisten
-#' \end{itemize}\\
+#' \end{itemize}
 #' 
 #'## Version 2021-05-20
 #'
@@ -1543,15 +1543,15 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #' \item Alle Variablen sind nun in Kleinschreibung und Snake Case gehalten
 #' \item Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
 #' \item Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
-#' \end{itemize}\\
+#' \end{itemize}
 #' 
 #'## Version 2020-08-03
 #'
-#'\begin{itemize}
-#'\item Vollständige Aktualisierung der Daten
-#'\item Angleichung der Variablen-Namen an andere Datensätze der CE-Serie von \url{https://zenodo.org/communities/sean-fobbe-data/}
-#'\item Einführung der Variable \enquote{Suffix} um weitere Entscheidungen korrekt erfassen zu können; aufgrund der fehlenden Berücksichtigung des Suffix sind die Metadaten von 36 Entscheidungen der Version 2020-06-20 fehlerhaft. Bitte verwenden Sie daher nur die neue Version. Alternativ können Sie die fehlerhaften Dateien (erkennbar an einem dreistelligen Eingangsjahr) aus der Analyse ausschließen oder per Hand korrigieren.
-#'\end{itemize}
+#' \begin{itemize}
+#' \item Vollständige Aktualisierung der Daten
+#' \item Angleichung der Variablen-Namen an andere Datensätze der CE-Serie\footnote{Siehe: \url{https://zenodo.org/communities/sean-fobbe-data/}}
+#' \item Einführung der Variable \enquote{Suffix} um weitere Entscheidungen korrekt erfassen zu können; aufgrund der fehlenden Berücksichtigung des Suffix sind die Metadaten von 36 Entscheidungen der Version 2020-06-20 fehlerhaft. Bitte verwenden Sie daher nur die neue Version. Alternativ können Sie die fehlerhaften Dateien (erkennbar an einem dreistelligen Eingangsjahr) aus der Analyse ausschließen oder per Hand korrigieren.
+#' \end{itemize}
 #' 
 #'## Version 2020-06-20
 #'
