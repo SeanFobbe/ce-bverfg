@@ -115,7 +115,7 @@ datasetname <- "CE-BVerfG"
 doi.concept <- "10.5281/zenodo.3902658" # checked
 
 #'## DOI der konkreten Version
-doi.version <- "10.5281/zenodo.5514083"
+doi.version <- "10.5281/zenodo.5514083" # checked
 
 #'## Lizenz
 license <- "Creative Commons Zero 1.0 Universal"
