@@ -691,6 +691,10 @@ Sys.sleep(runif(1, 20, 40))
 
 
 #'## Linkliste erstellen: Zweitversuch
+#'
+
+#+
+#'### Seiten für Zweitversuch definieren 
 #' Jede Seite der Datenbank sollte im Idealfall 10 Entscheidungen enthalten. Alle Seiten, die diese Bedingung nicht erfüllen werden noch einmal geprüft. Die letzte Seite enthält fast immer weniger als 10 Entscheidungen, wird sicherheitshalber aber trotzdem geprüft, statt sie auszusortieren. Dabei entstehende Duplikate werden später durch **unique()** entfernt.
 
 retry.pages <- which(unlist(lapply(links.list,
@@ -702,11 +706,11 @@ retry.links.list <- vector("list",
                            length(retry.pages))
 
 
-#' Anzeigen der Seiten die noch einmal geprüft werden.
+#'### Anzeigen der Seiten die noch einmal geprüft werden.
 
 print(retry.pages)
 
-
+#'### Seiten prüfen
 
 for (i in retry.indices){
 
@@ -728,7 +732,7 @@ for (i in retry.indices){
     }
 
 
-#' Anzeigen der Links die beim Wiederholungsversuch gesammelt wurden.
+#'### Anzeigen der Links die beim Wiederholungsversuch gesammelt wurden.
 
 print(retry.links.list)
 
