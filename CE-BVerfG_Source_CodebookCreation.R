@@ -1452,6 +1452,7 @@ system2("gpg2", "--import GPG-Public-Key_Fobbe-Data.asc",
 
 # CSV-Datei mit Hashes
 print(hashfile)
+
 # GPG-Signatur
 print(signaturefile)
 
