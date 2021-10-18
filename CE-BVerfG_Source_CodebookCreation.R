@@ -681,7 +681,9 @@ kable(table.praesi.daten,
 #+
 #'## Dienstalter und Lebensalter
 
-kable(table.praesi.alter[grep("VACANCY", table.praesi.daten$name_last, invert = TRUE)],
+kable(table.praesi.alter[grep("VACANCY",
+                              table.praesi.daten$name_last,
+                              invert = TRUE)],
       format = "latex",
       align = c("l", "l", "c", "c", "c"),
       booktabs = TRUE,
