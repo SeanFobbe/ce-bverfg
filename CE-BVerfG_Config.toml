@@ -61,16 +61,14 @@ fig.align = "center"    	# Ausrichtung von Diagrammen im Compilation Report
 # Frequenztabellen: Liste zu prüfender Variablen
 #' **Hinweis:** Nur diese Variablen werden bei der Erstellung der Frequenztabellen berücksichtigt.
 
-freqtable.ignore =  ["periodikum",
-		    "fundstellentyp",
-		    "check_neuf",
-		    "check_aufh",
-		    "check_sonst",
-		    "check_hinweis",
-		    "check_stand",
-		    "gliederungskennzahl",
-		    "ausfertigung_jahr",
-		    "doi_concept",
-		    "doi_version",
-		    "version",	
-		    "lizenz" ]
+freqtable.ignore = ["text",
+		    "eingangsnummer",
+		    "datum",
+		    "doc_id",
+		    "seite",
+		    "name",
+		    "ecli",
+		    "aktenzeichen",
+		    "pressemitteilung",
+		    "zitiervorschlag",
+		    "kurzbeschreibung"]
