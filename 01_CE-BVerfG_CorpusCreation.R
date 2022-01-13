@@ -76,54 +76,6 @@ source("00_CE-BVerfG_FullCompile.R")
 
 
 
-config$annotate$toggle
-
-
-#'## Modus: Linguistische Annotationen
-#' Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit anderen Modi kombiniert werden.
-
-config$annotate$toggle <- TRUE
-
-
-
-
-#'## Optionen: Quanteda
-tokens_locale <- "de_DE"
-
-
-
-
-#'## Optionen: Knitr
-
-#+
-#'### Ausgabe-Formate
-dev <- c("pdf",
-         "png")
-
-#'### Auflösung der Raster-Grafiken
-dpi <- 300
-
-#'### Ausrichtung von Grafiken im Compilation Report
-fig.align <- "center"
-
-
-#'## Frequenztabellen: Ignorierte Variablen
-
-#' Diese Variablen werden bei der Erstellung der Frequenztabellen nicht berücksichtigt.
-
-varremove <- c("text",
-               "eingangsnummer",
-               "datum",
-               "doc_id",
-               "seite",
-               "name",
-               "ecli",
-               "aktenzeichen",
-               "pressemitteilung",
-               "zitiervorschlag",
-               "kurzbeschreibung")
-
-
 
 
 #'# Vorbereitung
@@ -140,8 +92,7 @@ begin.script <- Sys.time()
 print(begin.script)
 
 
-#'## Ordner für Analyse-Ergebnisse erstellen
-dir.create(dir.analysis)
+
 
 
 #+
@@ -184,18 +135,19 @@ dir.analysis <- paste0(getwd(),
 #'## Weitere Verzeichnisse definieren
 
 dirs <- c("output",
-          "temp",
-          "netzwerke")
+          "temp")
 
 
 
 #'## Dateien aus vorherigen Runs bereinigen
 
-unlink(dir.analysis, recursive = TRUE)
+unlink(dir.analysis,
+       recursive = TRUE)
 
-unlink(dirs, recursive = TRUE)
+unlink(dirs,
+       recursive = TRUE)
 
-files.delete <- list.files(pattern = "\\.zip|\\.xml|\\.jpe?g|\\.png|\\.gif|\\.pdf|\\.epub",
+files.delete <- list.files(pattern = "\\.zip|\\.pdf|\\.txt",
                            ignore.case = TRUE)
 
 unlink(files.delete)
@@ -1895,14 +1847,14 @@ print(f.fast.freqtable)
 
 
 #'## Ignorierte Variablen
-print(varremove)
+print(config$freqtable$ignore)
 
 
 
 #'## Liste zu prüfender Variablen
 
 varlist <- names(txt.bverfg)
-varlist <- grep(paste(varremove,
+varlist <- grep(paste(config$freqtable$ignore,
                       collapse = "|"),
                 varlist,
                 invert = TRUE,
