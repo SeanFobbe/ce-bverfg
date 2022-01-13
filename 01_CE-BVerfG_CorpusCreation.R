@@ -76,6 +76,8 @@ source("00_CE-BVerfG_FullCompile.R")
 config$project$shortname
 config$doi$data$concept
 config$doi$data$version
+config$license$data
+
 
 #'\newpage
 #+
@@ -92,7 +94,7 @@ config$doi$data$concept <- "10.5281/zenodo.3902658" # checked
 config$doi$data$version <- "10.5281/zenodo.5514083" # checked
 
 #'## Lizenz
-license <- "Creative Commons Zero 1.0 Universal"
+config$license$data <- "Creative Commons Zero 1.0 Universal"
 
 
 #'## Verzeichnis für Analyse-Ergebnisse
@@ -1707,7 +1709,7 @@ txt.bverfg$version <- as.character(rep(datestamp,
 
 
 #'## Variable "lizenz" hinzufügen
-txt.bverfg$lizenz <- as.character(rep(license,
+txt.bverfg$lizenz <- as.character(rep(config$license$data,
                                    txt.bverfg[,.N]))
 
 
