@@ -73,21 +73,16 @@ source("00_CE-BVerfG_FullCompile.R")
 #' Um die PDF-Berichte kompilieren zu können benötigen Sie das R package **rmarkdown**, eine vollständige Installation von \LaTeX\ und alle in der Präambel-TEX-Datei angegebenen \LaTeX\ Packages.
 
 
-config$debug$toggle
-config$debug$sample
 
-#'## Modus: Debugging
-#' Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "config$debug$sample" angegebenen Umfang Seiten (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen. Nur für Test- und Demonstrationszwecke.  Kann mit anderen Modi kombiniert werden.
 
-config$debug$toggle <- FALSE
-config$debug$sample <- 10
 
+config$annotate$toggle
 
 
 #'## Modus: Linguistische Annotationen
 #' Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit anderen Modi kombiniert werden.
 
-mode.annotate <- TRUE
+config$annotate$toggle <- TRUE
 
 
 
@@ -2585,7 +2580,7 @@ ggplot(data = meta.bverfg)+
 
 #'# Linguistische Annotationen berechnen
 
-if (mode.annotate == TRUE){
+if (config$annotate$toggle == TRUE){
 
     txt.annotated <- f.dopar.spacyparse(txt.bverfg,
                                         threads = detectCores(),
@@ -2790,7 +2785,7 @@ fwrite(dt.segmented.full,
 
 #'## CSV mit Annotationen speichern
 
-if (mode.annotate == TRUE){
+if (config$annotate$toggle == TRUE){
 
     csvname.annotated <- paste(config$project$shortname,
                                datestamp,
@@ -2973,7 +2968,7 @@ unlink(csvname.segmented)
 
 
 #+ results = 'hide'
-if (mode.annotate == TRUE){
+if (config$annotate$toggle == TRUE){
 
     csvname.annotated.zip <- gsub(".csv",
                                   ".zip",
