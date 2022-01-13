@@ -73,6 +73,7 @@ source("00_CE-BVerfG_FullCompile.R")
 #' Um die PDF-Berichte kompilieren zu können benötigen Sie das R package **rmarkdown**, eine vollständige Installation von \LaTeX\ und alle in der Präambel-TEX-Datei angegebenen \LaTeX\ Packages.
 
 
+config$project$shortname
 
 
 #'\newpage
@@ -81,7 +82,7 @@ source("00_CE-BVerfG_FullCompile.R")
 
 #+
 #'## Name des Datensatzes
-datasetname <- "CE-BVerfG"
+config$project$shortname <- "CE-BVerfG"
 
 #'## DOI des Datensatz-Konzeptes
 doi.concept <- "10.5281/zenodo.3902658" # checked
@@ -258,7 +259,7 @@ knitr::write_bib(c(.packages()),
 
 #+
 #'### Konfiguration einlesen
-config <- parseTOML("C-DBR_Config.toml")
+config <- parseTOML("CE-BVerfG_Config.toml")
 
 #'### Konfiguration anzeigen
 print(config)
@@ -1943,7 +1944,7 @@ print(varlist)
 
 #'## Frequenztabellen erstellen
 
-prefix <- paste0(datasetname,
+prefix <- paste0(config$project$shortname,
                  "_01_Frequenztabelle_var-")
 
 
@@ -1968,7 +1969,7 @@ f.fast.freqtable(txt.bverfg,
 #'## Präfix erstellen
 
 prefix <- paste0("ANALYSE/",
-                 datasetname,
+                 config$project$shortname,
                  "_01_Frequenztabelle_var-")
 
 
@@ -2021,7 +2022,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Entscheidungs-Typ"),
@@ -2062,7 +2063,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Spruchkörper-Typ"),
@@ -2099,7 +2100,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
@@ -2135,7 +2136,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Registerzeichen"),
@@ -2171,7 +2172,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Präsident:in"),
@@ -2208,7 +2209,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Vize-Präsident:in"),
@@ -2242,7 +2243,7 @@ ggplot(data = freqtable) +
              fill = "#ca2129") +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Entscheidungsjahr"),
@@ -2277,7 +2278,7 @@ ggplot(data = freqtable) +
              fill = "#ca2129") +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
@@ -2418,7 +2419,7 @@ kable(dt.stats.ling,
 
 fwrite(dt.stats.ling,
        paste0(outputdir,
-              datasetname,
+              config$project$shortname,
               "_00_KorpusStatistik_ZusammenfassungLinguistisch.csv"),
        na = "NA")
 
@@ -2486,7 +2487,7 @@ kable(dt.stats.docvars,
 
 fwrite(dt.stats.docvars,
        paste0(outputdir,
-              datasetname,
+              config$project$shortname,
               "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv"),
        na = "NA")
 
@@ -2509,7 +2510,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Zeichen je Dokument"),
@@ -2542,7 +2543,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Tokens je Dokument"),
@@ -2575,7 +2576,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Typen je Dokument"),
@@ -2608,7 +2609,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Sätze je Dokument"),
@@ -2799,7 +2800,7 @@ names(dt.segmented.full)
 
 #'## CSV mit vollem Datensatz speichern
 
-csvname.full <- paste(datasetname,
+csvname.full <- paste(config$project$shortname,
                       datestamp,
                       "DE_CSV_Datensatz.csv",
                       sep = "_")
@@ -2814,7 +2815,7 @@ fwrite(txt.bverfg,
 #'## CSV mit Metadaten speichern
 #' Diese Datei ist grundsätzlich identisch mit dem eigentlichen Datensatz, nur ohne den Text der Entscheidungen.
 
-csvname.meta <- paste(datasetname,
+csvname.meta <- paste(config$project$shortname,
                       datestamp,
                       "DE_CSV_Metadaten.csv",
                       sep = "_")
@@ -2827,7 +2828,7 @@ fwrite(meta.bverfg,
 
 #'## CSV mit Segmenten speichern
 
-csvname.segmented <- paste(datasetname,
+csvname.segmented <- paste(config$project$shortname,
                            datestamp,
                            "DE_CSV_Segmentiert.csv",
                            sep = "_")
@@ -2841,7 +2842,7 @@ fwrite(dt.segmented.full,
 
 if (mode.annotate == TRUE){
 
-    csvname.annotated <- paste(datasetname,
+    csvname.annotated <- paste(config$project$shortname,
                                datestamp,
                                "DE_CSV_Annotiert.csv",
                                sep = "_")
@@ -2917,7 +2918,7 @@ ggplot(data = dt.plot,
     annotation_logticks(sides = "b")+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Dateigrößen (PDF)"),
@@ -2951,7 +2952,7 @@ ggplot(data = dt.plot,
     annotation_logticks(sides = "b")+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Dateigrößen (TXT)"),
@@ -3046,7 +3047,7 @@ files.pdf <- list.files(pattern = "\\.pdf",
                          ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(datasetname,
+zip(paste(config$project$shortname,
           datestamp,
           "DE_PDF_Datensatz.zip",
           sep = "_"),
@@ -3062,7 +3063,7 @@ files.html <- list.files(pattern = "\\.html",
                          ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(datasetname,
+zip(paste(config$project$shortname,
           datestamp,
           "DE_HTML_Datensatz.zip",
           sep = "_"),
@@ -3080,7 +3081,7 @@ files.txt <- list.files(pattern = "\\.txt",
                         ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(datasetname,
+zip(paste(config$project$shortname,
           datestamp,
           "DE_TXT_Datensatz.zip",
           sep = "_"),
@@ -3093,7 +3094,7 @@ unlink(files.txt)
 
 #'## Verpacken der Analyse-Dateien
 
-zip(paste0(datasetname,
+zip(paste0(config$project$shortname,
            "_",
            datestamp,
            "_DE_",
@@ -3116,7 +3117,7 @@ files.source <- grep("spin",
                      ignore.case = TRUE,
                      invert = TRUE)
 
-zip(paste(datasetname,
+zip(paste(config$project$shortname,
           datestamp,
           "Source_Files.zip",
           sep = "_"),
@@ -3156,7 +3157,7 @@ multihashes$index <- seq_len(multihashes[,.N])
 #'\newpage
 #'## In Datei schreiben
 fwrite(multihashes,
-       paste(datasetname,
+       paste(config$project$shortname,
              datestamp,
              "KryptographischeHashes.csv",
              sep = "_"),
