@@ -74,7 +74,8 @@ source("00_CE-BVerfG_FullCompile.R")
 
 
 config$project$shortname
-
+config$doi$data$concept
+config$doi$data$version
 
 #'\newpage
 #+
@@ -85,10 +86,10 @@ config$project$shortname
 config$project$shortname <- "CE-BVerfG"
 
 #'## DOI des Datensatz-Konzeptes
-doi.concept <- "10.5281/zenodo.3902658" # checked
+config$doi$data$concept <- "10.5281/zenodo.3902658" # checked
 
 #'## DOI der konkreten Version
-doi.version <- "10.5281/zenodo.5514083" # checked
+config$doi$data$version <- "10.5281/zenodo.5514083" # checked
 
 #'## Lizenz
 license <- "Creative Commons Zero 1.0 Universal"
@@ -1689,13 +1690,13 @@ txt.bverfg$aktenzeichen <- gsub("NA ",
 
 #'## Variable "doi_concept" hinzufügen
 
-txt.bverfg$doi_concept <- rep(doi.concept,
+txt.bverfg$doi_concept <- rep(config$doi$data$concept,
                               txt.bverfg[,.N])
 
 
 #'## Variable "doi_version" hinzufügen
 
-txt.bverfg$doi_version <- rep(doi.version,
+txt.bverfg$doi_version <- rep(config$doi$data$version,
                               txt.bverfg[,.N])
 
 
@@ -2027,7 +2028,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Entscheidungs-Typ"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Typ der Entscheidung",
         y = "Entscheidungen"
@@ -2068,7 +2069,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Spruchkörper-Typ"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Typ des Spruchkörpers",
         y = "Entscheidungen"
@@ -2105,7 +2106,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Senat",
         y = "Entscheidungen"
@@ -2141,7 +2142,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Registerzeichen"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Registerzeichen",
         y = "Entscheidungen"
@@ -2177,7 +2178,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Präsident:in"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Präsident:in",
         y = "Entscheidungen"
@@ -2214,7 +2215,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Vize-Präsident:in"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Vize-Präsident:in",
         y = "Entscheidungen"
@@ -2248,7 +2249,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Entscheidungsjahr"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Entscheidungsjahr",
         y = "Entscheidungen"
@@ -2283,7 +2284,7 @@ ggplot(data = freqtable) +
                       datestamp,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Eingangsjahr (ISO)",
         y = "Entscheidungen"
@@ -2515,7 +2516,7 @@ ggplot(data = meta.bverfg)+
                       datestamp,
                       "| Verteilung der Zeichen je Dokument"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Zeichen",
         y = "Dichte"
@@ -2548,7 +2549,7 @@ ggplot(data = meta.bverfg)+
                       datestamp,
                       "| Verteilung der Tokens je Dokument"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Tokens",
         y = "Dichte"
@@ -2581,7 +2582,7 @@ ggplot(data = meta.bverfg)+
                       datestamp,
                       "| Verteilung der Typen je Dokument"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Typen",
         y = "Dichte"
@@ -2614,7 +2615,7 @@ ggplot(data = meta.bverfg)+
                       datestamp,
                       "| Verteilung der Sätze je Dokument"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Sätze",
         y = "Dichte"
@@ -2923,7 +2924,7 @@ ggplot(data = dt.plot,
                       datestamp,
                       "| Verteilung der Dateigrößen (PDF)"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Dateigröße in MB",
         y = "Dichte"
@@ -2957,7 +2958,7 @@ ggplot(data = dt.plot,
                       datestamp,
                       "| Verteilung der Dateigrößen (TXT)"),
         caption = paste("DOI:",
-                        doi.version,
+                        config$doi$data$version,
                         "| Fobbe"),
         x = "Dateigröße in MB",
         y = "Dichte"
