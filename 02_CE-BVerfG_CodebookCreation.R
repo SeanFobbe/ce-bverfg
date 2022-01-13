@@ -1511,6 +1511,12 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #'
 #'## Version \version
 #'
+#' - Strenge Versionskontrolle von R packages mit **renv**
+#' - Kompilierung jetzt detailliert konfigurierbar, insbesondere die Parallelisierung
+#' - Source Code des Changelogs jetzt in Markdown
+#'
+#'## Version 2021-09-19
+#' 
 #'- Vollständige Aktualisierung der Daten
 #'- Neue Variablen: Pressemitteilung, Zitiervorschlag, Aktenzeichen (alle), Kurzbeschreibung und Richter
 #'- Neue Variante: Segmentiert
