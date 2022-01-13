@@ -1,5 +1,5 @@
 #'---
-#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG-Source)"
+#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverfassungsgerichts"
 #'author: Seán Fobbe
 #'papersize: a4
 #'geometry: margin=3cm
