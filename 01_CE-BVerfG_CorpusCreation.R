@@ -73,43 +73,14 @@ source("00_CE-BVerfG_FullCompile.R")
 #' Um die PDF-Berichte kompilieren zu können benötigen Sie das R package **rmarkdown**, eine vollständige Installation von \LaTeX\ und alle in der Präambel-TEX-Datei angegebenen \LaTeX\ Packages.
 
 
-config$project$shortname
-config$doi$data$concept
-config$doi$data$version
-config$license$data
-
-
-#'\newpage
-#+
-#'# Parameter
-
-#+
-#'## Name des Datensatzes
-config$project$shortname <- "CE-BVerfG"
-
-#'## DOI des Datensatz-Konzeptes
-config$doi$data$concept <- "10.5281/zenodo.3902658" # checked
-
-#'## DOI der konkreten Version
-config$doi$data$version <- "10.5281/zenodo.5514083" # checked
-
-#'## Lizenz
-config$license$data <- "Creative Commons Zero 1.0 Universal"
-
-
-#'## Verzeichnis für Analyse-Ergebnisse
-#' Hinweis: Muss mit einem Schrägstrich enden!
-
-dir.analysis <- paste0(getwd(),
-                    "/ANALYSE/") 
-
-
+config$debug$toggle
+config$debug$sample
 
 #'## Modus: Debugging
-#' Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen. Nur für Test- und Demonstrationszwecke.  Kann mit anderen Modi kombiniert werden.
+#' Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "config$debug$sample" angegebenen Umfang Seiten (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen. Nur für Test- und Demonstrationszwecke.  Kann mit anderen Modi kombiniert werden.
 
-mode.debug <- FALSE
-debug.scope <- 10
+config$debug$toggle <- FALSE
+config$debug$sample <- 10
 
 
 
@@ -791,9 +762,9 @@ pages <- seq_len(maxpage)
 
 #'## [Debugging Modus] Reduzierung der Seitenzahl
 
-if (mode.debug == TRUE){
+if (config$debug$toggle == TRUE){
     pages <- sort(sample(pages,
-                    debug.scope))
+                    config$debug$sample))
     }
 
 
