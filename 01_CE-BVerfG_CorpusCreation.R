@@ -100,7 +100,7 @@ config$license$data <- "Creative Commons Zero 1.0 Universal"
 #'## Verzeichnis für Analyse-Ergebnisse
 #' Hinweis: Muss mit einem Schrägstrich enden!
 
-outputdir <- paste0(getwd(),
+dir.analysis <- paste0(getwd(),
                     "/ANALYSE/") 
 
 
@@ -175,7 +175,7 @@ print(begin.script)
 
 
 #'## Ordner für Analyse-Ergebnisse erstellen
-dir.create(outputdir)
+dir.create(dir.analysis)
 
 
 #+
@@ -1958,7 +1958,7 @@ f.fast.freqtable(txt.bverfg,
                  output.list = FALSE,
                  output.kable = TRUE,
                  output.csv = TRUE,
-                 outputdir = outputdir,
+                 outputdir = dir.analysis,
                  prefix = prefix,
                  align = c("p{5cm}",
                            rep("r", 4)))
@@ -2405,7 +2405,7 @@ kable(dt.stats.ling,
 #'### Zusammenfassungen speichern
 
 fwrite(dt.stats.ling,
-       paste0(outputdir,
+       paste0(dir.analysis,
               config$project$shortname,
               "_00_KorpusStatistik_ZusammenfassungLinguistisch.csv"),
        na = "NA")
@@ -2473,7 +2473,7 @@ kable(dt.stats.docvars,
 #'### Zusammenfassungen speichern
 
 fwrite(dt.stats.docvars,
-       paste0(outputdir,
+       paste0(dir.analysis,
               config$project$shortname,
               "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv"),
        na = "NA")
@@ -3073,9 +3073,9 @@ zip(paste0(config$project$shortname,
            "_",
            datestamp,
            "_DE_",
-           basename(outputdir),
+           basename(dir.analysis),
            ".zip"),
-    basename(outputdir))
+    basename(dir.analysis))
 
 
 
