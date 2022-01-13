@@ -162,11 +162,6 @@ dir.create(dir.analysis)
 lapply(dirs, dir.create)
 
 
-dir.create("netzwerke/Edgelists")
-dir.create("netzwerke/Adjazenzmatrizen")
-dir.create("netzwerke/Netzwerkdiagramme")
-dir.create("netzwerke/GraphML")
-dir.create("netzwerke/Gliederungstabellen")
 
 
 #'## Vollzitate statistischer Software schreiben
