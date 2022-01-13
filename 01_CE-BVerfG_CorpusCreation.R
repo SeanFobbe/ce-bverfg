@@ -60,7 +60,7 @@
 
 #+ eval = FALSE
 
-source("00_C-DBR_FullCompile.R")
+source("00_CE-BVerfG_FullCompile.R")
 
 #+
 #'## Systemanforderungen
