@@ -386,12 +386,6 @@ if (file.exists("data/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv"
 
 
 
-#'# Funktionen definieren
-
-
-
-
-
 
 
 #'# Download vorbereiten: Alle Entscheidungen des BVerfG
