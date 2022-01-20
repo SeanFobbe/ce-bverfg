@@ -185,6 +185,7 @@ knitr::write_bib(c(.packages()),
 
 
 
+
 #'## Allgemeine Konfiguration
 
 #+
