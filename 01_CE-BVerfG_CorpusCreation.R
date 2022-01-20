@@ -1126,12 +1126,14 @@ dt.segmented.full$text <- gsub(" ",
 
 #'## Stichprobe Metadaten
 fwrite(dt.meta.html[sample(.N, 50)],
-       "QA_Stichprobe_HTML-Metadaten.csv")
+       file.path(dir.analysis,
+                 "QA_Stichprobe_HTML-Metadaten.csv"))
 
 
 #'## Stichprobe Segmentierte Variante
 fwrite(dt.segmented.full[sample(.N, 50)],
-       "QA_Stichprobe_HTML-SegmentierterVolltext.csv")
+       file.path(dir.analysis,
+                 "QA_Stichprobe_HTML-SegmentierterVolltext.csv"))
 
 
 
