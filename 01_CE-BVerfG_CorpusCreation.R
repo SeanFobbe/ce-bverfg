@@ -2742,9 +2742,7 @@ unlink(files.txt)
 #'## Verpacken der Analyse-Dateien
 
 zip(paste0(prefix.files,
-           "_DE_",
-           basename(dir.analysis),
-           ".zip"),
+           "_DE_ANALYSE.zip"),
     basename(dir.analysis))
 
 
