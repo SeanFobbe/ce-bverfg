@@ -2163,9 +2163,9 @@ kable(dt.stats.docvars,
 #'### Zusammenfassungen speichern
 
 fwrite(dt.stats.docvars,
-       paste0(dir.analysis,
-              config$project$shortname,
-              "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv"),
+       file.path(dir.analysis,
+                 paste0(config$project$shortname,
+                        "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv")),
        na = "NA")
 
 
