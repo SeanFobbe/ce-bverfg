@@ -150,8 +150,7 @@ dir.analysis <- paste0(getwd(),
 #'## Weitere Verzeichnisse definieren
 
 dirs <- c("output",
-          "temp",
-          "data")
+          "temp")
 
 
 
