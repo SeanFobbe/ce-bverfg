@@ -712,34 +712,34 @@ filenames2[indices] <- paste0(values,
 
 #'### Zweite strenge REGEX-Validierung der Dateinamen
 
-regex.test2 <- grep("^BVerfG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[SPKB]_[0-9NA]+_[A-Za-z]+_[0-9]{4}_[0-9]{2}_[0-9a-zNA]+_[0-9ÄÜÖäüöA-Za-z\\-]+_[NA0-9]+_[NA0-9]+\\.pdf$",
-                    filenames2,
-                    value = TRUE,
-                    invert = TRUE)
+#regex.test2 <- grep("^BVerfG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[SPKB]_[0-9NA]+_[A-Za-z]+_[0-9]{4}_[0-9]{2}_[0-9a-zNA]+_[0-9ÄÜÖäüöA-Za-z\\-]+_[NA0-9]+_[NA0-9]+\\.pdf$",
+#                    filenames2,
+#                    value = TRUE,
+#                    invert = TRUE)
 
 
-regex.test2 <- grep(paste0("^BVerfG",
+regex.test2 <- grep(paste0("^BVerfG", # gericht
                            "_",
-                           "[0-9]{4}-[0-9]{2}-[0-9]{2}",
+                           "[0-9]{4}-[0-9]{2}-[0-9]{2}", # datum
                            "_",
-                           "[SPKB]",
+                           "[SPKB]", # spruchkoerper_typ
                            "_",
-                           "[0-9NA]+",
+                           "[0-9NA]+", # spruchkoerper_az
                            "_",
-                           "[A-Za-z]+",
+                           "[A-Za-z]+", # registerzeichen
                            "_",
-                           "[0-9]{4}",
+                           "[0-9]{4}", # eingangsnummer
                            "_",
-                           "[0-9]{2}",
+                           "[0-9]{2}", # eingangsjahr_az
                            "_",
-                           "[0-9a-zNA]+",
+                           "[0-9a-zNA]+", # kollision
                            "_",
-                           "[0-9ÄÜÖäüöA-Za-z\\-]+",
+                           "[0-9ÄÜÖäüöA-Za-z\\-]+", # name
                            "_",
-                           "[NA0-9]+",
+                           "[NA0-9]+", #band
                            "_",
-                           "[NA0-9]+",
-                           "\\.pdf$"),
+                           "[NA0-9]+", # seite
+                           "\\.pdf$"), # Dateiendung
                     filenames2,
                     value = TRUE,
                     invert = TRUE)
