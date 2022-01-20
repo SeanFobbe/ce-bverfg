@@ -2299,7 +2299,7 @@ ggplot(data = meta.bverfg)+
 if (config$annotate$toggle == TRUE){
 
     txt.annotated <- f.dopar.spacyparse(txt.bverfg,
-                                        threads = detectCores(),
+                                        threads = fullCores,
                                         chunksize = 1,
                                         model = "de_core_news_sm",
                                         pos = TRUE,
