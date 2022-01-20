@@ -1043,6 +1043,18 @@ print(missing)
 #'# HTML verarbeiten
 
 #+
+#'## Funktion anzeigen: f.bverfg.extract.meta
+
+print(f.bverfg.extract.meta)
+
+#+
+#'## Funktion anzeigen: f.bverfg.extract.content
+
+
+print(f.bverfg.extract.content)
+
+
+#+
 #'## HTML-Dateien definieren
 
 files.html <- list.files(pattern = "\\.html")
