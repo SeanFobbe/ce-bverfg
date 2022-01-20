@@ -141,10 +141,9 @@ source("R-fobbe-proto-package/f.dopar.multihashes.R")
 
 
 #'## Verzeichnis für Analyse-Ergebnisse und Diagramme definieren
-#' Muss mit einem Schrägstrich enden!
 
 dir.analysis <- paste0(getwd(),
-                    "/analyse/") 
+                    "/analyse") 
 
 
 #'## Weitere Verzeichnisse definieren
@@ -1678,9 +1677,9 @@ f.fast.freqtable(txt.bverfg,
 
 #'## Präfix erstellen
 
-prefix <- paste0("ANALYSE/",
-                 config$project$shortname,
-                 "_01_Frequenztabelle_var-")
+prefix <- file.path(dir.analysis,
+                    paste0(config$project$shortname,
+                           "_01_Frequenztabelle_var-"))
 
 
 #'## Tabellen einlesen
