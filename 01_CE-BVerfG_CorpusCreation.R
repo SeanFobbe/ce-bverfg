@@ -1251,7 +1251,8 @@ setorder(txt.bverfg,
 #+
 #'### Lebensdaten einlesen
 
-praesi <- fread("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv")
+praesi <- fread(file.path("data",
+                          "PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv"))
 praesi <- praesi[court == "BVerfG", c(1:3, 5:6)]
 
 
