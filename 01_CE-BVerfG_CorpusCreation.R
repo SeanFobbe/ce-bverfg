@@ -123,7 +123,7 @@ library(spacyr)       # Linguistische Annotationen
 #'## Zusätzliche Funktionen einlesen
 #' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
 
-#source("General_Source_Functions.R")
+
 
 source("R-fobbe-proto-package/f.remove.specialunderline.R")
 source("R-fobbe-proto-package/f.linkextract.R")
@@ -135,6 +135,8 @@ source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
 source("R-fobbe-proto-package/f.dopar.spacyparse.R")
 source("R-fobbe-proto-package/f.dopar.multihashes.R")
 
+
+#source("General_Source_Functions.R")
 
 
 #'## Verzeichnis für Analyse-Ergebnisse und Diagramme definieren
