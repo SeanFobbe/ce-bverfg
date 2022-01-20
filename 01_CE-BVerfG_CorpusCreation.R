@@ -2697,8 +2697,7 @@ files.pdf <- list.files(pattern = "\\.pdf",
                          ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(config$project$shortname,
-          datestamp,
+zip(paste(prefix.files,
           "DE_PDF_Datensatz.zip",
           sep = "_"),
     files.pdf)
@@ -2713,8 +2712,7 @@ files.html <- list.files(pattern = "\\.html",
                          ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(config$project$shortname,
-          datestamp,
+zip(paste(prefix.files,
           "DE_HTML_Datensatz.zip",
           sep = "_"),
     files.html)
