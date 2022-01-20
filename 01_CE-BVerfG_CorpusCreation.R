@@ -2461,8 +2461,7 @@ names(dt.segmented.full)
 
 #'## CSV mit vollem Datensatz speichern
 
-csvname.full <- paste(config$project$shortname,
-                      datestamp,
+csvname.full <- paste(prefix.files,
                       "DE_CSV_Datensatz.csv",
                       sep = "_")
 
@@ -2476,8 +2475,7 @@ fwrite(txt.bverfg,
 #'## CSV mit Metadaten speichern
 #' Diese Datei ist grundsätzlich identisch mit dem eigentlichen Datensatz, nur ohne den Text der Entscheidungen.
 
-csvname.meta <- paste(config$project$shortname,
-                      datestamp,
+csvname.meta <- paste(prefix.files,
                       "DE_CSV_Metadaten.csv",
                       sep = "_")
 
@@ -2489,8 +2487,7 @@ fwrite(meta.bverfg,
 
 #'## CSV mit Segmenten speichern
 
-csvname.segmented <- paste(config$project$shortname,
-                           datestamp,
+csvname.segmented <- paste(prefix.files,
                            "DE_CSV_Segmentiert.csv",
                            sep = "_")
 
