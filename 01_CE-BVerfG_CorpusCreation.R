@@ -2809,8 +2809,7 @@ multihashes$index <- seq_len(multihashes[,.N])
 #'\newpage
 #'## In Datei schreiben
 fwrite(multihashes,
-       paste(config$project$shortname,
-             datestamp,
+       paste(prefix.files,
              "KryptographischeHashes.csv",
              sep = "_"),
        na = "NA")
@@ -2850,6 +2849,19 @@ kable(multihashes[,.(index,sha3.512)],
       booktabs = TRUE,
       longtable = TRUE)
 
+
+
+#'# Aufräumen
+
+files.output <- list.files(pattern = "\\.zip")
+
+output.destination <- file.path("output",
+                                 files.output)
+
+print(files.output)
+
+file.rename(files.output,
+            output.destination)
 
 
 
