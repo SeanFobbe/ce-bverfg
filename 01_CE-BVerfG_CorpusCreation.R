@@ -39,7 +39,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #+
 #'## Funktionsweise
 
-#' Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
+#' Primäre Endprodukte des Skripts (im Ordner 'output') sind folgende ZIP-Archive:
 #' 
 #' \begin{enumerate}
 #' \item Der volle Datensatz im CSV-Format
@@ -51,7 +51,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #' \item Der Source Code und alle weiteren Quelldaten
 #' \end{enumerate}
 #'
-#' Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung").
+#' Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Die Analyse-Ergebnisse werden zum Ende hin nicht gelöscht, damit sie für die Codebook-Erstellung verwendet werden können.  Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung").
 
 
 
@@ -123,10 +123,17 @@ library(spacyr)       # Linguistische Annotationen
 #'## Zusätzliche Funktionen einlesen
 #' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
 
-source("General_Source_Functions.R")
+#source("General_Source_Functions.R")
 
-
-
+source("R-fobbe-proto-package/f.remove.specialunderline.R")
+source("R-fobbe-proto-package/f.linkextract.R")
+source("R-fobbe-proto-package/f.dopar.pdfextract.R")
+source("R-fobbe-proto-package/f.hyphen.remove.R")
+source("R-fobbe-proto-package/f.year.iso.R")
+source("R-fobbe-proto-package/f.fast.freqtable.R")
+source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
+source("R-fobbe-proto-package/f.dopar.spacyparse.R")
+source("R-fobbe-proto-package/f.dopar.multihashes.R")
 
 
 
