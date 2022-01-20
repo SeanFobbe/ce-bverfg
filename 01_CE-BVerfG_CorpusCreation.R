@@ -2528,16 +2528,16 @@ print(object.size(txt.bverfg),
 
 
 #'### CSV Korpus (MB)
-file.size(file.path(csvname.full) / 10 ^ 6
+file.size(csvname.full) / 10 ^ 6
 
 #'### CSV Metadaten (MB)
-file.size(file.path(csvname.meta) / 10 ^ 6
+file.size(csvname.meta) / 10 ^ 6
 
 #'### CSV Annotiert (MB)
-file.size(file.path(csvname.annotated) / 10 ^ 6
+file.size(csvname.annotated) / 10 ^ 6
 
 #'### CSV Segmentiert (MB)
-file.size(file.path(csvname.segmented) / 10 ^ 6
+file.size(csvname.segmented) / 10 ^ 6
 
 
 #'### PDF-Dateien (MB)
