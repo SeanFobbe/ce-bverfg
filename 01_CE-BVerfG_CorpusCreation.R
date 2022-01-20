@@ -1354,7 +1354,8 @@ txt.bverfg$v_praesi <- unlist(vpraesi.list)
 
 #+
 #'### Datensatz einlesen
-az.source <- fread("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv")
+az.source <- fread(file.path("data",
+                          "AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv"))
 
 
 
