@@ -2095,9 +2095,9 @@ kable(dt.stats.ling,
 #'### Zusammenfassungen speichern
 
 fwrite(dt.stats.ling,
-       paste0(dir.analysis,
-              config$project$shortname,
-              "_00_KorpusStatistik_ZusammenfassungLinguistisch.csv"),
+       file.path(dir.analysis,
+                 paste0(config$project$shortname,
+                        "_00_KorpusStatistik_ZusammenfassungLinguistisch.csv")),
        na = "NA")
 
 
