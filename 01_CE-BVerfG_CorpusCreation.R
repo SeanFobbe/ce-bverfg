@@ -2504,13 +2504,13 @@ fwrite(dt.segmented.full,
 
 if (config$annotate$toggle == TRUE){
 
-    csvname.annotated <- paste(config$project$shortname,
-                               datestamp,
+    csvname.annotated <- paste(prefix.files,
                                "DE_CSV_Annotiert.csv",
                                sep = "_")
 
     fwrite(txt.annotated,
-           csvname.annotated,
+           file.path("output",
+                 csvname.annotated),
            na = "NA")
 
 }
