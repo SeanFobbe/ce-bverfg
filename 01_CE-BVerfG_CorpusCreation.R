@@ -161,7 +161,7 @@ unlink(dir.analysis,
 unlink(dirs,
        recursive = TRUE)
 
-files.delete <- list.files(pattern = "\\.zip|\\.pdf|\\.txt",
+files.delete <- list.files(pattern = "\\.zip|\\.pdf|\\.txt|\\.html",
                            ignore.case = TRUE)
 
 unlink(files.delete)
