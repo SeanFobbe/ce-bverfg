@@ -660,7 +660,7 @@ if (length(regex.test1) != 0){
 
 #'### Zusätzliche Variablen einfügen
 
-extravariablen <- fread("C-BVerfGE_Source_Variablen_NameBandSeite.csv")
+extravariablen <- fread("data/BVerfGE_Variablen_NameBandSeite_2021_09_19.csv")
 
 extravariablen$newname <- paste(extravariablen$oldname,
                                 extravariablen$name,
