@@ -2809,9 +2809,10 @@ multihashes$index <- seq_len(multihashes[,.N])
 #'\newpage
 #'## In Datei schreiben
 fwrite(multihashes,
-       paste(prefix.files,
-             "KryptographischeHashes.csv",
-             sep = "_"),
+       file.path("output",
+                 paste(prefix.files,
+                       "KryptographischeHashes.csv",
+                       sep = "_")),
        na = "NA")
 
 
