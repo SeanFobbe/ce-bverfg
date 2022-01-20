@@ -1301,7 +1301,8 @@ txt.bverfg$praesi <- unlist(praesi.list)
 #+
 #'### Personaldaten einlesen
 
-vpraesi <- fread("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv")
+vpraesi <- fread(file.path("data",
+                          "PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv"))
 vpraesi <- vpraesi[court == "BVerfG", c(1:3, 5:6)]
 
 
