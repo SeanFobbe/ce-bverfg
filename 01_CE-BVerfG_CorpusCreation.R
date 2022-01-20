@@ -2729,8 +2729,7 @@ files.txt <- list.files(pattern = "\\.txt",
                         ignore.case = TRUE)
 
 #+ results = 'hide'
-zip(paste(config$project$shortname,
-          datestamp,
+zip(paste(prefix.files,
           "DE_TXT_Datensatz.zip",
           sep = "_"),
     files.txt)
@@ -2742,9 +2741,7 @@ unlink(files.txt)
 
 #'## Verpacken der Analyse-Dateien
 
-zip(paste0(config$project$shortname,
-           "_",
-           datestamp,
+zip(paste0(prefix.files,
            "_DE_",
            basename(dir.analysis),
            ".zip"),
