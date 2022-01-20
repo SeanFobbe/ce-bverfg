@@ -19,7 +19,8 @@ EPUB/
 *.pdf
 *.txt
 *.epub
-
+*.html
+*.htm
 
 
 
