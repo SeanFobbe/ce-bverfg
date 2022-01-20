@@ -2762,9 +2762,8 @@ files.source <- grep("spin",
                      ignore.case = TRUE,
                      invert = TRUE)
 
-zip(paste(config$project$shortname,
-          datestamp,
-          "Source_Files.zip",
+zip(paste(prefix.files,
+           "Source_Files.zip",
           sep = "_"),
     files.source)
 
