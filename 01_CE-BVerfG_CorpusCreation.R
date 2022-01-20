@@ -198,7 +198,7 @@ print(config)
 
 #+
 #'### Knitr Optionen setzen
-knitr::opts_chunk$set(fig.path = dir.analysis,
+knitr::opts_chunk$set(fig.path = paste0(dir.analysis, "/"),
                       dev = config$fig$format,
                       dpi = config$fig$dpi,
                       fig.align = config$fig$align)
