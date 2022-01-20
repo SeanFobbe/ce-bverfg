@@ -2466,8 +2466,7 @@ csvname.full <- paste(prefix.files,
                       sep = "_")
 
 fwrite(txt.bverfg,
-       file.path("output",
-                 csvname.full),
+       csvname.full,
        na = "NA")
 
 
@@ -2481,8 +2480,7 @@ csvname.meta <- paste(prefix.files,
                       sep = "_")
 
 fwrite(meta.bverfg,
-       file.path("output",
-                 csvname.meta),
+       csvname.meta,
        na = "NA")
 
 
@@ -2494,8 +2492,7 @@ csvname.segmented <- paste(prefix.files,
                            sep = "_")
 
 fwrite(dt.segmented.full,
-       file.path("output",
-                 csvname.segmented),
+       csvname.segmented,
        na = "NA")
 
 
@@ -2509,8 +2506,7 @@ if (config$annotate$toggle == TRUE){
                                sep = "_")
 
     fwrite(txt.annotated,
-           file.path("output",
-                 csvname.annotated),
+           csvname.annotated,
            na = "NA")
 
 }
@@ -2532,16 +2528,16 @@ print(object.size(txt.bverfg),
 
 
 #'### CSV Korpus (MB)
-file.size(csvname.full) / 10 ^ 6
+file.size(file.path(csvname.full) / 10 ^ 6
 
 #'### CSV Metadaten (MB)
-file.size(csvname.meta) / 10 ^ 6
+file.size(file.path(csvname.meta) / 10 ^ 6
 
 #'### CSV Annotiert (MB)
-file.size(csvname.annotated) / 10 ^ 6
+file.size(file.path(csvname.annotated) / 10 ^ 6
 
 #'### CSV Segmentiert (MB)
-file.size(csvname.segmented) / 10 ^ 6
+file.size(file.path(csvname.segmented) / 10 ^ 6
 
 
 #'### PDF-Dateien (MB)
