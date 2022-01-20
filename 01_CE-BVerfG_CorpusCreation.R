@@ -447,6 +447,9 @@ links.list <- vector("list",
 
 print(pages)
 
+
+
+
 for (i in indices){
 
     URL  <- paste0("https://www.bundesverfassungsgericht.de/SiteGlobals/Forms/Suche/Entscheidungensuche_Formular.html?gtp=5403124_list%253D",
