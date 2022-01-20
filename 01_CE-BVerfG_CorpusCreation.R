@@ -1987,15 +1987,15 @@ ggplot(data = freqtable) +
 
 #+
 #'### Funktion anzeigen
-print(f.summarize.iterator)
+print(f.lingsummarize.iterator)
 
 
 
 
 #'### Berechnung durchführen
-summary.corpus <- f.summarize.iterator(txt.bverfg,
-                                       threads = fullCores,
-                                       chunksize = 1)
+summary.corpus <- f.lingsummarize.iterator(txt.bverfg,
+                                           threads = fullCores,
+                                           chunksize = 1)
 
 
 
