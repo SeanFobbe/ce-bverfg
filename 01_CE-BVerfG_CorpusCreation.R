@@ -1731,9 +1731,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Entscheidungs-Typ"),
         caption = caption,
         x = "Typ der Entscheidung",
@@ -1770,9 +1768,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Spruchkörper-Typ"),
         caption = caption,
         x = "Typ des Spruchkörpers",
@@ -1805,9 +1801,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
         caption = caption,
         x = "Senat",
@@ -1839,9 +1833,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Registerzeichen"),
         caption = caption,
         x = "Registerzeichen",
@@ -1873,9 +1865,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Präsident:in"),
         caption = caption,
         x = "Präsident:in",
@@ -1908,9 +1898,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Vize-Präsident:in"),
         caption = caption,
         x = "Vize-Präsident:in",
@@ -1940,9 +1928,7 @@ ggplot(data = freqtable) +
              fill = "#ca2129") +
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Entscheidungsjahr"),
         caption = caption,
         x = "Entscheidungsjahr",
@@ -1973,9 +1959,7 @@ ggplot(data = freqtable) +
              fill = "#ca2129") +
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
         caption = caption,
         x = "Eingangsjahr (ISO)",
@@ -2203,9 +2187,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Zeichen je Dokument"),
         caption = caption,
         x = "Zeichen",
@@ -2234,9 +2216,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Tokens je Dokument"),
         caption = caption,
         x = "Tokens",
@@ -2265,9 +2245,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Typen je Dokument"),
         caption = caption,
         x = "Typen",
@@ -2296,9 +2274,7 @@ ggplot(data = meta.bverfg)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Sätze je Dokument"),
         caption = caption,
         x = "Sätze",
@@ -2603,9 +2579,7 @@ ggplot(data = dt.plot,
     annotation_logticks(sides = "b")+
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Dateigrößen (PDF)"),
         caption = caption,
         x = "Dateigröße in MB",
@@ -2635,9 +2609,7 @@ ggplot(data = dt.plot,
     annotation_logticks(sides = "b")+
     theme_bw() +
     labs(
-        title = paste(config$project$shortname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Verteilung der Dateigrößen (TXT)"),
         caption = caption,
         x = "Dateigröße in MB",
