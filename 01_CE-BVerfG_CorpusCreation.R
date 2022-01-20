@@ -2466,7 +2466,8 @@ csvname.full <- paste(prefix.files,
                       sep = "_")
 
 fwrite(txt.bverfg,
-       csvname.full,
+       file.path("output",
+                 csvname.full),
        na = "NA")
 
 
@@ -2480,7 +2481,8 @@ csvname.meta <- paste(prefix.files,
                       sep = "_")
 
 fwrite(meta.bverfg,
-       csvname.meta,
+       file.path("output",
+                 csvname.meta),
        na = "NA")
 
 
@@ -2492,8 +2494,10 @@ csvname.segmented <- paste(prefix.files,
                            sep = "_")
 
 fwrite(dt.segmented.full,
-       csvname.segmented,
+       file.path("output",
+                 csvname.segmented),
        na = "NA")
+
 
 
 #'## CSV mit Annotationen speichern
