@@ -718,6 +718,34 @@ regex.test2 <- grep("^BVerfG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[SPKB]_[0-9NA]+_[A-Za-z]
                     invert = TRUE)
 
 
+regex.test2 <- grep(paste0("^BVerfG",
+                           "_",
+                           "[0-9]{4}-[0-9]{2}-[0-9]{2}",
+                           "_",
+                           "[SPKB]",
+                           "_",
+                           "[0-9NA]+",
+                           "_",
+                           "[A-Za-z]+",
+                           "_",
+                           "[0-9]{4}",
+                           "_",
+                           "[0-9]{2}",
+                           "_",
+                           "[0-9a-zNA]+",
+                           "_",
+                           "[0-9ÄÜÖäüöA-Za-z\\-]+",
+                           "_",
+                           "[NA0-9]+",
+                           "_",
+                           "[NA0-9]+",
+                           "\\.pdf$"),
+                    filenames2,
+                    value = TRUE,
+                    invert = TRUE)
+
+
+
 #'### Ergebnis der zweiten REGEX-Validierung
 #' Das Ergebnis sollte ein leerer Vektor sein!
 
