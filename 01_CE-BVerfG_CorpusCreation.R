@@ -1178,14 +1178,30 @@ length(files.pdf)
 
 #'## PDF extrahieren: Funktion anzeigen
 #+ results = "asis"
-print(f.dopar.pdfextract)
+print(f.future_pdf_to_txt)
 
 
 #'## Text Extrahieren
 
 #+ results = "hide"
-result <- f.dopar.pdfextract(files.pdf,
-                             threads = fullCores)
+
+if(config$parallel$extractPDF == TRUE){
+
+    plan("multicore",
+         workers = fullCores)
+    
+}else{
+
+    plan("sequential")
+
+     }
+
+
+
+future_pdf_to_txt(files.pdf)
+
+
+
 
 
 
