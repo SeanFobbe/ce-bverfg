@@ -128,13 +128,18 @@ source("functions/f.bverfg.extract.meta.R")
 
 source("R-fobbe-proto-package/f.remove.specialunderline.R")
 source("R-fobbe-proto-package/f.linkextract.R")
-source("R-fobbe-proto-package/f.dopar.pdfextract.R")
+
 source("R-fobbe-proto-package/f.hyphen.remove.R")
 source("R-fobbe-proto-package/f.year.iso.R")
 source("R-fobbe-proto-package/f.fast.freqtable.R")
-source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
-source("R-fobbe-proto-package/f.dopar.spacyparse.R")
-source("R-fobbe-proto-package/f.dopar.multihashes.R")
+
+#source("R-fobbe-proto-package/f.lingsummarize.iterator.R") # to be deprecated
+#source("R-fobbe-proto-package/f.dopar.spacyparse.R") # to be deprecated
+#source("R-fobbe-proto-package/f.dopar.multihashes.R") # to be deprecated
+#source("R-fobbe-proto-package/f.dopar.pdfextract.R") # to be deprecated
+
+
+
 
 
 #source("General_Source_Functions.R")
