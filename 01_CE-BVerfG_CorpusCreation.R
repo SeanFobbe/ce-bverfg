@@ -117,6 +117,8 @@ library(data.table)   # Fortgeschrittene Datenverarbeitung
 library(readtext)     # TXT-Dateien einlesen
 library(quanteda)     # Fortgeschrittene Computerlinguistik
 library(spacyr)       # Linguistische Annotationen
+library(future)       # Parallelisierung mit Futures
+library(future.apply) # Apply-Funtionen für Futures
 
 
 
