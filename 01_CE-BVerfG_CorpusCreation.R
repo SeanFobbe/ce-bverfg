@@ -2364,7 +2364,7 @@ if (config$annotate$toggle == TRUE){
 
 
     txt.annotated <- f.future_spacyparse(txt.bverfg,
-                                         chunksperworker = 1
+                                         chunksperworker = 1,
                                          chunksize = NULL,
                                          model = "de_core_news_sm",
                                          pos = TRUE,
