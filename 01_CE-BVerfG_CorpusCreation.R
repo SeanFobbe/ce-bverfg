@@ -2854,18 +2854,37 @@ files.zip <- list.files(pattern = "\\.zip$",
                         ignore.case = TRUE)
 
 
-#'## Funktion anzeigen
-#+ results = "asis"
-print(f.dopar.multihashes)
+#'## Funktion anzeigen: future_multihashes
+
+print(f.future_multihashes)
 
 
 #'## Hashes berechnen
-multihashes <- f.dopar.multihashes(files.zip)
+
+
+if(config$parallel$multihashes == TRUE){
+
+    plan("multicore",
+         workers = fullCores)
+    
+}else{
+
+    plan("sequential")
+
+     }
+
+
+multihashes <- f.future_multihashes(files.zip)
+
+
 
 
 #'## In Data Table umwandeln
 setDT(multihashes)
 
+setnames(multihashes,
+         old = "x",
+         new = "filename")
 
 
 #'## Index hinzufügen
