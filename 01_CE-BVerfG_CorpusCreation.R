@@ -143,7 +143,7 @@ source("R-fobbe-proto-package/f.fast.freqtable.R")
 source("R-fobbe-proto-package/f.future_lingsummarize.R")
 source("R-fobbe-proto-package/f.future_multihashes.R")
 source("R-fobbe-proto-package/f.future_pdf_to_txt.R")
-
+source("R-fobbe-proto-package/f.future_spacyparse.R")
 
 #source("General_Source_Functions.R") # deprecated
 
@@ -2343,6 +2343,19 @@ ggplot(data = meta.bverfg)+
 #'# Linguistische Annotationen berechnen
 
 if (config$annotate$toggle == TRUE){
+
+    if(config$parallel$spacyparse == TRUE){
+
+        plan("multicore",
+             workers = fullCores)
+        
+    }else{
+
+        plan("sequential")
+
+    }
+
+
 
     txt.annotated <- f.dopar.spacyparse(txt.bverfg,
                                         threads = fullCores,
