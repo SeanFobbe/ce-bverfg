@@ -1194,11 +1194,11 @@ if(config$parallel$extractPDF == TRUE){
 
     plan("sequential")
 
-     }
+}
 
 
 
-future_pdf_to_txt(files.pdf)
+f.future_pdf_to_txt(files.pdf)
 
 
 
@@ -2013,15 +2013,35 @@ ggplot(data = freqtable) +
 
 #+
 #'### Funktion anzeigen
-print(f.lingsummarize.iterator)
+print(f.future_lingsummarize)
 
 
 
 
 #'### Berechnung durchführen
-summary.corpus <- f.lingsummarize.iterator(txt.bverfg,
-                                           threads = fullCores,
-                                           chunksize = 1)
+
+if(config$parallel$lingsummarize == TRUE){
+
+    plan("multicore",
+         workers = fullCores)
+    
+}else{
+
+    plan("sequential")
+
+     }
+
+
+
+
+#+ lingsummarize, results = 'hide', message = FALSE, warning = FALSE
+summary.corpus <- f.future_lingsummarize(txt.bverfg)
+
+
+#deprecated; Parallelisierung jetzt mit futures
+#summary.corpus <- f.lingsummarize.iterator(txt.bverfg,
+#                                           threads = fullCores,
+#                                           chunksize = 1)
 
 
 
