@@ -45,12 +45,6 @@ library(data.table)   # Fortgeschrittene Datenverarbeitung
 setDTthreads(threads = detectCores()) 
 
 
-###################################
-### Zusätzliche Funktionen einlesen
-###################################
-
-source("General_Source_Functions.R")
-
 
 
 ############################
