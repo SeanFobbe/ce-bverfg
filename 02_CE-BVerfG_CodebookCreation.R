@@ -1167,7 +1167,7 @@ sha3test <- function(filename, sig){
 
 # Ursprüngliche Signaturen importieren
 table.hashes <- fread(hashfile)
-filename <- table.hashes$filename
+filename <- file.path("output", table.hashes$filename)
 sha3.512 <- table.hashes$sha3.512
 
 # Signaturprüfung durchführen 
