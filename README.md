@@ -1,4 +1,4 @@
-# Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG)
+# Corpus der Entscheidungen des Bundesverfassungsgerichts
 
 ## Überblick
  Dieser Code lädt alle auf [www.bundesverfassungsgericht.de](https://www.bundesverfassungsgericht.de) verfügbaren Entscheidungen des Bundesverfassungsgerichts (BVerfG) herunter und verarbeitet sie in einen reichhaltigen menschen- und maschinenlesbaren Korpus. Es ist die Grundlage für den Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG)
