@@ -191,25 +191,28 @@ stats.docvars <- fread(paste0(prefix,
 ### Einlesen: Datensatz
 ######################################
 
-summary.zip <- paste(config$project$shortname,
-                     datestamp,
-                     "DE_CSV_Metadaten.zip",
-                     sep = "_")
+### Metadaten
+summary.zip <- file.path("output",
+                         paste(config$project$shortname,
+                               datestamp,
+                               "DE_CSV_Metadaten.zip",
+                               sep = "_"))
 
 summary.corpus <- fread(cmd = paste("unzip -cq",
                                     summary.zip))
 
 
-
-data.zip <- paste(config$project$shortname,
-                     datestamp,
-                     "DE_CSV_Datensatz.zip",
-                     sep = "_")
+### Datensatz
+data.zip <- file.path("output",
+                      paste(config$project$shortname,
+                            datestamp,
+                            "DE_CSV_Datensatz.zip",
+                            sep = "_"))
 
 data.corpus <- fread(cmd = paste("unzip -cq",
                                  data.zip))
 
-
+### Annotationen
 # Hinweis: Direktes einlesen aus ZIP-Datei führt zu segfault. Grund unbekannt.
 
 annotated.zip <- paste(config$project$shortname,
@@ -221,7 +224,9 @@ annotated.csv <- gsub("\\.zip",
                       "\\.csv",
                       annotated.zip)
 
-unzip(annotated.zip)
+unzip(file.path("output",
+                annotated.zip),
+      exdir = ".")
 
 annotated.corpus <- fread(annotated.csv)
 
