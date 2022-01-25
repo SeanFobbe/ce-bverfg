@@ -64,6 +64,12 @@ prefix <- paste0("analyse/",
                  config$project$shortname,
                  "_")
 
+prefix.date <- file.path("output",
+                         paste0(config$project$shortname,
+                                "_",
+                                datestamp,
+                                "_"))
+
 
 
 
@@ -192,22 +198,17 @@ stats.docvars <- fread(paste0(prefix,
 ######################################
 
 ### Metadaten
-summary.zip <- file.path("output",
-                         paste(config$project$shortname,
-                               datestamp,
-                               "DE_CSV_Metadaten.zip",
-                               sep = "_"))
+
+summary.zip <- paste0(prefix.date,
+                      "DE_CSV_Metadaten.zip")
 
 summary.corpus <- fread(cmd = paste("unzip -cq",
                                     summary.zip))
 
 
 ### Datensatz
-data.zip <- file.path("output",
-                      paste(config$project$shortname,
-                            datestamp,
-                            "DE_CSV_Datensatz.zip",
-                            sep = "_"))
+data.zip <- paste0(prefix.date,
+                      "DE_CSV_Datensatz.zip")
 
 data.corpus <- fread(cmd = paste("unzip -cq",
                                  data.zip))
@@ -238,11 +239,6 @@ unlink(annotated.csv)
 ### Signaturen bestimmen
 ################################
 
-prefix.date <- file.path("output",
-                         paste0(config$project$shortname,
-                                "_",
-                                datestamp,
-                                "_"))
 
 
 hashfile <- paste0(prefix.date,
