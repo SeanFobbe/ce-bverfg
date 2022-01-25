@@ -2304,6 +2304,8 @@ print(f.future_spacyparse)
 
 #'## Berechnungen durchführen
 
+
+#+ annotate, results = 'hide', message = FALSE, warning = FALSE
 if (config$annotate$toggle == TRUE){
 
     if(config$parallel$spacyparse == TRUE){
