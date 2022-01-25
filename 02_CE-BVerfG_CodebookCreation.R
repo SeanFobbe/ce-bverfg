@@ -12,7 +12,7 @@
 #'    pandoc_args: --listings
 #'    includes:
 #'      in_header: tex/Preamble_DE.tex
-#'      before_body: [temp/CE-BVerfG_Definitions.tex, tex/CE-BVerfG_CompilationTitle.tex]
+#'      before_body: [temp/CE-BVerfG_Definitions.tex, tex/CE-BVerfG_CodebookTitle.tex]
 #'bibliography: temp/packages.bib
 #'nocite: '@*'
 #' ---
