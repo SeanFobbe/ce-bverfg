@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #'\newpage
 
 
-#+ results = "asis"
+#+ results = "asis", echo = FALSE
 cat(readLines("README.md"),
     sep = "\n")
 
@@ -2773,6 +2773,8 @@ zip(paste0(prefix.files,
 #'## Verpacken der Source-Dateien
 
 files.source <- c(list.files(pattern = "\\.R$|\\.toml$"),
+                  "CHANGELOG.md",
+                  "README.md",
                   "R-fobbe-proto-package",
                   "buttons",
                   "data",
