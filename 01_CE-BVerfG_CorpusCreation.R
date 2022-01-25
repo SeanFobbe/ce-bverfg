@@ -295,12 +295,18 @@ latexdefs <- c("%===========================\n% Definitionen\n%=================
                paste0("\\newcommand{\\softwareversiondoi}{",
                       config$doi$software$version,
                       "}"),
-
                paste0("\\newcommand{\\softwareconcepturldoi}{https://doi.org/",
                       config$doi$software$concept,
                       "}"),
                paste0("\\newcommand{\\softwareversionurldoi}{https://doi.org/",
                       config$doi$software$version,
+                      "}"),
+               "\n%-----Additional DOIs-----",
+               paste0("\\newcommand{\\aktenzeichenurldoi}{https://doi.org/",
+                      config$doi$aktenzeichen,
+                      "}"),
+               paste0("\\newcommand{\\personendatenurldoi}{https://doi.org/",
+                      config$doi$personendaten,
                       "}"))
 
 
