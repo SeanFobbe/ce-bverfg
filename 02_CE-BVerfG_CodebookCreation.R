@@ -60,7 +60,7 @@ datestamp <- unique(tstrsplit(files.zip,
                               split = "_")[[2]])
 
 
-prefix <- paste0("ANALYSE/",
+prefix <- paste0("analyse/",
                  config$project$shortname,
                  "_")
 
