@@ -240,11 +240,13 @@ unlink(annotated.csv)
 
 hashfile <- paste(config$project$shortname,
                   datestamp,
-                  "KryptographischeHashes.csv", sep = "_")
+                  "KryptographischeHashes.csv",
+                  sep = "_")
 
 signaturefile <- paste(config$project$shortname,
                        datestamp,
-                       "FobbeSignaturGPG_Hashes.gpg", sep = "_")
+                       "FobbeSignaturGPG_Hashes.gpg",
+                       sep = "_")
 
 
 
