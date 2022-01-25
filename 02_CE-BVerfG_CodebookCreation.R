@@ -45,15 +45,12 @@ library(data.table)   # Fortgeschrittene Datenverarbeitung
 setDTthreads(threads = detectCores()) 
 
 
-
-
 ############################
 ### Vorbereitung
 ############################
 
-datasetname <- "CE-BVerfG"
-doi.concept <- "10.5281/zenodo.3902658" # checked
-doi.version <- "10.5281/zenodo.5514083" # checked
+## Konfiguration einlesen
+config <- parseTOML("CE-BVerfG_Config.toml")
 
 
 files.zip <- list.files(pattern = "\\.zip")
@@ -63,7 +60,7 @@ datestamp <- unique(tstrsplit(files.zip,
 
 
 prefix <- paste0("ANALYSE/",
-                 datasetname,
+                 config$project$shortname,
                  "_")
 
 
@@ -193,7 +190,7 @@ stats.docvars <- fread(paste0(prefix,
 ### Einlesen: Datensatz
 ######################################
 
-summary.zip <- paste(datasetname,
+summary.zip <- paste(config$project$shortname,
                      datestamp,
                      "DE_CSV_Metadaten.zip",
                      sep = "_")
@@ -203,7 +200,7 @@ summary.corpus <- fread(cmd = paste("unzip -cq",
 
 
 
-data.zip <- paste(datasetname,
+data.zip <- paste(config$project$shortname,
                      datestamp,
                      "DE_CSV_Datensatz.zip",
                      sep = "_")
@@ -214,7 +211,7 @@ data.corpus <- fread(cmd = paste("unzip -cq",
 
 # Hinweis: Direktes einlesen aus ZIP-Datei führt zu segfault. Grund unbekannt.
 
-annotated.zip <- paste(datasetname,
+annotated.zip <- paste(config$project$shortname,
                      datestamp,
                      "DE_CSV_Annotiert.zip",
                      sep = "_")
@@ -235,11 +232,11 @@ unlink(annotated.csv)
 ### Einlesen: Signaturen
 ################################
 
-hashfile <- paste(datasetname,
+hashfile <- paste(config$project$shortname,
                   datestamp,
                   "KryptographischeHashes.csv", sep = "_")
 
-signaturefile <- paste(datasetname,
+signaturefile <- paste(config$project$shortname,
                        datestamp,
                        "FobbeSignaturGPG_Hashes.gpg", sep = "_")
 
@@ -814,7 +811,7 @@ ggplot(data = summary.corpus)+
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw()+
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Zeichen je Dokument"),
@@ -845,7 +842,7 @@ ggplot(data = summary.corpus) +
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Tokens je Dokument"),
@@ -876,7 +873,7 @@ ggplot(data = summary.corpus) +
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Typen je Dokument"),
@@ -907,7 +904,7 @@ ggplot(data = summary.corpus) +
     coord_cartesian(xlim = c(1, 10^6))+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Verteilung der Sätze je Dokument"),
@@ -975,7 +972,7 @@ ggplot(data = freqtable) +
              width = 0.5) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Entscheidungs-Typ"),
@@ -1026,7 +1023,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Spruchkörper-Typ"),
@@ -1080,7 +1077,7 @@ ggplot(data = freqtable) +
              width = 0.4) +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
@@ -1132,7 +1129,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Registerzeichen"),
@@ -1181,7 +1178,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Präsident:in"),
@@ -1231,7 +1228,7 @@ ggplot(data = freqtable) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Vize-Präsident:in"),
@@ -1283,7 +1280,7 @@ ggplot(data = freqtable) +
              fill ="#ca2129") +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Entscheidungsjahr"),
@@ -1335,7 +1332,7 @@ ggplot(data = freqtable) +
              fill ="#ca2129") +
     theme_bw() +
     labs(
-        title = paste(datasetname,
+        title = paste(config$project$shortname,
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
