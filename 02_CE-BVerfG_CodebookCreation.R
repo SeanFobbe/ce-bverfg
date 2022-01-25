@@ -789,7 +789,7 @@ kable(table.vpraesi.alter[grep("VACANCY",
 
 #'## Werte der Kennzahlen
 
-setnames(stats.ling, c("Variable",
+setnames(stats.ling, c("Kennzahl",
                        "Summe",
                        "Min",
                        "Quart1",
