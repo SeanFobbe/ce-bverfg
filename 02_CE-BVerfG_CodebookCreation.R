@@ -1054,13 +1054,13 @@ kable(table.jahr.eingangISO,
 #+
 #'## Verteilung PDF-Dateigrößen
 
-#' ![](ANALYSE/CE-BVerfG_14_Density_Dateigroessen_PDF-1.pdf)
+#' ![](analyse/CE-BVerfG_14_Density_Dateigroessen_PDF-1.pdf)
 
 
 #+
 #'## Verteilung TXT-Dateigrößen
 
-#' ![](ANALYSE/CE-BVerfG_15_Density_Dateigroessen_TXT-1.pdf)
+#' ![](analyse/CE-BVerfG_15_Density_Dateigroessen_TXT-1.pdf)
 
 #'\newpage
 
