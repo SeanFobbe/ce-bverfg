@@ -808,20 +808,20 @@ kable(stats.ling,
 #+
 #'## Verteilung Zeichen
 
-#' ![](analyse/CE-BVerfG_10_Density_Zeichen)
+#' ![](analyse/CE-BVerfG_10_Density_Zeichen-1.pdf)
 
 
 #+
 #'## Verteilung Tokens
 
-#' ![](analyse/CE-BVerfG_11_Density_Tokens)
+#' ![](analyse/CE-BVerfG_11_Density_Tokens-1.pdf)
 
 
 
 #+
 #'## Verteilung Typen
 
-#' ![](analyse/CE-BVerfG_12_Density_Typen)
+#' ![](analyse/CE-BVerfG_12_Density_Typen-1.pdf)
 
 
 
@@ -829,7 +829,7 @@ kable(stats.ling,
 #+
 #'## Verteilung Sätze
 
-#' ![](analyse/CE-BVerfG_13_Density_Saetze)
+#' ![](analyse/CE-BVerfG_13_Density_Saetze-1.pdf)
 
 
 
@@ -870,7 +870,7 @@ kable(stats.docvars,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_02_Barplot_Entscheidung_Typ)
+#' ![](analyse/CE-BVerfG_02_Barplot_Entscheidung_Typ-1.pdf)
 
 #'\vspace{1cm}
 
@@ -891,7 +891,7 @@ kable(table.entsch.typ,
 #'## Nach Typ des Spruchkörpers
 
 
-#' ![](analyse/CE-BVerfG_03_Barplot_Spruchkoerper_Typ)
+#' ![](analyse/CE-BVerfG_03_Barplot_Spruchkoerper_Typ-1.pdf)
 
 
 #'\vspace{1cm}
@@ -917,7 +917,7 @@ kable(table.spruch.typ,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_04_Barplot_Spruchkoerper_AZ)
+#' ![](analyse/CE-BVerfG_04_Barplot_Spruchkoerper_AZ-1.pdf)
 
 
 #'\vspace{1cm}
@@ -938,7 +938,7 @@ kable(table.spruch.az,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_05_Barplot_Registerzeichen)
+#' ![](analyse/CE-BVerfG_05_Barplot_Registerzeichen-1.pdf)
 
 
 #'\newpage
@@ -959,7 +959,7 @@ kable(table.regz,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_06_Barplot_PraesidentIn)
+#' ![](analyse/CE-BVerfG_06_Barplot_PraesidentIn-1.pdf)
 
 
 #'\vspace{0.5cm}
@@ -982,7 +982,7 @@ kable(table.output.praesi,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_07_Barplot_VizePraesidentIn)
+#' ![](analyse/CE-BVerfG_07_Barplot_VizePraesidentIn-1.pdf)
 
 #'\vspace{0.5cm}
 
@@ -1007,7 +1007,7 @@ kable(table.output.vpraesi,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_08_Barplot_Entscheidungsjahr)
+#' ![](analyse/CE-BVerfG_08_Barplot_Entscheidungsjahr-1.pdf)
 
 #'\vspace{1cm}
 
@@ -1032,7 +1032,7 @@ kable(table.jahr.entscheid,
 
 #'\vspace{0.5cm}
 
-#' ![](analyse/CE-BVerfG_09_Barplot_EingangsjahrISO)
+#' ![](analyse/CE-BVerfG_09_Barplot_EingangsjahrISO-1.pdf)
 
 #'\vspace{1cm}
 
