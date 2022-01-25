@@ -53,7 +53,8 @@ setDTthreads(threads = detectCores())
 config <- parseTOML("CE-BVerfG_Config.toml")
 
 
-files.zip <- list.files(pattern = "\\.zip")
+files.zip <- list.files("output",
+                        pattern = "\\.zip")
 
 datestamp <- unique(tstrsplit(files.zip,
                               split = "_")[[2]])
