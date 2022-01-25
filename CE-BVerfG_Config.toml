@@ -41,7 +41,7 @@ cores.number = 8   # Die Anzahl Rechtenkerne, die verwendet werden soll; wird nu
 
 parallel.extractPDF = true
 parallel.lingsummarize = true
-parallel.spacyparse = true
+parallel.spacyparse = false
 parallel.multihashes = true
 
 
