@@ -213,9 +213,9 @@ data.corpus <- fread(cmd = paste("unzip -cq",
 # Hinweis: Direktes einlesen aus ZIP-Datei führt zu segfault. Grund unbekannt.
 
 annotated.zip <- paste(config$project$shortname,
-                     datestamp,
-                     "DE_CSV_Annotiert.zip",
-                     sep = "_")
+                       datestamp,
+                       "DE_CSV_Annotiert.zip",
+                       sep = "_")
 
 annotated.csv <- gsub("\\.zip",
                       "\\.csv",
