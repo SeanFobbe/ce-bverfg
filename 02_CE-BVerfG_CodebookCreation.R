@@ -235,18 +235,21 @@ unlink(annotated.csv)
 
 
 ################################
-### Einlesen: Signaturen
+### Signaturen bestimmen
 ################################
 
-hashfile <- paste(config$project$shortname,
-                  datestamp,
-                  "KryptographischeHashes.csv",
-                  sep = "_")
+prefix.date <- file.path("output",
+                         paste0(config$project$shortname,
+                                "_",
+                                datestamp,
+                                "_"))
 
-signaturefile <- paste(config$project$shortname,
-                       datestamp,
-                       "FobbeSignaturGPG_Hashes.gpg",
-                       sep = "_")
+
+hashfile <- paste0(prefix.date,
+                  "KryptographischeHashes.csv")
+
+signaturefile <- paste0(prefix.date,
+                        "FobbeSignaturGPG_Hashes.gpg")
 
 
 
