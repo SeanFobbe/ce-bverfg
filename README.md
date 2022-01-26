@@ -1,15 +1,16 @@
 # Corpus der Entscheidungen des Bundesverfassungsgerichts
 
 ## Überblick
- Dieser Code lädt alle auf [www.bundesverfassungsgericht.de](https://www.bundesverfassungsgericht.de) verfügbaren Entscheidungen des Bundesverfassungsgerichts (BVerfG) herunter und verarbeitet sie in einen reichhaltigen menschen- und maschinenlesbaren Korpus. Es ist die Grundlage für den **Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG)**.
 
- Alle mit diesem Skript erstellten Datensätze werden dauerhaft kostenlos und urheberrechtsfrei auf Zenodo, dem wissenschaftlichen Archiv des CERN, veröffentlicht. Alle Versionen sind mit einem persistenten Digital Object Identifier (DOI) versehen. Die neueste Version des Datensatzes ist immer über den Link der Concept DOI erreichbar: <https://doi.org/10.5281/zenodo.3902658>
+Dieser Code lädt alle auf [www.bundesverfassungsgericht.de](https://www.bundesverfassungsgericht.de) verfügbaren Entscheidungen des Bundesverfassungsgerichts (BVerfG) herunter und verarbeitet sie in einen reichhaltigen menschen- und maschinenlesbaren Korpus. Es ist die Grundlage für den **Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG)**.
+
+Alle mit diesem Skript erstellten Datensätze werden dauerhaft kostenlos und urheberrechtsfrei auf Zenodo, dem wissenschaftlichen Archiv des CERN, veröffentlicht. Alle Versionen sind mit einem persistenten Digital Object Identifier (DOI) versehen. Die neueste Version des Datensatzes ist immer über den Link der Concept DOI erreichbar: <https://doi.org/10.5281/zenodo.3902658>
 
 
 
 ## Funktionsweise
 
- Primäre Endprodukte des Skripts (im Ordner 'output') sind folgende ZIP-Archive:
+Primäre Endprodukte des Skripts (im Ordner 'output') sind folgende ZIP-Archive:
  
 - Der volle Datensatz im CSV-Format
 - Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
@@ -20,7 +21,7 @@
 - Der Source Code und alle weiteren Quelldaten
 
 
- Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Die Analyse-Ergebnisse werden zum Ende hin nicht gelöscht, damit sie für die Codebook-Erstellung verwendet werden können.  Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung").
+Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Die Analyse-Ergebnisse werden zum Ende hin nicht gelöscht, damit sie für die Codebook-Erstellung verwendet werden können.  Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung").
 
 
 
