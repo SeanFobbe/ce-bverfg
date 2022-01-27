@@ -53,13 +53,16 @@ setDTthreads(threads = detectCores())
 config <- parseTOML("CE-BVerfG_Config.toml")
 
 
+## ZIP-Archive bestimmen
 files.zip <- list.files("output",
                         pattern = "\\.zip")
 
+## Datumsstempel einlesen
 datestamp <- unique(tstrsplit(files.zip,
                               split = "_")[[2]])
 
 
+## Präfixe erstellen
 prefix <- paste0("analyse/",
                  config$project$shortname,
                  "_")
