@@ -1,4 +1,5 @@
 # Project
+
 project.fullname = "Corpus der Entscheidungen des Bundesverfassungsgerichts"
 project.shortname = "CE-BVerfG"
 project.author = "Seán Fobbe"
@@ -6,6 +7,7 @@ project.author = "Seán Fobbe"
 
 
 # License
+
 license.data = "Creative Commons Zero 1.0 Universal"
 license.code = "MIT-0"
 
@@ -60,6 +62,7 @@ quanteda.tokens_locale = "de_DE" # Locale in denen Tokens analyisert werden
 
 
 # Knitr
+
 fig.format = [ "pdf", "png" ] 	# Ausgabe-Format für Diagramme
 fig.dpi = 300     	 	# Auflösung für Diagramme
 fig.align = "center"    	# Ausrichtung von Diagrammen im Compilation Report
