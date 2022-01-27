@@ -241,8 +241,6 @@ unlink(annotated.csv)
 ### Signaturen bestimmen
 ################################
 
-
-
 hashfile <- paste0(prefix.date,
                   "KryptographischeHashes.csv")
 
