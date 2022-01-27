@@ -201,7 +201,6 @@ stats.docvars <- fread(paste0(prefix.analysis,
 ######################################
 
 ### Metadaten
-
 summary.zip <- paste0(prefix.date,
                       "DE_CSV_Metadaten.zip")
 
