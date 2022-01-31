@@ -28,8 +28,6 @@ Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 u
 
 ## Kompilierung
 
-Mit der Funktion **render()** von **rmarkdown** können der **vollständige Datensatz** und das **Codebook** kompiliert und die Skripte mitsamt ihrer Rechenergebnisse in ein gut lesbares PDF-Format überführt werden.
-
 Alle Kommentare sind im roxygen2-Stil gehalten. Die beiden Skripte können daher auch **ohne render()** regulär als R-Skripte ausgeführt werden. Es wird in diesem Fall kein PDF-Bericht erstellt und Diagramme werden nicht abgespeichert.
  
 Um den **vollständigen Datensatz** zu kompilieren, sowie Compilation Report und Codebook zu erstellen, kopieren Sie bitte alle im Source-Archiv bereitgestellten Dateien in einen leeren Ordner (!) und führen mit R diesen Befehl aus:
@@ -38,6 +36,8 @@ Um den **vollständigen Datensatz** zu kompilieren, sowie Compilation Report und
 ```
 source("00_CE-BVerfG_FullCompile.R")
 ```
+
+Bei der Prüfung der GPG-Signatur im Codebook wird ein Fehler auftreten und im Codebook dokumentiert, weil die Daten nicht mit meiner Original-Signatur versehen sind. Dieser Fehler hat jedoch keine Auswirkungen auf die Funktionalität und hindert die Kompilierung nicht.
 
 
 ## Systemanforderungen
@@ -71,5 +71,25 @@ In der Standard-Einstellung wird das Skript vollautomatisch die maximale Anzahl 
 ### Speicherplatz
 
 Auf der Festplatte sollten 8 GB Speicherplatz vorhanden sein.
+
+
+ 
+
+## Weitere Open Access Veröffentlichungen (Fobbe)
+
+Website — https://www.seanfobbe.de
+
+Open Data  —  https://zenodo.org/communities/sean-fobbe-data/
+
+Source Code  —  https://zenodo.org/communities/sean-fobbe-code/
+
+Volltexte regulärer Publikationen  —  https://zenodo.org/communities/sean-fobbe-publications/
+
+
+
+## Kontakt
+
+Fehler gefunden? Anregungen? Kommentieren Sie gerne im Issue Tracker auf GitHub oder schreiben Sie mir eine E-Mail an [fobbe-data@posteo.de](fobbe-data@posteo.de)
+
 
 
