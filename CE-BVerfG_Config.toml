@@ -69,8 +69,8 @@ fig.align = "center"    	# Ausrichtung von Diagrammen im Compilation Report
 
 
 
-# Frequenztabellen: Liste zu prüfender Variablen
-#' **Hinweis:** Nur diese Variablen werden bei der Erstellung der Frequenztabellen berücksichtigt.
+# Frequenztabellen: Ignorierte Variablen
+#' **Hinweis:** Diese Variablen werden bei der Erstellung der Frequenztabellen nicht berücksichtigt.
 
 freqtable.ignore = ["text",
 		    "eingangsnummer",
