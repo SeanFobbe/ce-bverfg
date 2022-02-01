@@ -60,7 +60,7 @@ Um die PDF Reports zu kompilieren benötigen Sie eine LaTeX-Installation. Sie k�
 sudo dnf install texlive-scheme-full
 ```
 
-Alternativ können sie das R package **tinytex* installieren.
+Alternativ können sie das R package **tinytex** installieren.
 
 
 
