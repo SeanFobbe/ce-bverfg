@@ -15,14 +15,14 @@ license.code = "MIT-0"
 
 # Digital Object Identifier (DOI)
 
-doi.data.concept = "10.5281/zenodo.3902658"
-doi.data.version = "10.5281/zenodo.5910152"
+doi.data.concept = "10.5281/zenodo.3902658" # checked
+doi.data.version = "10.5281/zenodo.5910152" # checked
 
-doi.software.concept = "10.5281/zenodo.4308216"
-doi.software.version = "10.5281/zenodo.5910155"
+doi.software.concept = "10.5281/zenodo.4308216" # checked
+doi.software.version = "10.5281/zenodo.5910155" # checked
 
-doi.personendaten = "10.5281/zenodo.4568682"
-doi.aktenzeichen = "10.5281/zenodo.4569564"
+doi.personendaten = "10.5281/zenodo.4568682" # checked
+doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
 
 
 # Debugging
