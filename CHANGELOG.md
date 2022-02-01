@@ -6,10 +6,10 @@
 - Strenge Versionskontrolle von R packages mit **renv**
 - Kompilierung jetzt detailliert konfigurierbar, insbesondere die Parallelisierung
 - Parallelisierung nun vollständig mit *future* statt mit *foreach* und *doParallel*
+- Codebook-Erstellung stark beschleunigt durch Verwendung vorberechneter Diagramme
 - Fehlerhafte Kompilierungen werden vor der nächsten Kompilierung vollautomatisch aufgeräumt
 - Alle Ergebnisse werden automatisch fertig verpackt in den Ordner 'output' sortiert
 - README und CHANGELOG sind jetzt externe Markdown-Dateien, die bei der Kompilierung automatisiert eingebunden werden
-- Codebook-Erstellung stark beschleunigt durch Verwendung vorberechneter Diagramme
 - Source Code des Changelogs zu Markdown konvertiert
 - REGEX-Tests im Detail kommentiert
 
