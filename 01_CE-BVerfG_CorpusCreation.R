@@ -55,6 +55,7 @@ print(begin.script)
 #+
 #'## Packages Laden
 
+library(magick)       # Cropping von PNG-Dateien
 library(RcppTOML)     # Verarbeitung von TOML-Format
 library(mgsub)        # Mehrfache simultane String-Substitutions
 library(httr)         # HTTP-Werkzeuge
