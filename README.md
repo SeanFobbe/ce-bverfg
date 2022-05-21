@@ -1,4 +1,4 @@
-# Corpus der Entscheidungen des Bundesverfassungsgerichts
+# Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfGE)
 
 ## Überblick
 
