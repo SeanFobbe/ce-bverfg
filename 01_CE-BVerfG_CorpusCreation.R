@@ -193,6 +193,8 @@ prefix.figuretitle <- paste(config$project$shortname,
                             "| Version",
                             datestamp)
 
+print(prefix.figuretitle)
+
 
 #'### Quanteda-Optionen setzen
 quanteda_options(tokens_locale = config$quanteda$tokens_locale)
