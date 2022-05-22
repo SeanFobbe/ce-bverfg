@@ -1063,6 +1063,11 @@ dt.meta.html <-  rbindlist(meta.list)
 dt.segmented.full <- rbindlist(segmented.full.list)
 
 
+
+
+
+
+
 #'## Special Character entfernen
 #' An dieser Stelle wird ein mysteriöser Unterstricht entfernt, vermutlich ein non-breaking space. Es ist allerdings unklar wieso dieser in den Daten auftaucht. Der Code wird nicht im Compilation Report angezeigt, weil sich dieses Zeichen bei dem listings package zu Fehlern führt.
 
