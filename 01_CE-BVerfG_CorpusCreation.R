@@ -63,7 +63,7 @@ library(rvest)        # HTML/XML-Extraktion
 library(knitr)        # Professionelles Reporting
 library(kableExtra)   # Verbesserte Kable Tabellen
 library(pdftools)     # Verarbeitung von PDF-Dateien
-#library(doParallel)   # Parallelisierung; to be deprecated
+#library(doParallel)   # Parallelisierung; deprecated
 library(ggplot2)      # Fortgeschrittene Datenvisualisierung
 library(scales)       # Skalierung von Diagrammen
 library(data.table)   # Fortgeschrittene Datenverarbeitung
