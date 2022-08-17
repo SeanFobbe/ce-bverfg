@@ -7,6 +7,11 @@
 #' @param debug.pages Integer. Die Anzahl Datenbankseiten, die ausgewertet werden soll. Jede Seite enthält idR 10 Entscheidungen.
 
 
+#' @return Data.table. Eine Tabelle mit URLs zu Entscheidungen des Bundesverfassungsgerichts erstellen (PDF und HTML).
+
+
+
+
 
 f.download_table_make <- function(debug.toggle = FALSE,
                                   debug.pages = 50){
