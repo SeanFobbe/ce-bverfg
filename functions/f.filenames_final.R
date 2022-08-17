@@ -1,6 +1,10 @@
 
 
+#' Finale BVerfG-Dateinamen erstellen.
 
+
+#' @param filenames.raw Character. Vorläufige Dateinamen des BVerfG, erstellt durch f.filenames_raw().
+#' @param var.bverfge Data.table. Variablen für Name, Band und Seite der BVerfGE-Entscheidungen. 
 
 
 
@@ -43,7 +47,7 @@ f.filenames_final <- function(filenames.raw,
 
     if(dt[,.N] > 0){
         
-        filenames.raw <- replace(filenames.raw,
+        filenames.final <- replace(filenames.raw,
                                  dt$targetindices,
                                  dt$newname)
     }
@@ -53,15 +57,15 @@ f.filenames_final <- function(filenames.raw,
     ## NAs einfügen für nicht benannte Entscheidungen
 
     values <- grep(".pdf",
-                   filenames.raw,
+                   filenames.final,
                    invert = TRUE,
                    value = TRUE)
 
     indices <- grep(".pdf",
-                    filenames.raw,
+                    filenames.final,
                     invert = TRUE)
 
-    filenames.raw[indices] <- paste0(values,
+    filenames.final[indices] <- paste0(values,
                                      "_NA_NA_NA.pdf")
 
 
@@ -91,7 +95,7 @@ f.filenames_final <- function(filenames.raw,
                               "_",
                               "[NA0-9]+", # seite
                               "\\.pdf$"), # Dateiendung
-                       filenames.raw,
+                       filenames.final,
                        value = TRUE,
                        invert = TRUE)
 
@@ -115,6 +119,7 @@ f.filenames_final <- function(filenames.raw,
 
     
     ## Return
-    return(filenames)
+    return(filenames.final)
+    
 
 }
