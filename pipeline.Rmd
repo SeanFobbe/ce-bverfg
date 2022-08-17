@@ -478,10 +478,14 @@ list(tar_target(files.txt,
 ```					
 
 
-### HTML-Dateien einlesen und auswerten
+### HTML-Dateien parsen
 
+```{targets tar.convert2}
 
+tar_target(html.parsed,
+           f.parse_html_bverfg(html = files.html))
 
+```
 
 
 
