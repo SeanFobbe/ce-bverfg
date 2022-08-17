@@ -13,10 +13,10 @@ f.filenames_final <- function(filenames.raw,
                               var.bverfge){
 
     ## Unit Test
-#    test_that("Argumente entsprechen Erwartungen.", {        
+    test_that("Argumente entsprechen Erwartungen.", {        
         expect_type(filenames.raw, "character")
         expect_s3_class(var.bverfge, "data.table")
-#    })
+    })
     
 
     
@@ -111,11 +111,11 @@ f.filenames_final <- function(filenames.raw,
     }
 
     ## Unit Test
-#    test_that("Finale Dateinamen entsprechen Erwartungen.", {
+    test_that("Finale Dateinamen entsprechen Erwartungen.", {
         expect_type(filenames.final, "character")
         expect_length(regex.test,  0)
-        expect_length(filenames.final, length(url.pdf))
-#    })
+        expect_length(filenames.final, length(filenames.raw))
+    })
 
     
     ## Return
