@@ -403,7 +403,7 @@ tar_target(filenames.final,
 
 ### Finale Download-Tabelle erstellen
 
-```{targets tar.download3}
+```{targets tar.download4}
 tar_target(dt.download.final,
            data.table(dt.download,
                       doc_id = filenames.final))
@@ -413,7 +413,7 @@ tar_target(dt.download.final,
 ### Download durchführen (PDF)
 
 
-```{targets tar.download4}
+```{targets tar.download5}
 tar_target(files.pdf,
                 f.download(url = dt.download.final$url_pdf,
                            filename = dt.download.final$doc_id,
@@ -434,7 +434,7 @@ tar_target(files.pdf,
 ### Download durchführen (HTML)
 
 
-```{targets tar.download5}
+```{targets tar.download6}
 tar_target(files.html,
                 f.download(url = dt.download.final$url_html,
                            filename = basename(dt.download.final$url_html),
