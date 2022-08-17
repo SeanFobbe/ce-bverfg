@@ -401,6 +401,16 @@ tar_target(filenames.final,
 ```
 
 
+### Finale Download-Tabelle erstellen
+
+```{targets tar.download3}
+tar_target(dt.download.final,
+           data.table(dt.download,
+                      doc_id = filenames.final))
+```
+
+
+
 
 
 ## Report Targets
