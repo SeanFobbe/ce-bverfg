@@ -116,7 +116,8 @@ f.filenames_raw <- function(url.pdf){
     })
 
     
-
+    ## Return
+    return(filenames)
     
 
 }
