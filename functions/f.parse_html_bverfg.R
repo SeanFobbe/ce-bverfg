@@ -1,11 +1,14 @@
 
+#' Entscheidungen des BVerfG im HTML-Format parsen.
 
 
+#' @param html Character. Ein Vektor mit Pfaden zu HTML-Dateien des BVerfG.
+#'
+#' @return Liste. Eine benannte Liste mit den Elementen "dt.meta.html" (alle Metadaten) und "dt.segmented.full" (gesamter Datensatz, mit Texten).
 
 
 
 f.parse_html_bverfg <- function(html){
-
 
 
     ## HTML-Dateien einlesen
