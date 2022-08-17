@@ -297,11 +297,11 @@ Diese Tabelle enthält Name, Band und Seite der Entscheidung in der BVerfGE.
 
 ```{targets tar.file3}
 list(
-    tar_target(file.variables.bverfge,
+    tar_target(file.var_bverfge,
                "data/BVerfGE_Variablen_NameBandSeite.csv",
                format = "file"),
-    tar_target(variables.bverfge,
-               fread(file.variables.bverfge))
+    tar_target(dt.var_bverfge,
+               fread(file.var_bverfge))
 )
 ```
 
@@ -316,11 +316,11 @@ Die Variablen des Datensatzes, inklusive ihrer Erläuterung.
 
 ```{targets tar.file4}
 list(
-    tar_target(file.variables.codebook,
+    tar_target(file.var_codebook,
                "data/CE-BVerfG_Variables.csv",
                format = "file"),
-    tar_target(variables.codebook,
-               fread(file.variables.codebook))
+    tar_target(dt.var_codebook,
+               fread(file.var_codebook))
 )
 ```
 
@@ -392,8 +392,13 @@ tar_target(filenames.raw,
            f.filenames_raw(url.pdf = dt.download$url_pdf))
 ```
 
+### Finale Dateinamen erstellen
 
-
+```{targets tar.download3}
+tar_target(filenames.final,
+           f.filenames_final(filenames.raw = filenames.raw,
+                             var.bverfge = dt.var_bverfge))
+```
 
 
 
