@@ -301,7 +301,7 @@ list(
                "data/BVerfGE_Variablen_NameBandSeite.csv",
                format = "file"),
     tar_target(variables.bverfge,
-               fread(file.variables.bverfge)
+               fread(file.variables.bverfge))
 )
 ```
 
