@@ -418,8 +418,8 @@ tar_target(files.pdf,
                 f.download(url = dt.download.final$url_pdf,
                            filename = dt.download.final$doc_id,
                            dir = "pdf",
-                           sleep.min = 0,
-                           sleep.max = 0.1,
+                           sleep.min = 0.3,
+                           sleep.max = 1,
                            retries = 3,
                            retry.sleep.min = 2,
                            retry.sleep.max = 5,
@@ -440,7 +440,7 @@ tar_target(files.html,
                            filename = basename(dt.download.final$url_html),
                            dir = "html",
                            sleep.min = 0,
-                           sleep.max = 0.1,
+                           sleep.max = 0.2,
                            retries = 3,
                            retry.sleep.min = 2,
                            retry.sleep.max = 5,
@@ -450,6 +450,10 @@ tar_target(files.html,
                 format = "file")
 
 ```
+
+
+
+
 
 
 
