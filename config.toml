@@ -16,10 +16,10 @@ license.code = "MIT-0"
 # Digital Object Identifier (DOI)
 
 doi.data.concept = "10.5281/zenodo.3902658" # checked
-doi.data.version = "10.5281/zenodo.5910152" # checked
+doi.data.version = "???"
 
 doi.software.concept = "10.5281/zenodo.4308216" # checked
-doi.software.version = "10.5281/zenodo.5910155" # checked
+doi.software.version = "???" 
 
 doi.personendaten = "10.5281/zenodo.4568682" # checked
 doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
@@ -28,7 +28,7 @@ doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
 # Debugging
 
 debug.toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"; Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten
-debug.sample = 10      # Die Anzahl der zufällig ausgewählten Seiten, die im Debugging-Modus berücksichtigt werden sollen (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen.
+debug.pages = 20      # Die Anzahl der zufällig ausgewählten Seiten, die im Debugging-Modus berücksichtigt werden sollen (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen.
 
 
 
@@ -69,17 +69,3 @@ fig.align = "center"    	# Ausrichtung von Diagrammen im Compilation Report
 
 
 
-# Frequenztabellen: Ignorierte Variablen
-#' **Hinweis:** Diese Variablen werden bei der Erstellung der Frequenztabellen nicht berücksichtigt.
-
-freqtable.ignore = ["text",
-		    "eingangsnummer",
-		    "datum",
-		    "doc_id",
-		    "seite",
-		    "name",
-		    "ecli",
-		    "aktenzeichen",
-		    "pressemitteilung",
-		    "zitiervorschlag",
-		    "kurzbeschreibung"]
