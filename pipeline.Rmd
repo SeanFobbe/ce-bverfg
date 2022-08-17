@@ -453,6 +453,56 @@ tar_target(files.html,
 
 
 
+## Convert Targets
+
+
+### TXT-Dateien erstellen und einlesen
+
+Es werden die PDF-Dateien in TXT konvertiert und mitsamt den Variablen in ihren Dateinamen eingelesen. Beim Einlesen werden die in PDF-Dateien üblichen über Zeilen gebrochene Wörter wieder zusammengefügt.
+
+
+
+```{targets tar.convert1}
+
+list(tar_target(files.txt,
+                f.tar_pdf_extract(x = files.pdf,
+                                  outputdir = "txt",
+								  multicore = config$parallel$extractPDF,
+                                  cores = fullCores),
+                format = "file"),
+     tar_target(dt.bverfg,
+                f.readtext(x = files.txt,
+                           docvarnames = docvarnames))
+     )
+					
+```					
+
+
+### HTML-Dateien einlesen und auswerten
+
+
+
+
+
+
+
+
+## Enhance Targets
+
+Dieser Abschnitt der Pipeline berechnet diverse Verbesserungen für den Datensatz und führt diese am Ende zusammen.
+
+
+### Daten standardisieren
+
+Das Datum wird im ISO-Format standardisiert und die Variablen \enquote{entscheidungsjahr} und \enquote{eingangsjahr\_iso} hinzugefügt.
+
+
+```{targets tar.enhance1}
+tar_target(dt.bverfg.datecleaned,
+           f.clean_dates(dt.bverfg))
+```
+
+
 
 
 
