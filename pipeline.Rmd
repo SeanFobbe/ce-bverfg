@@ -377,6 +377,15 @@ list(
 ## Download Targets
 
 
+### Vorläufige Download-Tabelle erstellen
+
+```{targets tar.download1}
+tar_target(dt.download,
+           f.download_table_make(debug.toggle = config$debug$toggle,
+                                 debug.pages = config$debug$pages))
+```
+
+
 
 
 
