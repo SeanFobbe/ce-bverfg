@@ -385,6 +385,15 @@ tar_target(dt.download,
                                  debug.pages = config$debug$pages))
 ```
 
+### Vorläufige Dateinamen erstellen
+
+```{targets tar.download2}
+tar_target(filenames.raw,
+           f.filenames_raw(url.pdf = dt.download$url_pdf))
+```
+
+
+
 
 
 
