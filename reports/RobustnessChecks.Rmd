@@ -210,16 +210,19 @@ freqtable.ignore  <-  c("text",
                         "datum",
                         "doc_id",
                         "ecli",
-                        "aktenzeichen",
+                        "aktenzeichen",                        
+                        "seite",
                         "name",
                         "bemerkung",
+                        "pressemitteilung",
+                        "zitiervorschlag",
+                        "kurzbeschreibung",
                         "tokens",
                         "typen",
                         "saetze",
                         "zeichen",
                         "url")
 ```
-
 
 
 
