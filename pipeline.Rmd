@@ -266,12 +266,55 @@ Mit diesem Abschnitt der Pipeline werden Input-Dateien getrackt und eingelesen. 
 
 
 
-### Variablen
+
+
+### Source Code
+
+Dies sind alle Dateien, die den Source Code für den Datensatz bereitstellen.
+
+```{targets tar.file1}
+tar_target(files.source,
+           files.source.raw,
+           format = "file")
+
+```
+
+
+### Changelog
+
+```{targets tar.file2}
+tar_target(changelog,
+           "CHANGELOG.md",
+           format = "file")
+```
+
+
+
+### Variablen für die BVerfGE
+
+Diese Tabelle enthält Name, Band und Seite der Entscheidung in der BVerfGE. 
+
+
+```{targets tar.file3}
+list(
+    tar_target(file.variables.bverfge,
+               "data/BVerfGE_Variablen_NameBandSeite.csv",
+               format = "file"),
+    tar_target(variables.bverfge,
+               fread(file.variables.bverfge)
+)
+```
+
+
+
+
+
+### Liste aller Variablen
 
 Die Variablen des Datensatzes, inklusive ihrer Erläuterung.
 
 
-```{targets tar.file1}
+```{targets tar.file4}
 list(
     tar_target(file.variables.codebook,
                "data/CE-BVerfG_Variables.csv",
@@ -289,7 +332,7 @@ Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stamm
 
 `
 
-```{targets tar.file2}
+```{targets tar.file5}
 list(
     tar_target(file.az.brd,
            "data/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv",
@@ -304,7 +347,7 @@ list(
  Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
-```{targets tar.file3}
+```{targets tar.file6}
 list(
     tar_target(file.presidents,
            "data/PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv",
@@ -316,7 +359,7 @@ list(
 
 
 
-```{targets tar.file4}
+```{targets tar.file7}
 list(
     tar_target(file.vpresidents,
            "data/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv",
@@ -329,30 +372,12 @@ list(
 
 
 
-### Source Code
-
-Dies sind alle Dateien, die den Source Code für den Datensatz bereitstellen.
-
-```{targets tar.file5}
-tar_target(files.source,
-           files.source.raw,
-           format = "file")
-
-```
-
-
-
-### Changelog
-
-```{targets tar.file6}
-tar_target(changelog,
-           "CHANGELOG.md",
-           format = "file")
-```
-
 
 
 ## Download Targets
+
+
+
 
 
 ## Report Targets
