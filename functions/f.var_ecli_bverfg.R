@@ -15,7 +15,7 @@
 
 
 
-f.var_ecli_bgh <- function(x){
+f.var_ecli_bverfg <- function(x){
 
 
     ## Unit Test
