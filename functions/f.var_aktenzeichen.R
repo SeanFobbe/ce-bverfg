@@ -7,6 +7,8 @@
 #' @param az.brd Ein data.frame oder data.table mit dem Datensatz "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564."
 
 #' @param gericht Das Gericht, dessen Aktenzeichen zu erstellen sind.
+#'
+#' @param remove.na Ob "NA"-Werte entfernt werden sollen. In der Regel unproblematisch, kann aber deaktiviert werden, falls dabei Registerzeichen zerstört werden.
 
 
 #' @param return Ein Vektor mit Aktenzeichen.
@@ -16,7 +18,8 @@
 
 f.var_aktenzeichen <- function(x,
                                az.brd,
-                               gericht){
+                               gericht,
+                               remove.na = TRUE){
 
 
     ## Unit Test
@@ -44,7 +47,7 @@ f.var_aktenzeichen <- function(x,
                            x$eingangsjahr_az)
 
 
-    if(gericht == "BVerfG"){
+    if(remova.na == TRUE){
         
         aktenzeichen <- gsub("NA ",
                              "",
