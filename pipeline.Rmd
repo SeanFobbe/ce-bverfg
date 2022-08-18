@@ -673,7 +673,7 @@ tar_target(dt.bverfg.final,
            f.finalize(x = dt.bverfg.intermediate,
                       download.table = dt.download.final,
                       html.meta = dt.html.meta,
-                      varnames = variables.codebook$varname))
+                      varnames = dt.var_codebook$varname))
 
 ```
 
