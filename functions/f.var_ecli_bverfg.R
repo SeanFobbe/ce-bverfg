@@ -77,14 +77,15 @@ f.var_ecli_bgh <- function(x){
 
     regex.test <- grep(paste0("ECLI:DE:BVerfG", # Präambel
                               ":[0-9]{4}:", # Entscheidungsjahr
-                              "[a-z]{2}", # Spruchkörper
-                              "[0-9]{6}", # Datum
+                              "[a-z]{2}", # Spruchkörper                              
+                              "[0-9]{8}", # Datum
                               "[a-z]*", # ggf. Kollision
                               "\\.",
-                              "[1-2]", # Senatsnummer
+                              "[0-9]", # Senatsnummer
                               "bv[a-z]", # Registerzeichen
                               "[0-9]{4}", # Eingangsnummer
-                              "\\.[0-9]{2}") # Eingangsjahr                              
+                              "[0-9]{2}" # Eingangsjahr 
+                              ),
                        ecli,
                        value = TRUE,
                        invert = TRUE)
