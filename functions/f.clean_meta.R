@@ -73,14 +73,14 @@ f.clean_meta <- function(x){
                    "V")
 
 
-    entscheidung_typ.main <- mgsub::mgsub(entscheidung_typ.main,
+    entscheidung_typ <- mgsub::mgsub(entscheidung_typ,
                                           lang.etyp,
                                           kurz.etyp,
                                           ignore.case = TRUE)
 
 
     ## Einfügen
-    txt.bverfg$entscheidung_typ <- entscheidung_typ
+    x$entscheidung_typ <- entscheidung_typ
 
 
     
