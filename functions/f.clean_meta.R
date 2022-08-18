@@ -4,7 +4,7 @@
 #' Aus HTML gewonnene Metadaten zu Entscheidungen des BVerfG bereinigen.
 
 #' @param x Data.table. Rohe Metadaten aus Entscheidungen des BVerfG im HTML-Format.
-#'
+
 #' @return Data.table. Bereinigte Metadaten.
 
 
@@ -15,9 +15,9 @@ f.clean_meta <- function(x){
 
     
 
-    ## Metadaten mit ECLI-Duplikaten entfernen
+    ## === ECLI korrigieren ===
     
-    ## Für eine Entscheidung wird versehentlich auch die englischsprachige Zusammenfassung abgerufen, diese wird hier entfernt.
+    ## Metadaten mit ECLI-Duplikaten entfernen: Für eine Entscheidung wird versehentlich auch die englischsprachige Zusammenfassung abgerufen, diese wird hier entfernt.
 
     x <- x[grep("Order",
                 x$zitiervorschlag,
@@ -47,6 +47,43 @@ f.clean_meta <- function(x){
                    x$ecli)
 
 
+
+
+    ## === Entscheidungstyp aus Zitiervorschlägen extrahieren ===
+
+
+
+    ## Zitiervorschläge parsen
+    
+    entscheidung_typ <- gsub(".*(Beschluss|Urteil|Verfügung).*",
+                             "\\1",
+                             x$zitiervorschlag,
+                             ignore.case = TRUE)
+
+
+
+    ## Kürzen
+
+    lang.etyp <- c("Urteil",
+                   "Beschluss",
+                   "Verfügung")
+
+    kurz.etyp <- c("U",
+                   "B",
+                   "V")
+
+
+    entscheidung_typ.main <- mgsub::mgsub(entscheidung_typ.main,
+                                          lang.etyp,
+                                          kurz.etyp,
+                                          ignore.case = TRUE)
+
+
+    ## Einfügen
+    txt.bverfg$entscheidung_typ <- entscheidung_typ
+
+
+    
 
 
     return(x)
