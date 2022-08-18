@@ -15,14 +15,14 @@ f.tar_udpipe <- function(x,
 
 
     
-    model <- udpipe_download_model(language = language,
-                                   model_dir = model_dir,
-                                   overwrite = FALSE)
+    model <- udpipe::udpipe_download_model(language = language,
+                                           model_dir = model_dir,
+                                           overwrite = FALSE)
 
 
-    annotated <- udpipe(x = x,
-                        object = model,
-                        parallel.cores = cores)
+    annotated <- udpipe::udpipe(x = x,
+                                object = model,
+                                parallel.cores = cores)
 
     annotated$sentence <- NULL
     
