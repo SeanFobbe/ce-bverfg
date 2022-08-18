@@ -488,6 +488,20 @@ tar_target(html.parsed,
 ```
 
 
+### HTML Parse-Ergebnis splitten
+
+```{targets tar.convert3}
+
+list(
+    tar_target(dt.html.meta,
+               html.parsed$dt.meta.html),
+    tar_target(dt.segmented,
+               html.parsed$dt.segmented.full)
+		   
+
+```
+
+
 
 
 
@@ -534,6 +548,18 @@ tar_target(var_aktenzeichen,
 ```
 
 
+### Variable erstellen: \enquote{ecli}
+
+Die ECLI wird aus ihren Komponenten berechnet.
+
+
+
+```{targets tar.enhance4}
+tar_target(var_ecli,
+           f.var_ecli_bverfg(x = dt.bverfg.datecleaned))
+```
+
+
 
 
 ### Variable erstellen: \enquote{praesi}
@@ -555,8 +581,6 @@ tar_target(var_vpraesi,
                         gericht = "BVerfG",
 						pvp.fcg = vpresidents))
 ```
-
-
 
 
 
