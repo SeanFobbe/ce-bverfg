@@ -490,13 +490,15 @@ tar_target(html.parsed,
 
 ### HTML Parse-Ergebnis splitten
 
+
+
 ```{targets tar.convert3}
 
 list(
     tar_target(dt.html.meta,
-               html.parsed$dt.meta.html),
+               f.clean_meta(html.parsed$dt.meta.html)),
     tar_target(dt.segmented,
-               html.parsed$dt.segmented.full)
+               f.clean_segmented(html.parsed$dt.segmented.full))
 )
 		   
 
