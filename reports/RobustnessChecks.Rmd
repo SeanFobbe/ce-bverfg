@@ -173,6 +173,28 @@ setdiff(tools::file_path_sans_ext(basename(files.pdf)),
 
 
 
+
+
+
+## ECLI Test
+
+
+#'### ECLI-Test 1: ECLI die in PDF, aber nicht in HTML vorhanden sind
+sort(setdiff(txt.bverfg$ecli, dt.segmented.full$ecli))
+
+
+#'### ECLI-Test 2: ECLI die in HTML, aber nicht in PDF vorhanden sind
+sort(setdiff(dt.segmented.full$ecli, txt.bverfg$ecli))
+
+#'### Zum Vergleich: Beim Download fehlende PDF-Dateien
+print(sort(missing.pdf))
+
+
+
+
+
+
+
 # Variablen
 
 ## Anzahl Variablen
