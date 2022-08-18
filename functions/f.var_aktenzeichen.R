@@ -48,7 +48,7 @@ f.var_aktenzeichen <- function(x,
 
     ## NA entfernen
 
-    if(remova.na == TRUE){
+    if(remove.na == TRUE){
         
         aktenzeichen <- gsub("NA ",
                              "",
