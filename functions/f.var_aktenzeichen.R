@@ -43,42 +43,46 @@ f.var_aktenzeichen <- function(x,
                            "/",
                            x$eingangsjahr_az)
 
-    
-    ## evtl für andere gerichte nützlich
-    ## aktenzeichen <- gsub("NA ",
-    ##                      "",
-    ##                      aktenzeichen)
 
+    if(gericht == "BVerfG"){
+        
+        aktenzeichen <- gsub("NA ",
+                             "",
+                             aktenzeichen)
+
+
+    }
+    
 
     ## REGEX-Validierung: Aktenzeichen
 
     if(gericht == "BGH"){
-    
-    regex.test <- grep(paste0("[0-9XIVNAa-z]+", # Spruchkörper
-                              " ",
-                              "[\\(\\)ÜA-Za-z-]+", # Registerzeichen
-                              " ",
-                              "[0-9]+", # Eingangsnummer
-                              "/",
-                              "[0-9]{1,2}" # Eingangsjahr
-                              ),
-                       aktenzeichen,
-                       value = TRUE,
-                       invert = TRUE)
+        
+        regex.test <- grep(paste0("[0-9XIVNAa-z]+", # Spruchkörper
+                                  " ",
+                                  "[\\(\\)ÜA-Za-z-]+", # Registerzeichen
+                                  " ",
+                                  "[0-9]+", # Eingangsnummer
+                                  "/",
+                                  "[0-9]{1,2}" # Eingangsjahr
+                                  ),
+                           aktenzeichen,
+                           value = TRUE,
+                           invert = TRUE)
 
     }else{
-    
-    regex.test <- grep(paste0("[0-9NA]+", # Spruchkörper
-                              " ",
-                              "[A-Za-z-]+", # Registerzeichen
-                              " ",
-                              "[0-9]+", # Eingangsnummer
-                              "/",
-                              "[0-9]{1,2}" # Eingangsjahr
-                              ),
-                       aktenzeichen,
-                       value = TRUE,
-                       invert = TRUE)
+        
+        regex.test <- grep(paste0("[0-9NA]+", # Spruchkörper
+                                  " ",
+                                  "[A-Za-z-]+", # Registerzeichen
+                                  " ",
+                                  "[0-9]+", # Eingangsnummer
+                                  "/",
+                                  "[0-9]{1,2}" # Eingangsjahr
+                                  ),
+                           aktenzeichen,
+                           value = TRUE,
+                           invert = TRUE)
 
     }
 
