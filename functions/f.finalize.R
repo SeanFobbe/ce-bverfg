@@ -54,6 +54,7 @@ f.finalize <- function(x,
     ## Unit Test: Check variables and set column order
     
     varnames <- gsub("\\\\", "", varnames) # Remove LaTeX escape characters
+    varnames <- varnames[!varnames == "segment"]
     data.table::setcolorder(dt.final, varnames)
 
 
