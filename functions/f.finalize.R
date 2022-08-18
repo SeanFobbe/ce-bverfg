@@ -12,7 +12,7 @@
 
 f.finalize <- function(x,
                        download.table,
-                       html.meta
+                       html.meta,
                        varnames){
 
 
