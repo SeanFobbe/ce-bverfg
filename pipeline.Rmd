@@ -149,7 +149,7 @@ tar_option_set(packages = c("tarchetypes",
                             "scales",       # Skalierung von Diagrammen
                             "data.table",   # Fortgeschrittene Datenverarbeitung
                             "readtext",     # TXT-Dateien einlesen
-							"udpip",        # Annotation von Texten
+							"udpipe",       # Annotation von Texten
                             "quanteda",     # Computerlinguistik
                             "future",       # Parallelisierung
                             "future.apply"))# Funktionen für Future
