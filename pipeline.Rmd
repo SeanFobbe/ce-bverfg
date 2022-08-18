@@ -497,6 +497,7 @@ list(
                html.parsed$dt.meta.html),
     tar_target(dt.segmented,
                html.parsed$dt.segmented.full)
+)
 		   
 
 ```
