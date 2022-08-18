@@ -508,6 +508,91 @@ tar_target(dt.bverfg.datecleaned,
 
 
 
+### Variable erstellen: \enquote{verfahrensart}
+
+Die Variable \enquote{verfahrensart} wird aus den Registerzeichen berechnet.
+
+```{targets tar.enhance2}
+tar_target(var_verfahrensart,
+                f.var_verfahrensart(dt.bverfg.datecleaned$registerzeichen,
+                                    az.brd = az.brd,
+                                    gericht = "BVerfG"))
+```
+
+
+### Variable erstellen: \enquote{aktenzeichen}
+
+Das Aktenzeichen wird aus seinen Komponenten berechnet.
+
+
+```{targets tar.enhance3}
+tar_target(var_aktenzeichen,
+                f.var_aktenzeichen(dt.bverfg.datecleaned,
+                                   az.brd = az.brd,
+                                   gericht = "BVerfG"))
+```
+
+
+
+
+### Variable erstellen: \enquote{praesi}
+
+
+```{targets tar.enhance5}
+tar_target(var_praesi,
+           f.presidents(datum = dt.bverfg.datecleaned$datum,
+                        gericht = "BVerfG",
+						pvp.fcg = presidents))
+```
+
+### Variable erstellen: \enquote{vpraesi}
+
+
+```{targets tar.enhance6}
+tar_target(var_vpraesi,
+           f.presidents(datum = dt.bverfg.datecleaned$datum,
+                        gericht = "BVerfG",
+						pvp.fcg = vpresidents))
+```
+
+
+
+
+
+
+### Variablen erstellen: \enquote{zeichen, token, typen, saetze}
+
+Berechnung klassischer linguistischer Kennzahlen.
+
+
+
+```{targets tar.enhance8}
+tar_target(var_lingstats,
+                f.lingstats(dt.bverfg.datecleaned,
+                            multicore = config$parallel$lingsummarize,
+                            cores = fullCores,
+                            germanvars = TRUE))
+```
+
+
+
+
+
+### Konstanten erstellen
+
+Konstanten die dem Datensatz wichtige Herkunftsinformationen hinzufügen. Darunter sind die Versionsnummer, die Version DOI, die Concept DOI und die Lizenz.
+
+
+
+```{targets tar.enhance9}
+tar_target(var_constants,
+           data.frame(version = as.character(datestamp),
+                      doi_concept = config$doi$data$concept,
+                      doi_version = config$doi$data$version,
+                      lizenz = as.character(config$license$data))[rep(1,
+                                                                      nrow(dt.bverfg.datecleaned)),])
+```
+
 
 
 
