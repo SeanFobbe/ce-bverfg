@@ -651,7 +651,7 @@ tar_target(dt.bverfg.intermediate,
 
 ### Hauptdatensatz in segmentierte Variante mergen
 
-```{targets tar.enhance11}
+```{targets tar.enhance12}
 
 tar_target(dt.segmented.final,
            merge(dt.segmented,
@@ -668,7 +668,7 @@ tar_target(dt.segmented.final,
 Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
 
 
-```{targets tar.enhance12, eval = FALSE}
+```{targets tar.enhance13, eval = FALSE}
 tar_target(dt.bverfg.final,
            f.finalize(x = dt.bverfg.intermediate,
                       varnames = variables.codebook$varname))
