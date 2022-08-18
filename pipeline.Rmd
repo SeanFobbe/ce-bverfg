@@ -668,12 +668,70 @@ tar_target(dt.segmented.final,
 Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
 
 
-```{targets tar.enhance13, eval = FALSE}
+```{targets tar.enhance13}
 tar_target(dt.bverfg.final,
            f.finalize(x = dt.bverfg.intermediate,
+                      download.table = dt.download.final,
+                      html.meta = dt.html.meta,
                       varnames = variables.codebook$varname))
 
 ```
+
+
+
+### Variante erstellen: Nur Metadaten
+
+Hier wird die Text-Variable entfernt, um eine deutlich platzsparendere Variante des Datensatzes zu erstellen. Enthalten sind nur noch die Metadaten.
+
+
+
+```{targets tar.enhance14}
+tar_target(dt.bverfg.meta,
+                dt.bverfg.final[, !"text"])
+
+```
+
+
+### Variante erstellen: Annotiert
+
+
+
+
+
+## Write Targets
+
+Dieser Abschnitt der Pipeline schreibt den Datensatz und alle Hash-Prüfsummen auf die Festplatte.
+
+
+
+### CSV schreiben: Voller Datensatz
+
+```{targets tar.write1}
+tar_target(csv.final,
+           f.tar_fwrite(x = dt.bverfg.final,
+                        filename = file.path("output",
+                                             paste0(prefix.files,
+                                                    "_DE_CSV_Datensatz.csv"))
+                        )
+           )
+```
+
+
+
+### CSV schreiben: Metadaten
+
+
+```{targets tar.write2}
+tar_target(csv.meta,
+           f.tar_fwrite(x = dt.bverfg.meta,
+                        filename = file.path("output",
+                                             paste0(prefix.files,
+                                                    "_DE_CSV_Metadaten.csv"))
+                        )
+           )
+```
+
+
 
 
 
