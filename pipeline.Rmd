@@ -529,7 +529,8 @@ Das Aktenzeichen wird aus seinen Komponenten berechnet.
 tar_target(var_aktenzeichen,
                 f.var_aktenzeichen(dt.bverfg.datecleaned,
                                    az.brd = az.brd,
-                                   gericht = "BVerfG"))
+                                   gericht = "BVerfG",
+								   remove.na = TRUE))
 ```
 
 
