@@ -625,6 +625,59 @@ tar_target(var_constants,
 
 
 
+### Zusätzliche Variablen zusammenführen
+
+```{targets tar.enhance10}
+tar_target(vars_additional,
+           data.table(verfahrensart = var_verfahrensart,
+                      aktenzeichen = var_aktenzeichen,
+                      ecli = var_ecli,
+                      praesi = var_praesi,
+                      v_praesi = var_vpraesi,
+                      var_lingstats,
+                      var_constants))
+
+```
+
+
+### Datensatz und zusätzliche Variablen verbinden
+
+```{targets tar.enhance11}
+tar_target(dt.bverfg.intermediate,
+           cbind(dt.bverfg.datecleaned,
+                 vars_additional))
+
+```
+
+### Hauptdatensatz in segmentierte Variante mergen
+
+```{targets tar.enhance11}
+
+tar_target(dt.segmented.final,
+           merge(dt.segmented,
+                 dt.bverfg.intermediate[,!"text"],
+                 by = "ecli",
+                 all.x = TRUE,
+                 sort = FALSE))
+				 
+```
+
+
+### Finalen Datensatz erstellen
+
+Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
+
+
+```{targets tar.enhance11, eval = FALSE}
+tar_target(dt.bverfg.final,
+           f.finalize(x = dt.bverfg.intermediate,
+                      varnames = variables.codebook$varname))
+
+```
+
+
+
+
 
 ## Report Targets
 
