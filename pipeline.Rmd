@@ -695,6 +695,18 @@ tar_target(dt.bverfg.meta,
 ### Variante erstellen: Annotiert
 
 
+```{targets tar.enhance15}
+tar_target(dt.bverfg.annotated,
+           f.tar_udpipe(dt.bverfg.final,
+                        language = "german-hdt",
+                        model_dir = "temp",
+                        cores = fullCores))
+
+```
+
+
+
+
 
 
 
@@ -757,6 +769,15 @@ tar_target(latexdefs,
 ```
 
 
+
+### Zusammenfassungen linguistischer Kennwerte berechnen
+
+```{targets tar.report2}
+tar_target(lingstats.summary,
+                f.lingstats_summary(dt.bverfg.final,
+                                    germanvars = TRUE))
+
+```
 
 
 
