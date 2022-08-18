@@ -17,12 +17,12 @@ f.finalize <- function(x,
 
 
     ## Unit Test
-#    test_that("Argumente entsprechen Erwartungen.", {
+    test_that("Argumente entsprechen Erwartungen.", {
         expect_s3_class(x, "data.table")
         expect_s3_class(download.table, "data.table")
         expect_s3_class(html.meta, "data.table")
         expect_type(varnames, "character")
-#    })
+    })
     
 
 
@@ -59,11 +59,11 @@ f.finalize <- function(x,
 
 
     ## Unit Test
-#    test_that("Ergebnis entspricht Erwartungen.", {
+    test_that("Ergebnis entspricht Erwartungen.", {
         expect_s3_class(dt.final, "data.table")
         expect_equal(dt.final[,.N], html.meta[,.N])
         expect_equal(dt.final[,.N], download.table[,.N])
-#    })
+    })
 
     
     return(dt.final)
