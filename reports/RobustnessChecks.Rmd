@@ -169,7 +169,7 @@ freqtable.ignore  <-  c("text",
 
 ## Liste zu prüfender Variablen
 
-varlist <- setdiff(names(dt.bverfg.meta), freqtable.ignore)
+varlist <- setdiff(names(dt.bverfg.final), freqtable.ignore)
 print(varlist)
 
 
