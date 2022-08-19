@@ -201,7 +201,7 @@ f.fast.freqtable(dt.bverfg.final,
                  output.csv = TRUE,
                  outputdir = dir.analysis,
                  prefix = prefix,
-                 align = c("p{5cm}",
+                 align = c("p{8cm}",
                            rep("r", 3)))
 
 ```
