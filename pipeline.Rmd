@@ -856,9 +856,9 @@ tar_target(zip.analysis,
 
 
 ```{targets tar.zip3}
-tar_target(zip.csv.full,
-                f.tar_zip(csv.full,
-                              filename = gsub("\\.csv", "\\.zip", basename(csv.full)),
+tar_target(zip.csv.final,
+                f.tar_zip(csv.final,
+                              filename = gsub("\\.csv", "\\.zip", basename(csv.final)),
                               dir = "output",
                               mode = "cherry-pick"),
                 format = "file")
@@ -940,7 +940,7 @@ tar_target(zip.all,
            c(zip.pdf.all,
              zip.txt,
              zip.html,
-             zip.csv.full,
+             zip.csv.final,
              zip.csv.meta,
              zip.analysis,
              zip.source))
