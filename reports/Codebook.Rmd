@@ -315,11 +315,12 @@ Die Robenfarbe der Bundesverfassungsrichter ist \enquote{scharlachrot}. Der Hex-
 
 
 
+
 # Varianten und Zielgruppen
 
 Dieser Datensatz ist in verschiedenen Varianten verfügbar, die sich an unterschiedliche Zielgruppen richten. Zielgruppe sind nicht nur quantitativ forschende Rechtswissenschaftler:innen, sondern auch traditionell arbeitende Jurist:innen. Idealerweise müssen quantitative Methoden ohnehin immer durch qualitative Interpretation, Theoriebildung und kritische Auseinandersetzung verstärkt werden (\emph{mixed methods approach}).
 
-Lehrende werden von den vorbereiteten Tabellen und Diagrammen besonders profitieren, die bei der Erläuterung der Charakteristika der Daten hilfreich sein können und Zeit im universitären Alltag sparen. Alle Tabellen und Diagramme liegen auch als separate Dateien vor um sie einfach z.B. in Präsentations-Folien oder Handreichungen zu integrieren.
+Lehrende werden zudem von den vorbereiteten Tabellen und Diagrammen besonders profitieren, die bei der Erläuterung der Charakteristika der Daten hilfreich sein können und Zeit im universitären Alltag sparen. Alle Tabellen und Diagramme liegen auch als separate Dateien vor um sie einfach z.B. in Präsentations-Folien oder Handreichungen zu integrieren.
 
 \begin{centering}
 \begin{longtable}{P{3.5cm}p{10.5cm}}
@@ -332,10 +333,13 @@ Variante & Zielgruppe und Beschreibung\\
 
 \endhead
 
-PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vom BGH auf der amtlichen Webseite bereitgestellt werden, jedoch verbessert durch semantisch hochwertige Dateinamen, die der leichteren Auffindbarkeit von Entscheidungen dienen. Die Dateinamen sind so konzipiert, dass sie auch für die traditionelle qualitative juristische Arbeit einen erheblichen Mehrwert bieten. Im Vergleich zu den CSV-Dateien enthalten die Dateinamen nur einen reduzierten Umfang an Metadaten, um Kompatibilitätsprobleme zu vermeiden und die Lesbarkeit zu verbessern. Neben dem vollen Datensatz sind für Praktiker:innen auch Varianten aufbereitet, die nur \emph{Leitsatzentscheidungen} oder nur \emph{besonders wichtige Entscheidungen mit Namen} enthalten.\\
- CSV\_Datensatz & \textbf{Legal Tech/Quantitative Forschung}. Diese CSV-Datei ist die für statistische Analysen empfohlene Variante des Datensatzes. Sie enthält den Volltext aller Entscheidungen, sowie alle in diesem Codebook beschriebenen Metadaten.  Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Über Zeilenumbrüche getrennte Wörter wurden zusammengefügt. \\
+PDF & \textbf{Traditionelle juristische Forschung.} Die PDF-Dokumente wie sie vom Bundesverfassungsgericht auf der amtlichen Webseite bereitgestellt werden, jedoch verbessert durch semantisch hochwertige Dateinamen, die der leichteren Auffindbarkeit von Entscheidungen dienen. Die Dateinamen sind so konzipiert, dass sie auch für die traditionelle qualitative juristische Arbeit einen erheblichen Mehrwert bieten. Im Vergleich zu den CSV-Dateien enthalten die Dateinamen nur einen reduzierten Umfang an Metadaten, um Kompatibilitätsprobleme zu vermeiden und die Lesbarkeit zu verbessern.\\
+ CSV\_Datensatz & \textbf{Legal Tech/Quantitative Forschung.} Diese CSV-Datei ist die für statistische Analysen empfohlene Variante des Datensatzes. Sie enthält den Volltext aller Entscheidungen, sowie alle in diesem Codebook beschriebenen Metadaten. Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung.\\
  CSV\_Metadaten & \textbf{Legal Tech/Quantitative Forschung.} Wie die vorige CSV-Variante, nur ohne die Entscheidungstexte. Sinnvoll für Analyst:innen, die sich nur für die Metadaten interessieren und Speicherplatz sparen wollen.  Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung.\\
- TXT & \textbf{Subsidiär für alle Zielgruppen}. Diese Variante enthält die vollständigen aus den PDF-Dateien extrahierten Entscheidungstexte, aber nur einen reduzierten Umfang an Metadaten, der dem der PDF-Dateien entspricht. Die TXT-Dateien sind optisch an das Layout der PDF-Dateien angelehnt. Geeignet für qualitativ arbeitende Forscher:innen, die nur wenig Speicherplatz oder eine langsame Internetverbindung zur Verfügung haben oder für quantitativ arbeitende Forscher:innen, die beim Einlesen der CSV-Dateien Probleme haben. Über Zeilenumbrüche getrennte Wörter wurden \emph{nicht} zusammengefügt.\\
+ CSV\_Annotiert & \textbf{Legal Tech/Quantitative Forschung.} Alle Entscheidungen in tokenisierter Form mit linguistischen Annotationen. Beachten Sie bitte die besondere Variablen-Struktur unter Punkt \ref{annovars}.  Jede Spalte entspricht einer Variable, jede Zeile einem Token.\\
+ CSV\_Segmentiert & \textbf{Legal Tech/Quantitative Forschung. Experimentell!} Alle Entscheidungen in segmentierter Form, d.h. sie sind in einzelne Text-Abschnitte unterteilt (z.B. Leitsätze, Entscheidungsformel, Begründung, Unterschriften). Manche Teile einer Entscheidung sind bewusst nicht enthalten (z.B. lange Zitate aus Gesetzen), weil diese nicht die eigentliche Aktivität des Gerichts wiedergeben. Die Nummerierung der Leitsätze und Absätze der Begründung sollte in der Regel (aber nicht immer!) der originalen Nummerierung in der PDF-Fassung entsprechen. Diese Fassung wurde aus den HTML-Dateien gewonnen und ist noch experimentell. \\
+ HTML & \textbf{Legal Tech/Quantitative Forschung.} Die HTML-Dokumente wie sie vom Bundesverfassungsgericht auf der amtlichen Webseite bereitgestellt werden, mit originalen Dateinamen.\\
+ TXT & \textbf{Subsidiär für alle Zielgruppen.} Diese Variante enthält die vollständigen aus den PDF-Dateien extrahierten Entscheidungstexte, aber nur einen reduzierten Umfang an Metadaten, der dem der PDF-Dateien entspricht. Die TXT-Dateien sind optisch an das Layout der PDF-Dateien angelehnt. Geeignet für qualitative Forscher:innen, die nur wenig Speicherplatz oder eine langsame Internetverbindung zur Verfügung haben oder für quantitative Forscher:innen, die beim Einlesen der CSV-Dateien Probleme haben.\\
  ANALYSE & \textbf{Alle Lehrenden und Forschenden.} Dieses Archiv enthält alle während dem Kompilierungs- und Prüfprozess erstellten Tabellen (CSV) und Diagramme (PDF, PNG) im Original. Sie sind inhaltsgleich mit den in diesem Codebook verwendeten Tabellen und Diagrammen. Das PDF-Format eignet sich besonders für die Verwendung in gedruckten Publikationen, das PNG-Format besonders für die Darstellung im Internet. Analyst:innen mit fortgeschrittenen Kenntnissen in R können auch auf den Source Code zurückgreifen. Empfohlen für Nutzer:innen die einzelne Inhalte aus dem Codebook für andere Zwecke (z.B. Präsentationen, eigene Publikationen) weiterverwenden möchten.\\
 
 
@@ -348,7 +352,6 @@ PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vo
 
 
 \newpage
-
 
 
 
