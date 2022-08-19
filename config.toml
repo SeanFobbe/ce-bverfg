@@ -34,7 +34,7 @@ debug.pages = 20      # Die Anzahl der zufällig ausgewählten Seiten, die im De
 
 # Annotation
 
-annotate.toggle = true # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Sehr rechenintensiv!
+annotate.toggle = false # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Sehr rechenintensiv!
 
 
 
