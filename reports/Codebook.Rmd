@@ -819,24 +819,10 @@ fwrite(dt.stats.docvars,
 
 ## Nach Typ der Entscheidung
 
-```{r}
-freqtable.etyp <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "entscheidung_typ",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.etyp.nosum <- freqtable.etyp[-.N]
-
-```
-
-
 
 
 ```{r, CE-BVerfG_05_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.etyp.nosum) +
+ggplot(data = freqtable$entscheidung_typ[-.N]) +
     geom_bar(aes(x = reorder(entscheidung_typ,
                              -N),
                  y = N),
@@ -867,7 +853,7 @@ ggplot(data = freqtable.etyp.nosum) +
 
 ```{r}
 
-kable(freqtable.etyp,
+kable(freqtable$entscheidung_typ,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
@@ -886,19 +872,49 @@ kable(freqtable.etyp,
 \newpage
 
 
-## Nach Spruchkörper (Aktenzeichen)
+## Nach Typ des Spruchkörpers
+
+```{r, CE-BVerfG_03_Barplot_Spruchkoerper_Typ, fig.height = 6, fig.width = 9}
+
+ggplot(data = freqtable$spruchkoerper_typ[-.N]) +
+    geom_bar(aes(x = reorder(spruchkoerper_typ,
+                             -N),
+                 y = N),
+             stat = "identity",
+             fill = "#ca2129",
+             color = "black",
+             width = 0.4) +
+    theme_bw() +
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Entscheidungen je Spruchkörper-Typ"),
+        caption = caption,
+        x = "Typ des Spruchkörpers",
+        y = "Entscheidungen"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+```
+
+
+
 
 ```{r}
 
-freqtable.az <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "spruchkoerper_az",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.az.nosum <- freqtable.az[-.N]
+kable(freqtable$spruchkoerper_typ,
+      format = "latex",
+      align = 'P{3cm}',
+      booktabs = TRUE,
+      longtable = TRUE,
+      col.names = c("Typ",
+                    "Entscheidungen",
+                    "% Gesamt",
+                    "% Kumulativ"))  %>% kable_styling(latex_options = "repeat_header")
 
 ```
 
@@ -906,8 +922,17 @@ freqtable.az.nosum <- freqtable.az[-.N]
 
 
 
+
+
+\newpage
+
+
+## Nach Spruchkörper (Aktenzeichen)
+
+
+
 ```{r, CE-BVerfG_06_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.az.nosum) +
+ggplot(data = freqtable$spruchkoerper_az[-.N]) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
                  y = N),
@@ -937,7 +962,7 @@ ggplot(data = freqtable.az.nosum) +
 
 
 ```{r}
-kable(freqtable.az,
+kable(freqtable$spruchkoerper_az,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
