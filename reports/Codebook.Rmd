@@ -808,7 +808,7 @@ kable(dt.stats.docvars,
 ## Zusammenfassungen speichern
 
 fwrite(dt.stats.docvars,
-       file.path(dir.analysis,
+       file.path(file.path("..", "analysis/"),
                  paste0(config$project$shortname,
                         "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv")),
        na = "NA")
@@ -817,6 +817,8 @@ fwrite(dt.stats.docvars,
 ```
 
 \vspace{0.5cm}
+
+
 
 
 ## Nach Typ der Entscheidung
