@@ -1126,26 +1126,10 @@ kable(freqtable$v_praesi,
 ## Nach Entscheidungsjahr
 
 
-```{r}
-
-freqtable.entscheidungsjahr <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "entscheidungsjahr",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.entscheidungsjahr.nosum <- freqtable.entscheidungsjahr[-.N]
-
-```
-
-
-
 
 
 ```{r, CE-BVerfG_11_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.entscheidungsjahr.nosum) +
+ggplot(data = freqtable$entscheidungsjahr[-.N]) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
              stat = "identity",
@@ -1172,7 +1156,7 @@ ggplot(data = freqtable.entscheidungsjahr.nosum) +
 
 
 ```{r}
-kable(freqtable.entscheidungsjahr,
+kable(freqtable$entscheidungsjahr,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
@@ -1189,22 +1173,9 @@ kable(freqtable.entscheidungsjahr,
 ## Nach Eingangsjahr (ISO)
 
 
-```{r}
-freqtable.eingangsjahr <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "eingangsjahr_iso",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.eingangsjahr.nosum <- freqtable.eingangsjahr[-.N]
-```
-
-
 
 ```{r, CE-BVerfG_12_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.eingangsjahr.nosum) +
+ggplot(data = freqtable$eingangsjahr_iso[-.N]) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
              stat = "identity",
@@ -1232,7 +1203,7 @@ ggplot(data = freqtable.eingangsjahr.nosum) +
 
 
 ```{r}
-kable(freqtable.eingangsjahr,
+kable(freqtable$eingangsjahr_iso,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
