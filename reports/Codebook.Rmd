@@ -640,7 +640,7 @@ kable(lingstats.summary,
 
 
 ```{r, CE-BVerfG_01_Density_Zeichen, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bgh.meta)+
+ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = zeichen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -669,7 +669,7 @@ ggplot(data = dt.bgh.meta)+
 ## Verteilung Tokens
 
 ```{r,  CE-BVerfG_02_Density_Tokens, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bgh.meta)+
+ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = tokens),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -697,7 +697,7 @@ ggplot(data = dt.bgh.meta)+
 ## Verteilung Typen
 
 ```{r, CE-BVerfG_03_Density_Typen, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bgh.meta)+
+ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = typen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -726,7 +726,7 @@ ggplot(data = dt.bgh.meta)+
 ## Verteilung Sätze
 
 ```{r, CE-BVerfG_04_Density_Saetze, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bgh.meta)+
+ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = saetze),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -764,14 +764,14 @@ ggplot(data = dt.bgh.meta)+
 
 ```{r}
 
-dt.summary.docvars <- dt.bgh.meta[,
+dt.summary.docvars <- dt.bverfg.meta[,
                                   lapply(.SD, function(x)unclass(summary(na.omit(x)))),
                                   .SDcols = c("entscheidungsjahr",
                                               "eingangsjahr_iso",
                                               "eingangsnummer")]
 
 
-dt.unique.docvars <- dt.bgh.meta[,
+dt.unique.docvars <- dt.bverfg.meta[,
                                  lapply(.SD, function(x)length(unique(na.omit(x)))),
                                  .SDcols = c("entscheidungsjahr",
                                              "eingangsjahr_iso",
@@ -811,7 +811,7 @@ kable(dt.stats.docvars,
 ## Nach Typ der Entscheidung
 
 ```{r}
-freqtable.etyp <- f.fast.freqtable(dt.bgh.meta,
+freqtable.etyp <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "entscheidung_typ",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -881,7 +881,7 @@ kable(freqtable.etyp,
 
 ```{r}
 
-freqtable.az <- f.fast.freqtable(dt.bgh.meta,
+freqtable.az <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "spruchkoerper_az",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -949,7 +949,7 @@ kable(freqtable.az,
 
 ```{r}
 
-freqtable.db <- f.fast.freqtable(dt.bgh.meta,
+freqtable.db <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "spruchkoerper_db",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -1017,7 +1017,7 @@ kable(freqtable.db,
 
 ```{r}
 
-freqtable.regz <- f.fast.freqtable(dt.bgh.meta,
+freqtable.regz <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "registerzeichen",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -1083,7 +1083,7 @@ kable(freqtable.regz,
 
 ```{r}
 
-freqtable.praesi <- f.fast.freqtable(dt.bgh.meta,
+freqtable.praesi <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "praesi",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -1148,7 +1148,7 @@ kable(freqtable.praesi,
 
 ```{r}
 
-freqtable.vpraesi <- f.fast.freqtable(dt.bgh.meta,
+freqtable.vpraesi <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "v_praesi",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -1216,7 +1216,7 @@ kable(freqtable.vpraesi,
 
 ```{r}
 
-freqtable.entscheidungsjahr <- f.fast.freqtable(dt.bgh.meta,
+freqtable.entscheidungsjahr <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "entscheidungsjahr",
                                  sumrow = TRUE,
                                  output.list = TRUE,
@@ -1278,7 +1278,7 @@ kable(freqtable.entscheidungsjahr,
 
 
 ```{r}
-freqtable.eingangsjahr <- f.fast.freqtable(dt.bgh.meta,
+freqtable.eingangsjahr <- f.fast.freqtable(dt.bverfg.meta,
                                  varlist = "eingangsjahr_iso",
                                  sumrow = TRUE,
                                  output.list = TRUE,
