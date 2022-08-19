@@ -155,7 +155,8 @@ freqtable.ignore  <-  c("text",
                         "typen",
                         "saetze",
                         "zeichen",
-                        "url")
+                        "url_html",
+                        "url_pdf")
 ```
 
 
