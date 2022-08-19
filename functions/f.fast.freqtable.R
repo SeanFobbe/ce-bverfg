@@ -57,14 +57,12 @@ f.fast.freqtable <- function(x,
         
         freqtable <- x[, .N, keyby=c(paste0(varname))]
         
-        freqtable[, c("exactpercent",
-                      "roundedpercent",
+        freqtable[, c("roundedpercent",
                       "cumulpercent") := {
                           exactpercent  <-  N/sum(N)*100
                           roundedpercent <- round(exactpercent, 2)
                           cumulpercent <- round(cumsum(exactpercent), 2)
-                          list(exactpercent,
-                               roundedpercent,
+                          list(roundedpercent,
                                cumulpercent)}]
 
         ## Calculate Summary Row
@@ -72,11 +70,10 @@ f.fast.freqtable <- function(x,
             colsums <-  cbind("Total",
                               freqtable[, lapply(.SD, function(x){round(sum(x))}),
                                         .SDcols = c("N",
-                                                    "exactpercent",
                                                     "roundedpercent")
                                         ], round(max(freqtable$cumulpercent)))
             
-            colnames(colsums)[c(1,5)] <- c(varname, "cumulpercent")
+            colnames(colsums)[c(1,4)] <- c(varname, "cumulpercent")
             freqtable <- rbind(freqtable, colsums)
         }
         
