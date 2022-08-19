@@ -2,8 +2,8 @@ varname,type,explanation
 doc\_id,String,(Nur CSV) Dateiname der extrahierten TXT-Datei.
 text,String,"(Nur CSV) Volltext der Entscheidung, so wie er in der heruntergeladenen PDF-Datei dokumentiert ist. Die einzige editorische Änderung gegenüber den TXT-Dateien ist die Zusammenfügung von über Zeilengrenzen gebrochenen Wörtern.  In der segmentierten Variante stammt der Text aus den HTML-Dateien."
 segment,String,"(Nur segmentierte Variante) Das Segment der Entscheidung. Bezieht sich auf die Variable \enquote{text}. Segmentarten sind \enquote{leitsatz} (Leitsätze)), \enquote{gegenstand} (Entscheidungsgegenstand), \enquote{formel} (Entscheidungsformel), \enquote{tenor} (Tenor), \enquote{gruende} (Entscheidungsgründe, ggf. mit Anmerkung ob Sondervotum) und \enquote{unterschriften} (Unterschriften der Richter:innen). Die Erkennung von Sondervoten ist noch fehleranfällig. Einzelne Segmente sind mit einer Kombination aus Art und Ordinalzahl definiert, z.B. \enquote{gruende-133-sondervotum}."
-url_html,String,(Nur CSV) URL zum HTML-Volltext der Entscheidung.
-url_pdf,String,(Nur CSV) URL zum PDF-Volltext der Entscheidung.
+url\_html,String,(Nur CSV) URL zum HTML-Volltext der Entscheidung.
+url\_pdf,String,(Nur CSV) URL zum PDF-Volltext der Entscheidung.
 gericht,String,Name des Gerichts. Es ist nur der Wert \enquote{BVerfG} vergeben. Dies ist der ECLI-Code für \enquote{Bundesverfassungsgericht}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.
 datum,Date,Datum der Entscheidung im Format YYYY-MM-DD (ISO-8601).
 entscheidungsjahr,Integer,(Nur CSV) Jahr der Entscheidung im Format YYYY (ISO-8601).
