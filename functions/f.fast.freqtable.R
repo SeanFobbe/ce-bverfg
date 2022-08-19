@@ -114,11 +114,14 @@ f.fast.freqtable <- function(x,
         }
     }
 
-    ## Add names to list
-    names(freqtable.list) <- varlist
+
 
     ## Return List of Frequency Tables
     if (output.list == TRUE){
+
+        ## Add names to list
+        names(freqtable.list) <- varlist
+        
         return(freqtable.list)
     }
 }
