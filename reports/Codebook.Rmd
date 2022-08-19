@@ -90,16 +90,14 @@ freqtable.all <- f.fast.freqtable(dt.bverfg.meta,
 
 
 
-
 # Einführung
 
- Der **Bundesgerichtshof (BGH)** ist einer der fünf obersten Gerichtshöfe des Bundes und steht an der Spitze der ordentlichen Gerichtsbarkeit der Bundesrepublik Deutschland (Art. 95 Abs. 1 GG, §§ 12, 13 GVG).\footnote{Die \enquote{ordentliche Gerichtsbarkeit} ist eine historische gewachsene Bezeichnung. Früher war die Verwaltungsgerichtsbarkeit nicht mit unabhängigen Richtern, sondern mit Verwaltungsbeamten besetzt und daher \enquote{außerordentlich}. Die mit unabhängigen Richtern besetzten Gerichte wurden als \enquote{ordentlich} bezeichnet.} Der BGH ist die höchste Instanz in Zivil- und Strafsachen, sowie in einigen ihm zugewiesenen Spezialgebieten. Er wurde am 1. Oktober 1950 errichtet und hat seinen Sitz in Karlsruhe (§ 123 GVG). Der 5. und 6. Strafsenat sind allerdings in Leipzig beheimatet.
+Das **Bundesverfassungsgericht (BVerfG)** ist das höchste Gericht der Bundesrepublik Deutschland und ein Verfassungsorgan. Als \enquote{Hüter der Verfassung} ist es seit seiner Gründung im Jahr 1951 mit der Auslegung und Durchsetzung des Grundgesetzes betraut.
 
-Im Jahr 2022 am BGH eingerichtet sind 13 Zivilsenate, 6 Strafsenate, und 8 Spezialsenate (6 berufsrechtliche Senate, Kartellsenat und Landwirtschaftsenat), sowie ein Großer Zivilsenat, ein Großer Strafsenat und die Vereinigten Großen Senate.\footnote{Geschäftsverteilungsplan des Bundesgerichtshofs für das Jahr 2021.} Ein Senat hat grundsätzlich 7 bis 9 Mitglieder, entscheidet aber als Spruchkörper in Senatsgruppen von 5 Mitgliedern einschließlich des/der Vorsitzenden (§ 139 Abs. 1 GVG).
+Seine Bedeutung im Verfassungsgefüge der Bundesrepublik Deutschland ist kaum zu überschätzen. So richtet es nicht nur über Streitigkeiten zwischen Verfassungsorganen und über Normenkontrollanträge, welche die Nichtigkeit von Gesetzen zur Folge haben können, sondern auch über \enquote{Verfassungsbeschwerden, die von jedermann mit der Behauptung erhoben werden können, durch die öffentliche Gewalt in einem seiner Grundrechte oder in einem seiner [grundrechtsgleichen Rechte] verletzt zu sein} (Art. 93 Abs. 4b GG). Das Instrument der Verfassungsbeschwerde ist in seiner Beliebtheit und Effektivität in der Geschichte Deutschlands beispiellos und von hoher wissenschaftlicher und praktischer Bedeutung. In nicht wenigen Verfahrensarten haben die Entscheidungen des BVerfG zudem Gesetzeskraft (§ 31 Abs. 2 BVerfGG).
 
-Die überwiegende Anzahl der Verfahren vor dem BGH sind Revisionen, d.h. die Überprüfung von Entscheidungen unterer Instanzen (Landgerichte oder Oberlandesgerichte, Amtsgericht nur bei Sprungrevision) auf Rechtsfehler ohne erneute Beweisaufnahme. In Zivilsachen ist der BGH zuständig für Revisionen, Sprungrevisionen, Rechtsbeschwerden und Sprungrechtsbeschwerden (§ 133 GVG). In Strafsachen ist er zuständig für Revisionen, Beschwerden gegen Beschlüsse und Verfügungen der Oberlandesgerichte, Beschwerden gegen Verfügungen des Ermittlungsrichters am BGH und Rügen der Besetzung eines Oberlandesgerichts (§ 135 GVG).
-
-Wieso dieser Datensatz? Die quantitative Analyse von juristischen Texten, insbesondere denen des BGH, ist in den deutschen Rechtswissenschaften ein noch junges und kaum bearbeitetes Feld.\footnote{Besonders positive Ausnahmen finden sich unter: \url{https://www.quantitative-rechtswissenschaft.de/}} Zu einem nicht unerheblichen Teil liegt dies auch daran, dass die Anzahl an frei nutzbaren Datensätzen außerordentlich gering ist.
+ 
+Wieso dieser Datensatz? Die quantitative Analyse von juristischen Texten, insbesondere denen des Bundesverfassungsgerichts, ist in den deutschen Rechtswissenschaften ein noch junges und kaum bearbeitetes Feld.\footnote{Besonders positive Ausnahmen finden sich unter: \url{https://www.quantitative-rechtswissenschaft.de/}} Zu einem nicht unerheblichen Teil liegt dies auch daran, dass die Anzahl an frei nutzbaren Datensätzen außerordentlich gering ist.
  
 Die meisten hochwertigen Datensätze lagern (fast) unerreichbar in kommerziellen Datenbanken und sind wissenschaftlich gar nicht oder nur gegen Entgelt zu nutzen. Frei verfügbare Datenbanken wie \emph{Opinio Iuris}\footnote{\url{https://opinioiuris.de/}} und \emph{openJur}\footnote{\url{https://openjur.de/}} verbieten ausdrücklich das maschinelle Auslesen der Rohdaten. Wissenschaftliche Initiativen wie der Juristische Referenzkorpus (JuReKo) sind nach jahrelanger Arbeit hinter verschlossenen Türen verschwunden.
  
@@ -110,49 +108,52 @@ In einem funktionierenden Rechtsstaat muss die Rechtsprechung öffentlich, trans
 
 
 
+
 # Nutzung
 
-Die Daten sind in offenen, interoperablen und weit verbreiteten Formaten (CSV, TXT, PDF) veröffentlicht. Sie lassen sich grundsätzlich mit allen modernen Programmiersprachen (z.B. Python oder R), sowie mit grafischen Programmen nutzen.
+ Die Daten sind in offenen, interoperablen und weit verbreiteten Formaten (CSV, TXT, PDF) veröffentlicht. Sie lassen sich grundsätzlich mit allen modernen Programmiersprachen (z.B. Python oder R), sowie mit grafischen Programmen nutzen.
 
  **Wichtig:** Nicht vorhandene Werte sind sowohl in den Dateinamen als auch in der CSV-Datei mit "NA" codiert.
 
 
 ## CSV-Dateien
 
-Am einfachsten ist es die **CSV-Dateien** einzulesen. CSV\footnote{Das CSV-Format ist in RFC 4180 definiert, siehe \url{https://tools.ietf.org/html/rfc4180}} ist ein einfaches und maschinell gut lesbares Tabellen-Format. In diesem Datensatz sind die Werte komma-separiert. Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Die Variablen sind unter Punkt \ref{variablen} genauer erläutert.
+ Am einfachsten ist es die **CSV-Dateien** einzulesen. CSV\footnote{Das CSV-Format ist in RFC 4180 definiert, siehe \url{https://tools.ietf.org/html/rfc4180}} ist ein einfaches und maschinell gut lesbares Tabellen-Format. In diesem Datensatz sind die Werte komma-separiert. Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Die Variablen sind unter Punkt \ref{mainvars} genauer erläutert.
 
-Zum Einlesen empfehle ich für **R** das package **data.table** (via CRAN verfügbar). Dessen Funktion **fread()** ist etwa zehnmal so schnell wie die normale **read.csv()**-Funktion in Base-R. Sie erkennt auch den Datentyp von Variablen sicherer. Ein Beispiel:
-
+ Hier empfehle ich für **R** dringend das package **data.table** (via CRAN verfügbar). Dessen Funktion **fread()** ist etwa zehnmal so schnell wie die normale **read.csv()**-Funktion in Base-R. Sie erkennt auch den Datentyp von Variablen sicherer. Ein Vorschlag:
 
 ```{r eval = FALSE, echo = TRUE}
 library(data.table)
-dt.bgh <- fread("filename.csv")
+dt.bverfg <- fread("filename.csv")
 ```
+
 
 
 
 ## TXT-Dateien
-
 Die **TXT-Dateien** inklusive Metadaten können zum Beispiel mit **R** und dem package **readtext** (via CRAN verfügbar) eingelesen werden. Ein Vorschlag:
+
 
 ```{r eval = FALSE, echo = TRUE}
 library(readtext)
-df.bgh <- readtext("./*.txt",
-                    docvarsfrom = "filenames", 
-                    docvarnames = c("gericht",
-                                    "spruchkoerper_db",
-                                    "leitsatz",
-                                    "datum",
-                                    "spruchkoerper_az",
-                                    "registerzeichen",
-                                    "eingangsnummer",
-                                    "eingangsjahr_az",
-                                    "zusatz_az",
-                                    "name",
-                                    "kollision"),
-                    dvsep = "_", 
-                    encoding = "UTF-8")
+df.bverfg <- readtext("*.txt",
+                      docvarsfrom = "filenames", 
+                      docvarnames = c("gericht",
+                                      "datum",
+                                      "spruchkoerper_typ",
+                                      "spruchkoerper_az",
+                                      "registerzeichen",
+                                      "eingangsnummer",
+                                      "eingangsjahr_az",
+                                      "kollision",
+                                      "name",
+                                      "band",
+                                      "seite"),
+                      dvsep = "_", 
+                      encoding = "UTF-8")
+
 ```
+
 
 
 
