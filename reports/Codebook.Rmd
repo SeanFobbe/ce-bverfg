@@ -1025,26 +1025,10 @@ kable(freqtable$registerzeichen,
 ## Nach Präsident:in
 
 
-```{r}
-
-freqtable.praesi <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "praesi",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.praesi.nosum <- freqtable.praesi[-.N]
-
-```
-
-
-
 
 
 ```{r, CE-BVerfG_09_Barplot_PraesidentIn, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.praesi.nosum) +
+ggplot(data = freqtable$praesi[-.N]) +
     geom_bar(aes(x = reorder(praesi,
                              N),
                  y = N),
@@ -1074,7 +1058,7 @@ ggplot(data = freqtable.praesi.nosum) +
 
 
 ```{r}
-kable(freqtable.praesi,
+kable(freqtable$praesi,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
@@ -1090,26 +1074,10 @@ kable(freqtable.praesi,
 ## Nach Vize-Präsident:in
 
 
-```{r}
-
-freqtable.vpraesi <- f.fast.freqtable(dt.bverfg.meta,
-                                 varlist = "v_praesi",
-                                 sumrow = TRUE,
-                                 output.list = TRUE,
-                                 output.kable = FALSE,
-                                 output.csv = FALSE,
-                                 align = c("p{5cm}"))[[1]][,exactpercent:=NULL]
-
-freqtable.vpraesi.nosum <- freqtable.vpraesi[-.N]
-
-```
-
-
-
 
 
 ```{r, CE-BVerfG_10_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
-ggplot(data = freqtable.vpraesi.nosum) +
+ggplot(data = freqtable$v_praesi[-.N]) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
                  y = N),
@@ -1139,7 +1107,7 @@ ggplot(data = freqtable.vpraesi.nosum) +
 
 
 ```{r}
-kable(freqtable.vpraesi,
+kable(freqtable$v_praesi,
       format = "latex",
       align = 'P{3cm}',
       booktabs = TRUE,
