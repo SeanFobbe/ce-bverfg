@@ -797,6 +797,185 @@ tarchetypes::tar_render(report.robustness,
 
 
 
+### Report erstellen: Codebook
+
+
+
+```{targets tar.report4}
+tarchetypes::tar_render(report.codebook,
+                        file.path("reports",
+                                  "Codebook.Rmd"),
+                        output_file = file.path("../output",
+                                                paste0(config$project$shortname,
+                                                       "_",
+                                                       datestamp,
+                                                       "_Codebook.pdf")))
+
+```
+
+
+
+## ZIP Targets
+
+Diese Abschnitt der Pipeline erstellt ZIP-Archive für alle zentralen Rechenergebnisse und speichert diese im Ordner \enquote{output}.
+
+
+### ZIP erstellen: Source Code
+
+
+```{targets tar.zip1}
+tar_target(zip.source,
+                f.tar_zip(files.source,
+                              filename = paste0(prefix.files,
+                                                "_Source_Code.zip"),
+                              dir = "output",
+                              mode = "mirror"),
+                format = "file")
+```
+
+
+
+
+### ZIP erstellen: Analyse-Dateien
+
+```{targets tar.zip2}
+tar_target(zip.analysis,
+           f.tar_zip("analysis/",
+                     filename = paste(prefix.files,
+                                      "DE_Analyse.zip",
+                                      sep = "_"),
+                     dir = "output",
+                     mode = "cherry-pick",
+                     report.codebook,    # manually enforced dependency relationship
+                     report.robustness), # manually enforced dependency relationship
+           format = "file")
+```
+
+
+### ZIP erstellen: CSV-Datei (voller Datensatz)
+
+
+```{targets tar.zip3}
+tar_target(zip.csv.full,
+                f.tar_zip(csv.full,
+                              filename = gsub("\\.csv", "\\.zip", basename(csv.full)),
+                              dir = "output",
+                              mode = "cherry-pick"),
+                format = "file")
+```
+
+
+
+### ZIP erstellen: CSV-Datei (nur Metadaten)
+
+
+```{targets tar.zip4}
+tar_target(zip.csv.meta,
+                f.tar_zip(csv.meta,
+                              filename = gsub("\\.csv", "\\.zip", basename(csv.meta)),
+                              dir = "output",
+                              mode = "cherry-pick"),
+                format = "file")
+```
+
+
+
+
+
+
+
+### ZIP erstellen: PDF-Dateien (alle Entscheidungen)
+
+```{targets tar.zip5}
+tar_target(zip.pdf.all,
+           f.tar_zip(files.pdf,
+                     filename = paste(prefix.files,
+                                      "DE_PDF_Datensatz.zip",
+                                      sep = "_"),
+                     dir = "output",
+                     mode = "cherry-pick"),
+           format = "file")
+```
+
+
+
+
+### ZIP erstellen: TXT-Dateien
+
+```{targets tar.zip6}
+tar_target(zip.txt,
+           f.tar_zip(files.txt,
+                     filename = paste(prefix.files,
+                                      "DE_TXT_Datensatz.zip",
+                                      sep = "_"),
+                     dir = "output",
+                     mode = "cherry-pick"),
+           format = "file")
+```
+
+
+
+### ZIP erstellen: HTML-Dateien
+
+```{targets tar.zip7}
+tar_target(zip.html,
+           f.tar_zip(files.html,
+                     filename = paste(prefix.files,
+                                      "DE_HTML_Datensatz.zip",
+                                      sep = "_"),
+                     dir = "output",
+                     mode = "cherry-pick"),
+           format = "file")
+```
+
+
+
+## Kryptographische Hashes
+
+### Zu hashende ZIP-Archive definieren
+
+
+```{targets tar.hashes1}
+tar_target(zip.all,
+           c(zip.pdf.all,
+             zip.txt,
+             zip.html,
+             zip.csv.full,
+             zip.csv.meta,
+             zip.analysis,
+             zip.source))
+```
+
+### Kryptographische Hashes berechnen
+
+
+```{targets tar.hashes2}
+tar_target(hashes,
+           f.tar_multihashes(c(zip.all,
+                               report.codebook[1],
+                               report.robustness[1]),
+                             multicore = config$parallel$multihashes,
+                             cores = fullCores))
+```
+
+
+
+### CSV schreiben: Kryptographische Hashes
+
+
+```{targets tar.hashes3}
+tar_target(csv.hashes,
+           f.tar_fwrite(x = hashes,
+                        filename = file.path("output",
+                                             paste0(prefix.files,
+                                                    "_KryptographischeHashes.csv"))
+                        )
+           )
+```
+
+
+
+
 
 
 
