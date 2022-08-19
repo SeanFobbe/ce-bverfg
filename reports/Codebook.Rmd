@@ -630,7 +630,7 @@ kable(lingstats.summary,
 ```{r, CE-BVerfG_01_Density_Zeichen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = zeichen),
-                 fill = "#7e0731")+
+                 fill = "#ca2129")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -659,7 +659,7 @@ ggplot(data = dt.bverfg.meta)+
 ```{r,  CE-BVerfG_02_Density_Tokens, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = tokens),
-                 fill = "#7e0731")+
+                 fill = "#ca2129")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -687,7 +687,7 @@ ggplot(data = dt.bverfg.meta)+
 ```{r, CE-BVerfG_03_Density_Typen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = typen),
-                 fill = "#7e0731")+
+                 fill = "#ca2129")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -716,7 +716,7 @@ ggplot(data = dt.bverfg.meta)+
 ```{r, CE-BVerfG_04_Density_Saetze, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = saetze),
-                 fill = "#7e0731")+
+                 fill = "#ca2129")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -819,7 +819,7 @@ ggplot(data = freqtable$entscheidung_typ[-.N]) +
                              -N),
                  y = N),
              stat = "identity",
-             fill = "#7e0731",
+             fill = "#ca2129",
              color = "black",
              width = 0.5) +
     theme_bw() +
@@ -866,7 +866,7 @@ kable(freqtable$entscheidung_typ,
 
 ## Nach Typ des Spruchkörpers
 
-```{r, CE-BVerfG_03_Barplot_Spruchkoerper_Typ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_06_Barplot_Spruchkoerper_Typ, fig.height = 6, fig.width = 9}
 
 ggplot(data = freqtable$spruchkoerper_typ[-.N]) +
     geom_bar(aes(x = reorder(spruchkoerper_typ,
@@ -923,13 +923,13 @@ kable(freqtable$spruchkoerper_typ,
 
 
 
-```{r, CE-BVerfG_06_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_07_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$spruchkoerper_az[-.N]) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
                  y = N),
              stat = "identity",
-             fill = "#7e0731",
+             fill = "#ca2129",
              color = "black",
              width = 0.5) +
     theme_bw() +
@@ -983,7 +983,7 @@ ggplot(data = freqtable$registerzeichen[-.N]) +
                              N),
                  y = N),
              stat = "identity",
-             fill = "#7e0731",
+             fill = "#ca2129",
              color = "black") +
     scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
@@ -1033,7 +1033,7 @@ ggplot(data = freqtable$praesi[-.N]) +
                              N),
                  y = N),
              stat = "identity",
-             fill = "#7e0731",
+             fill = "#ca2129",
              color = "black") +
     coord_flip()+
     theme_bw() +
@@ -1082,7 +1082,7 @@ ggplot(data = freqtable$v_praesi[-.N]) +
                              N),
                  y = N),
              stat = "identity",
-             fill = "#7e0731",
+             fill = "#ca2129",
              color = "black") +
     coord_flip()+
     theme_bw() +
@@ -1133,7 +1133,7 @@ ggplot(data = freqtable$entscheidungsjahr[-.N]) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
              stat = "identity",
-             fill = "#7e0731") +
+             fill = "#ca2129") +
     scale_x_discrete(breaks = seq(2000, 2020, 5))+
     theme_bw() +
     labs(
@@ -1179,7 +1179,7 @@ ggplot(data = freqtable$eingangsjahr_iso[-.N]) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
              stat = "identity",
-             fill = "#7e0731") +
+             fill = "#ca2129") +
     scale_x_discrete(breaks = seq(2000, 2020, 5))+
     theme_bw() +
     labs(
@@ -1230,7 +1230,7 @@ dt.plot <- data.table(pdf.MB)
 
 ggplot(data = dt.plot,
        aes(x = pdf.MB)) +
-    geom_density(fill = "#7e0731") +
+    geom_density(fill = "#ca2129") +
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -1264,7 +1264,7 @@ dt.plot <- data.table(txt.MB)
 
 ggplot(data = dt.plot,
        aes(x = txt.MB)) +
-    geom_density(fill = "#7e0731") +
+    geom_density(fill = "#ca2129") +
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
@@ -1296,7 +1296,7 @@ dt.plot <- data.table(html.MB)
 
 ggplot(data = dt.plot,
        aes(x = html.MB)) +
-    geom_density(fill = "#7e0731") +
+    geom_density(fill = "#ca2129") +
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)))+
     annotation_logticks(sides = "b")+
