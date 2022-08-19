@@ -37,6 +37,7 @@ knitr::opts_chunk$set(fig.path = file.path("..", "analysis/"),
 tar_load(latexdefs)
 tar_load(dt.download.final)
 tar_load(dt.bverfg.final)
+tar_load(dt.segmented)
 tar_load(files.pdf)
 tar_load(files.txt)
 tar_load(files.html)
@@ -81,20 +82,21 @@ setdiff(tools::file_path_sans_ext(basename(files.pdf)),
 
 
 
-## ECLI Test
+## ECLI-Tests
 
 
-#'### ECLI-Test 1: ECLI die in PDF, aber nicht in HTML vorhanden sind
-sort(setdiff(txt.bverfg$ecli, dt.segmented.full$ecli))
 
+### ECLI-Test 1: ECLI die in PDF, aber nicht in HTML vorhanden sind
 
-#'### ECLI-Test 2: ECLI die in HTML, aber nicht in PDF vorhanden sind
-sort(setdiff(dt.segmented.full$ecli, txt.bverfg$ecli))
+```{r}
+sort(setdiff(dt.bverfg.final$ecli, dt.segmented$ecli))
+```
 
-#'### Zum Vergleich: Beim Download fehlende PDF-Dateien
-print(sort(missing.pdf))
+### ECLI-Test 2: ECLI die in HTML, aber nicht in PDF vorhanden sind
 
-
+```{r}
+sort(setdiff(dt.segmented$ecli, dt.bverfg.final$ecli))
+```
 
 
 
@@ -124,12 +126,17 @@ str(dt.bverfg.final)
 
 
 
+
+
+
 # Frequenztabellen erstellen
 
 
 ## Ignorierte Variablen
 
  **Hinweis:** Diese Variablen werden bei der Erstellung der Frequenztabellen nicht berücksichtigt.
+ 
+ 
 
 ```{r}
 freqtable.ignore  <-  c("text",
@@ -178,6 +185,9 @@ prefix <- paste0(config$project$shortname,
 
 ```
 
+
+
+
 ## Frequenztabellen berechnen
 
 
@@ -192,7 +202,7 @@ f.fast.freqtable(dt.bverfg.final,
                  outputdir = dir.analysis,
                  prefix = prefix,
                  align = c("p{5cm}",
-                           rep("r", 4)))
+                           rep("r", 3)))
 
 ```
 
