@@ -159,17 +159,18 @@ df.bverfg <- readtext("*.txt",
 
 
 
+
+
 # Konstruktion
 
 
 
 ## Beschreibung des Datensatzes
 
-Dieser Datensatz ist eine digitale Zusammenstellung von möglichst allen begründeten Entscheidungen, die auf der amtlichen Internetpräsenz des Bundesgerichtshofs (BGH) am jeweiligen Stichtag veröffentlicht waren. Die Stichtage für jede Version entsprechen exakt der Versionsnummer.
+Dieser Datensatz ist eine digitale Zusammenstellung von möglichst allen Entscheidungen, die auf der amtlichen Internetpräsenz des Bundesverfassungsgerichts (BVerfG) veröffentlicht sind. Er enthält alle Entscheidungen, die auf der offiziellen Webseite des Bundesverfassungsgerichts am jeweiligen Stichtag veröffentlicht waren. Die Stichtage für jede Version entsprechen exakt der Versionsnummer.
 
-Zusätzlich zu den aufbereiteten maschinenlesbaren Formaten (TXT und CSV) sind die PDF-Rohdaten enthalten, damit Analyst:innen gegebenenfalls ihre eigene Konvertierung vornehmen können. Die PDF-Rohdaten wurden inhaltlich nicht verändert und nur die Dateinamen angepasst, um die Lesbarkeit für Mensch und Maschine zu verbessern.
+Zusätzlich zu den einfach maschinenlesbaren Formaten (TXT und CSV) sind die PDF-Rohdaten enthalten, damit Analyst:innen gegebenenfalls ihre eigene Konvertierung vornehmen können. Die PDF-Rohdaten wurden inhaltlich nicht verändert und nur die Dateinamen angepasst um die Lesbarkeit für Mensch und Maschine zu verbessern.
 
-Speziell an Praktiker:innen richten sich die PDF-Sammlungen aller Leitsatzentscheidungen und aller mit Namen versehenen Entscheidungen.
 
 
 
@@ -184,8 +185,10 @@ Speziell an Praktiker:innen richten sich die PDF-Sammlungen aller Leitsatzentsch
 
 \midrule
 
- Primäre Datenquelle & \url{https://www.bundesgerichtshof.de}\\
+ Primäre Datenquelle & \url{https://www.bundesverfassungsgericht.de}\\
  Source Code & \url{\softwareversionurldoi}\\
+ Entscheidungsnamen & \url{\softwareversionurldoi}\\
+ BVerfGE-Fundstellen & \url{\softwareversionurldoi}\\
  Personendaten & \url{\personendatenurldoi}\\
  Registerzeichen & \url{\aktenzeichenurldoi}\\
 
@@ -197,7 +200,6 @@ Speziell an Praktiker:innen richten sich die PDF-Sammlungen aller Leitsatzentsch
 
 Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
  
-
 Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stammt aus dem folgenden Datensatz: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564."
 
 
@@ -209,7 +211,8 @@ Die Daten wurden unter Beachtung des Robot Exclusion Standard (RES) gesammelt. D
 
 
 
-```{r, CE-BGH_00_Pipeline_Graph, fig.width = 12, fig.height = 18, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
+```{r, CE-BVerfG_00_Pipeline_Graph, fig.width = 12, fig.height = 18, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
+
 
 edgelist <- tar_network(targets_only = TRUE)$edges
 setDT(edgelist)
@@ -251,13 +254,12 @@ Mit jeder Kompilierung des vollständigen Datensatzes wird auch ein umfangreiche
 
 ## Grenzen des Datensatzes
 
-Nutzer:innen sollten folgende wichtige Grenzen beachten:
+Nutzer sollten folgende wichtige Grenzen beachten:
  
-
-- Der Datensatz enthält nur das, was das Gericht auch tatsächlich veröffentlicht, nämlich begründete Entscheidungen (\emph{publication bias}). Platzhalter für Nichtannahme- und Verwerfungsbeschlüsse ohne Begründung wurden automatisiert entfernt, sofern vorhanden.
+- Der Datensatz enthält nur das, was das Gericht auch tatsächlich veröffentlicht, nämlich begründete Entscheidungen (\emph{publication bias}). Laut dem BVerfG sind dies \enquote{alle Senatsentscheidungen (nicht aber Nebenentscheidungen wie z.B. Streitwertbeschlüsse und Kostenfestsetzungen) und viele begründete Kammerbeschlüsse}.\footnote{\url{https://www.bundesverfassungsgericht.de/DE/Entscheidungen/Entscheidungen/Entscheidungen.html}} Bei mehreren gleichgelagerten Sachverhalten wird nur das Pilotverfahren veröffentlicht.
 - Es kann aufgrund technischer Grenzen bzw. Fehler sein, dass manche --- im Grunde verfügbare --- Entscheidungen nicht oder nicht korrekt abgerufen werden (\emph{automation bias}).
-- Es werden nur PDF-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. 
-- Erst ab dem 1. Januar 2000 sind begründete Entscheidungen des Bundesgerichtshofs einigermaßen vollständig veröffentlicht (\emph{temporal bias}). Die Frequenztabellen geben hierzu genauer Auskunft.
+- Es werden nur PDF- und HTML-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. Die Metadaten der Entscheidungen ohne PDF-Datei werden explizit im Compilation Report dokumentiert.
+- Erst ab dem Jahr 1998 sind begründete Entscheidungen des BVerfG einigermaßen vollständig veröffentlicht, auch wenn frühere Entscheidungen vereinzelt auf der Webseite verfügbar sind (\emph{temporal bias}). Die Frequenztabellen geben hierzu genauer Auskunft.
 
 
 
@@ -265,6 +267,8 @@ Nutzer:innen sollten folgende wichtige Grenzen beachten:
 ## Urheberrechtsfreiheit von Rohdaten und Datensatz 
 
 An den Entscheidungstexten und amtlichen Leitsätzen besteht gem. § 5 Abs. 1 UrhG kein Urheberrecht, da sie amtliche Werke sind. § 5 UrhG ist auf amtliche Datenbanken analog anzuwenden (BGH, Beschluss vom 28.09.2006, I ZR 261/03, \enquote{Sächsischer Ausschreibungsdienst}).
+
+Der HTML-Quelltext wurde --- wie in jeder HTML-Datei selbst dokumentiert ist --- mit dem \enquote{Government Site Builder} der Bundesverwaltung erstellt, d.h. computergeneriert. Durch Maschinen generierte Texte sind keine \enquote{persönliche geistige Schöpfung} iSv § 2 Abs. 2 UrhG und daher urheberrechtlich nicht geschützt. Den verbleibenden Text-Bestandteilen (z.B. Buttons) fehlt es mindestens an der Schöpfungshöhe. Bilder oder andere Texte als Entscheidungstexte werden nicht abgerufen.
 
 Alle eigenen Beiträge (z.B. durch Zusammenstellung und Anpassung der Metadaten) und damit den gesamten Datensatz stelle ich gemäß einer \emph{CC0 1.0 Universal Public Domain Lizenz} vollständig urheberrechtsfrei.
 
@@ -276,36 +280,35 @@ Alle eigenen Beiträge (z.B. durch Zusammenstellung und Anpassung der Metadaten)
 
 ### Allgemein
 
-Die Metadaten in den Dateinamen sind größtenteils unverändert von den jeweiligen Datenbankeinträgen aus der amtlichen Datenbank des Bundesgerichtshofs entnommen. Berechnet und hinzugefügt wurden durch den Autor des Datensatzes eine Reihe weitere Variablen, sowie in den Dateinamen der PDF/TXT-Dateien Unter- und Trennstriche, um die Maschinenlesbarkeit zu erleichtern. Der volle Satz an Metadaten ist nur in den CSV-Dateien enthalten. Alle hinzugefügten Metadaten sind vollständig maschinenlesbar dokumentiert. Sie sind entweder im Source Code enthalten, mit dem Source Code zusammen dokumentiert oder über dauerhaft stabile Identifikatoren (z.B. DOI) zitiert.
+Die Metadaten wurden weitgehend aus den Hyperlinks zur jeweiligen Datei und dem HTML-Quelltext extrahiert. Hinzugefügt wurden von mir eine Reihe weitere Variablen, sowie Unter- und Trennstriche um die Maschinenlesbarkeit zu erleichten. Der volle Satz an Metadaten ist nur in den CSV-Dateien enthalten. Alle hinzugefügten Metadaten sind zusammen mit dem Source Code vollständig maschinenlesbar dokumentiert und liegen entweder im CSV-Format vor oder sind direkt im Source Code enthalten.
  
-Die Dateinamen der PDF- und TXT-Dateien enthalten Gerichtsname, Spruchkörperangabe aus der Datenbank, die Angabe ob es sich um eine Leitsatzentscheidung handelt, Datum, das offizielle Aktenzeichen, einen Zusatz zum Aktenzeichen, ggf. einen besonderen Namen und eine durch den Autor des Datensatzes generierte Kollisions-ID.
+Die Dateinamen der PDF- und TXT-Dateien enthalten Gerichtsname, Datum (Langform nach ISO-8601, d.h. YYYY-MM-DD), den Typ des Spruchkörpers, das offizielle Aktenzeichen, eine Kollisions-ID, den Namen der Entscheidung, sowie die BVerfGE-Fundstelle (Band und Seite).
 
 
 
 ### Schema für die Dateinamen
 
 \begin{verbatim}
- [gericht]_[spruchkoerper_db]_[leitsatz]_[datum]_[spruchkoerper_az]_
- [registerzeichen]_[eingangsnummer]_[eingangsjahr_az]_[zusatz_az]_
- [name]_[kollision]
+[gericht]_[datum]_[spruchkoerper_typ]_[spruchkoerper_az]_[registerzeichen]_
+[eingangsnummer]_[eingangsjahr_az]_[kollision]_[name]_[band]_[seite]
 \end{verbatim}
 
 
 ### Beispiel eines Dateinamens
 
 \begin{verbatim}
- BGH_Zivilsenat-1_LE_2007-10-04_I_ZR_22_05_NA_Umsatzsteuerhinweis_0.pdf
+BVerfG_1997-07-08_S_1_BvR_1243_95_NA_Parteilehrer_96_152.txt
 \end{verbatim}
 
 
 ## Qualitätsprüfung
 
-Die Typen der Variablen wurden mit \emph{regular expressions} strikt validiert. Die möglichen Werte der jeweiligen Variablen wurden zudem durch Frequenztabellen und Visualisierungen auf ihre Plausibilität geprüft. Insgesamt werden zusammen mit jeder Kompilierung Dutzende Tests zur Qualitätsprüfung durchgeführt. Alle Ergebnisse der Qualitätsprüfungen sind aggregiert im Compilation Report und einzeln im Archiv \enquote{ANALYSE} zusammen mit dem Datensatz veröffentlicht.
+Die Typen der Variablen wurden mit \emph{regular expressions} strikt validiert. Die möglichen Werte der jeweiligen Variablen wurden zudem durch Frequenztabellen und Visualisierungen auf ihre Plausibilität geprüft. Insgesamt werden zusammen mit jeder Kompilierung Dutzende Tests zur Qualitätsprüfung durchgeführt. Alle Ergebnisse der Qualitätsprüfungen sind aggregiert im Compilation Report, in den Robustness Checks und einzeln im Archiv \enquote{ANALYSE} zusammen mit dem Datensatz veröffentlicht.
 
 
 ## Grafische Darstellung
 
-Die Robenfarbe der Richter:innen des Bundesgerichtshofs ist \enquote{karmesinrot}. Der Hex-Wert hierfür ist vermutlich \#7e0731. Das ist besonders bei der Erstellung thematisch passender Diagrammen hilfreich. Alle im Compilation Report und diesem Codebook präsentierten Diagramme sind in diesem karmesinrot gehalten.
+Die Robenfarbe der Bundesverfassungsrichter ist \enquote{scharlachrot}. Der Hex-Wert hierfür ist \#ca2129. Das ist besonders bei der Erstellung thematisch passender Graphen hilfreich. Alle im Compilation Report und diesem Codebook präsentierten Graphen sind in diesem scharlachrot gehalten.
 
 
 
