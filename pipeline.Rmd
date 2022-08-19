@@ -696,7 +696,7 @@ tar_target(dt.bverfg.meta,
 ### Variante erstellen: Annotiert
 
 
-```{targets tar.enhance15}
+```{targets tar.enhance15, eval = FALSE}
 tar_target(dt.bverfg.annotated,
            f.tar_udpipe(dt.bverfg.final,
                         language = "german-hdt",
