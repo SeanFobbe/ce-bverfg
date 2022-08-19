@@ -793,13 +793,6 @@ kable(dt.stats.docvars,
       longtable = TRUE)
 
 
-## Zusammenfassungen speichern
-
-fwrite(dt.stats.docvars,
-       file.path(file.path("..", "analysis/"),
-                 paste0(config$project$shortname,
-                        "_00_KorpusStatistik_ZusammenfassungDocvarsQuantitativ.csv")),
-       na = "NA")
 
 
 ```
