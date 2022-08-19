@@ -77,6 +77,9 @@ f.clean_segmented <- function(x){
     x$entscheidung_typ <- entscheidung_typ
 
 
+    ## === Über Zeilengrenzen gebrochene Worter zusammenfügen ===
+    
+    x[, text := lapply(.(text), f.hyphen.remove)]
     
 
 
