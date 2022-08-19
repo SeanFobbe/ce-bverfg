@@ -75,16 +75,12 @@ varlist <- grep(paste(freqtable.ignore,
 
 
 
-freqtable.all <- f.fast.freqtable(dt.bverfg.meta,
-                                  varlist = varlist,
-                                  sumrow = TRUE,
-                                  output.list = TRUE,
-                                  output.kable = FALSE,
-                                  output.csv = FALSE)
-
-
-
-
+freqtable <- f.fast.freqtable(dt.bverfg.meta,
+                              varlist = varlist,
+                              sumrow = TRUE,
+                              output.list = TRUE,
+                              output.kable = FALSE,
+                              output.csv = FALSE)
 
 ```
 
