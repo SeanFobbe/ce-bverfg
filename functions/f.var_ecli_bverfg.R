@@ -82,7 +82,7 @@ f.var_ecli_bverfg <- function(x){
                               "[a-z]*", # ggf. Kollision
                               "\\.",
                               "[0-9]", # Senatsnummer
-                              "bv[a-z]", # Registerzeichen
+                              "p?bv[a-z]", # Registerzeichen
                               "[0-9]{4}", # Eingangsnummer
                               "[0-9]{2}" # Eingangsjahr 
                               ),
