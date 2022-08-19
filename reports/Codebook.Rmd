@@ -977,7 +977,7 @@ kable(freqtable$spruchkoerper_az,
 
 
 
-```{r, CE-BVerfG_08_Barplot_Registerzeichen, fig.height = 14, fig.width = 10}
+```{r, CE-BVerfG_08_Barplot_Registerzeichen, fig.height = 10, fig.width = 8}
 ggplot(data = freqtable$registerzeichen[-.N]) +
     geom_bar(aes(x = reorder(registerzeichen,
                              N),
