@@ -400,8 +400,6 @@ kable(dt.var_codebook,
 \label{register}
 
 
-Die Registerzeichen des BGH sind in der \emph{Anweisung für die Verwaltung des Schriftguts in Rechtssachen bei der Geschäftsstelle des Bundesgerichtshofes und des Generalbundesanwalts beim Bundesgerichtshof - Aktenordnung Bundesgerichtshof} definiert. Die im Datensatz enthaltenen Registerzeichen wurden jeweils um die runden Klammern bereinigt, um Probleme bei der Nutzung unter Windows zu vermeiden.
-
 Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stammt aus dem folgenden Datensatz: \enquote{Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564.}
 
 
@@ -412,7 +410,7 @@ Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stamm
 
 
 ```{r}
-kbl(az.brd[stelle == "BGH" & position == "hauptzeichen",
+kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
            .(zeichen_original,bedeutung)],
     format = "latex",
     align = c("P{3cm}",
@@ -448,7 +446,7 @@ kbl(az.brd[stelle == "BGH" & position == "hauptzeichen",
 
 ```{r}
 
-table.praesi.daten <- presidents[court == "BGH",
+table.praesi.daten <- presidents[court == "BVerfG",
                                  .(name_last,
                                    name_first,
                                    term_begin_date,
@@ -476,7 +474,7 @@ kable(table.praesi.daten,
 
 
 ```{r}
-table.praesi.alter <- presidents[court == "BGH",
+table.praesi.alter <- presidents[court == "BVerfG",
                                  .(name_last,
                                    name_first,
                                    term_begin_age,
@@ -515,7 +513,7 @@ kable(table.praesi.alter[grep("VACANCY",
 ## Lebensdaten
 
 ```{r}
-table.vpraesi.daten <- vpresidents[court == "BGH",
+table.vpraesi.daten <- vpresidents[court == "BVerfG",
                                  .(name_last,
                                    name_first,
                                    term_begin_date,
@@ -544,7 +542,7 @@ kable(table.vpraesi.daten,
 
 
 ```{r}
-table.vpraesi.alter <- vpresidents[court == "BGH",
+table.vpraesi.alter <- vpresidents[court == "BVerfG",
                                  .(name_last,
                                    name_first,
                                    term_begin_age,
@@ -641,7 +639,7 @@ kable(lingstats.summary,
 ## Verteilung Zeichen
 
 
-```{r, CE-BGH_01_Density_Zeichen, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_01_Density_Zeichen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bgh.meta)+
     geom_density(aes(x = zeichen),
                  fill = "#7e0731")+
@@ -670,7 +668,7 @@ ggplot(data = dt.bgh.meta)+
 
 ## Verteilung Tokens
 
-```{r,  CE-BGH_02_Density_Tokens, fig.height = 6, fig.width = 9}
+```{r,  CE-BVerfG_02_Density_Tokens, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bgh.meta)+
     geom_density(aes(x = tokens),
                  fill = "#7e0731")+
@@ -698,7 +696,7 @@ ggplot(data = dt.bgh.meta)+
 
 ## Verteilung Typen
 
-```{r, CE-BGH_03_Density_Typen, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_03_Density_Typen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bgh.meta)+
     geom_density(aes(x = typen),
                  fill = "#7e0731")+
@@ -727,7 +725,7 @@ ggplot(data = dt.bgh.meta)+
 
 ## Verteilung Sätze
 
-```{r, CE-BGH_04_Density_Saetze, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_04_Density_Saetze, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bgh.meta)+
     geom_density(aes(x = saetze),
                  fill = "#7e0731")+
@@ -828,7 +826,7 @@ freqtable.etyp.nosum <- freqtable.etyp[-.N]
 
 
 
-```{r, CE-BGH_05_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_05_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.etyp.nosum) +
     geom_bar(aes(x = reorder(entscheidung_typ,
                              -N),
@@ -899,7 +897,7 @@ freqtable.az.nosum <- freqtable.az[-.N]
 
 
 
-```{r, CE-BGH_06_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_06_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.az.nosum) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
@@ -967,7 +965,7 @@ freqtable.db.nosum <- freqtable.db[-.N]
 
 
 
-```{r, CE-BGH_07_Barplot_Spruchkoerper_DB, fig.height = 12, fig.width = 8}
+```{r, CE-BVerfG_07_Barplot_Spruchkoerper_DB, fig.height = 12, fig.width = 8}
 ggplot(data = freqtable.db.nosum) +
     geom_bar(aes(x = reorder(spruchkoerper_db,
                              N),
@@ -1035,7 +1033,7 @@ freqtable.regz.nosum <- freqtable.regz[-.N]
 
 
 
-```{r, CE-BGH_08_Barplot_Registerzeichen, fig.height = 14, fig.width = 10}
+```{r, CE-BVerfG_08_Barplot_Registerzeichen, fig.height = 14, fig.width = 10}
 ggplot(data = freqtable.regz.nosum) +
     geom_bar(aes(x = reorder(registerzeichen,
                              N),
@@ -1101,7 +1099,7 @@ freqtable.praesi.nosum <- freqtable.praesi[-.N]
 
 
 
-```{r, CE-BGH_09_Barplot_PraesidentIn, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_09_Barplot_PraesidentIn, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.praesi.nosum) +
     geom_bar(aes(x = reorder(praesi,
                              N),
@@ -1166,7 +1164,7 @@ freqtable.vpraesi.nosum <- freqtable.vpraesi[-.N]
 
 
 
-```{r, CE-BGH_10_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_10_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.vpraesi.nosum) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
@@ -1234,7 +1232,7 @@ freqtable.entscheidungsjahr.nosum <- freqtable.entscheidungsjahr[-.N]
 
 
 
-```{r, CE-BGH_11_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_11_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.entscheidungsjahr.nosum) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
@@ -1293,7 +1291,7 @@ freqtable.eingangsjahr.nosum <- freqtable.eingangsjahr[-.N]
 
 
 
-```{r, CE-BGH_12_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_12_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.eingangsjahr.nosum) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
@@ -1339,7 +1337,7 @@ kable(freqtable.eingangsjahr,
 # Dateigrößen
 
 
-```{r, CE-BGH_13_Density_Dateigroessen_PDF, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_13_Density_Dateigroessen_PDF, fig.height = 6, fig.width = 9}
 
 
 pdf.MB <- file.size(files.pdf) / 10^6
@@ -1375,7 +1373,7 @@ ggplot(data = dt.plot,
 
 
 
-```{r, CE-BGH_14_Density_Dateigroessen_TXT, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_14_Density_Dateigroessen_TXT, fig.height = 6, fig.width = 9}
 
 txt.MB <- file.size(files.txt) / 10^6
 
