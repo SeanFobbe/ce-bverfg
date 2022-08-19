@@ -1,5 +1,5 @@
 ---
-title: "Codebook | Corpus der Entscheidungen des Bundesgerichtshofs (CE-BGH)"
+title: "Codebook | Corpus der Entscheidungen des Bundesverfassungsgerichts (CE-BVerfG)"
 author: Seán Fobbe
 geometry: margin=3cm
 papersize: a4
@@ -32,14 +32,59 @@ knitr::opts_chunk$set(fig.path = file.path("..", "analysis/"),
 
 ```{r, echo = FALSE}
 tar_load(latexdefs)
-tar_load(dt.bgh.meta)
+tar_load(dt.bverfg.meta)
 tar_load(files.pdf)
 tar_load(files.txt)
-tar_load(variables.codebook)
+tar_load(files.html)
+tar_load(dt.var_codebook)
 tar_load(lingstats.summary)
 tar_load(az.brd)
 tar_load(presidents)
 tar_load(vpresidents)
+
+
+
+## Frequenztabellen
+
+freqtable.ignore  <-  c("text",
+                        "eingangsnummer",
+                        "datum",
+                        "doc_id",
+                        "ecli",
+                        "aktenzeichen",                        
+                        "seite",
+                        "name",
+                        "bemerkung",
+                        "pressemitteilung",
+                        "zitiervorschlag",
+                        "kurzbeschreibung",
+                        "tokens",
+                        "typen",
+                        "saetze",
+                        "zeichen",
+                        "url")
+
+
+varlist <- names(dt.bverfg.meta)
+varlist <- grep(paste(freqtable.ignore,
+                      collapse = "|"),
+                varlist,
+                invert = TRUE,
+                value = TRUE)
+
+
+
+
+freqtable.all <- f.fast.freqtable(dt.bverfg.meta,
+                                  varlist = varlist,
+                                  sumrow = TRUE,
+                                  output.list = TRUE,
+                                  output.kable = FALSE,
+                                  output.csv = FALSE)
+
+
+
+
 
 ```
 
