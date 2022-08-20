@@ -89,7 +89,7 @@ f.filenames_final <- function(filenames.raw,
                               "_",
                               "[0-9a-zNA]+", # kollision
                               "_",
-                              "[0-9ÄÜÖäüöA-Za-z\\-]+", # name
+                              "[0-9ßÄÜÖäüöA-Za-z\\-]+", # name
                               "_",
                               "[NA0-9]+", # band
                               "_",
