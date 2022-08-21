@@ -74,6 +74,20 @@ f.var_aktenzeichen <- function(x,
                            value = TRUE,
                            invert = TRUE)
 
+    }else if (gericht == "BVerfG"){
+        
+        regex.test <- grep(paste0("[0-9NA]*", # Spruchkörper (fehlt bei Vz-Entscheidungen)
+                                  " *",
+                                  "[A-Za-z-]+", # Registerzeichen
+                                  " ",
+                                  "[0-9]+", # Eingangsnummer
+                                  "/",
+                                  "[0-9]{1,2}" # Eingangsjahr
+                                  ),
+                           aktenzeichen,
+                           value = TRUE,
+                           invert = TRUE)
+
     }else{
         
         regex.test <- grep(paste0("[0-9NA]+", # Spruchkörper
