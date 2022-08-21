@@ -45,8 +45,10 @@ f.finalize <- function(x,
                                   download.table$doc_id)
 
     index.en <- grep("en.html", download.table$url_html)
-    download.table <- download.table[-index.en] # remove english docs
 
+    if(length(index.en) != 0){
+    download.table <- download.table[-index.en] # remove english docs
+    }
     
 
     ## Merge Download Table
