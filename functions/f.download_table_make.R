@@ -164,8 +164,15 @@ f.download_table_make <- function(debug.toggle = FALSE,
     
     ## Return Value erstellen
 
+
+
     dt.final <- data.table(url_pdf = links.pdf,
                            url_html = links.html)
+
+
+    ## Remove english docs
+    index.en <- grep("en.html", dt.final$url_html)
+    dt.final <- dt.final[-index.en]
 
 
     
