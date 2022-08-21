@@ -174,7 +174,6 @@ f.download_table_make <- function(debug.toggle = FALSE,
     index.en <- grep("en.html", dt.final$url_html)
     dt.final <- dt.final[-index.en]
 
-
     
     return(dt.final)
 
