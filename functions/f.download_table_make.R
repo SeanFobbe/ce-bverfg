@@ -164,8 +164,6 @@ f.download_table_make <- function(debug.toggle = FALSE,
     
     ## Return Value erstellen
 
-
-
     dt.final <- data.table(url_pdf = links.pdf,
                            url_html = links.html)
 
