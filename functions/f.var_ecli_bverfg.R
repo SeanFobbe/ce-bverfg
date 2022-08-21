@@ -79,10 +79,10 @@ f.var_ecli_bverfg <- function(x){
                               ":[0-9]{4}:", # Entscheidungsjahr
                               "[a-z]{2}", # Spruchkörper                              
                               "[0-9]{8}", # Datum
-                              "[a-z]*", # ggf. Kollision
+                              "[a-z1]*", # ggf. Kollision (2bvr264613 ist mit "1"-Kollision)
                               "\\.",
-                              "[0-9]", # Senatsnummer
-                              "p?bv[a-z]", # Registerzeichen
+                              "[0-9]?", # Senatsnummer
+                              "p?b?v[a-z]", # Registerzeichen
                               "[0-9]{4}", # Eingangsnummer
                               "[0-9]{2}" # Eingangsjahr 
                               ),
