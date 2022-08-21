@@ -170,8 +170,10 @@ f.download_table_make <- function(debug.toggle = FALSE,
 
     ## Remove english docs
     index.en <- grep("en.html", dt.final$url_html)
-    dt.final <- dt.final[-index.en]
 
+    if(length(index.en) != 0){
+    dt.final <- dt.final[-index.en]
+    }
     
     return(dt.final)
 
