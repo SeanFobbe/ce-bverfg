@@ -38,12 +38,18 @@ f.finalize <- function(x,
 
 
 
-    ## Merge Download Table
+    ## Prepare Download Table
 
     download.table$doc_id <- gsub("\\.pdf",
                                   "\\.txt",
                                   download.table$doc_id)
 
+    index.en <- grep("en.html", download.table$url_html)
+    download.table <- download.table[-index.en] # remove english docs
+
+    
+
+    ## Merge Download Table
     dt.final <- merge(dt,
                       download.table,
                       by = "doc_id")
