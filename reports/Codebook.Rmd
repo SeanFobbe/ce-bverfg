@@ -1124,11 +1124,10 @@ kable(freqtable$v_praesi,
 
 ```{r, CE-BVerfG_11_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$entscheidungsjahr[-.N]) +
-    geom_bar(aes(x = entscheidungsjahr,
+    geom_bar(aes(x = as.integer(entscheidungsjahr),
                  y = N),
              stat = "identity",
              fill = "#ca2129") +
-    scale_x_discrete(breaks = seq(1950, 2020, 5))+
     theme_bw() +
     labs(
         title = paste(prefix.figuretitle,
@@ -1171,7 +1170,7 @@ kable(freqtable$entscheidungsjahr,
 
 ```{r, CE-BVerfG_12_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$eingangsjahr_iso[-.N]) +
-    geom_bar(aes(x = eingangsjahr_iso,
+    geom_bar(aes(x = as.integer(eingangsjahr_iso),
                  y = N),
              stat = "identity",
              fill = "#ca2129") +
