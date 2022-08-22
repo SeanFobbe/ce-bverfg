@@ -1,7 +1,3 @@
-
-
-
-
 #' Aus HTML gewonnene segmentierte Fassungen der Entscheidungen des BVerfG bereinigen.
 
 #' @param x Data.table. Aus HTML gewonnene segmentierte Fassungen der Entscheidungen des BVerfG.
