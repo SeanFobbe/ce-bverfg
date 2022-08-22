@@ -1174,7 +1174,7 @@ ggplot(data = freqtable$eingangsjahr_iso[-.N]) +
                  y = N),
              stat = "identity",
              fill = "#ca2129") +
-    scale_x_discrete(breaks = seq(2000, 2020, 5))+
+    scale_x_discrete(breaks = seq(1950, 2020, 5))+
     theme_bw() +
     labs(
         title = paste(prefix.figuretitle,
