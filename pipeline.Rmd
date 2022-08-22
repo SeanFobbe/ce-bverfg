@@ -1004,8 +1004,8 @@ g  <- igraph::graph.data.frame(edgelist,
 
 ggraph(g,
        'sugiyama') + 
-    geom_edge_diagonal(colour = "grey")+
-    geom_node_point()+
+    geom_edge_diagonal(colour = "grey80")+
+    geom_node_point(size = 2)+
     geom_node_text(aes(label = name),
                    size = 2,
                    repel = TRUE)+
