@@ -1,6 +1,10 @@
 #'# f.bverfg.extract.meta 
 #' Diese Funktion extrahiert relevante Metadaten aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de 
 
+
+#' @param HTML Ein von rvest::read_html() produziertes Objekt.
+
+
 f.bverfg.extract.meta <- function(HTML){
 
     ## ECLI
