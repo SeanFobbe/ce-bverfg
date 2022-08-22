@@ -1,5 +1,3 @@
-
-
 #' Tabelle aller URLs zu Entscheidungen des Bundesverfassungsgerichts erstellen (PDF und HTML).
 
 
