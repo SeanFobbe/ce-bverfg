@@ -1,5 +1,9 @@
 #'# f.bverfg.extract.content
-#' Diese Funktion extrahiert relevante Teile des Entscheidungstextes aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de 
+#' Diese Funktion extrahiert relevante Teile des Entscheidungstextes aus einer auf einer HTML-Seite dargestellten Entscheidung auf www.bundesverfassungsgericht.de
+#'
+#' @param HTML Ein von rvest::read_html() produziertes Objekt.
+#'
+#' 
 
 f.bverfg.extract.content <- function(HTML){
 
