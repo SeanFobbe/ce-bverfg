@@ -1,6 +1,3 @@
-
-
-
 #' Aus HTML gewonnene Metadaten zu Entscheidungen des BVerfG bereinigen.
 
 #' @param x Data.table. Rohe Metadaten aus Entscheidungen des BVerfG im HTML-Format.
