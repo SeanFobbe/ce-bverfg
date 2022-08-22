@@ -362,7 +362,7 @@ str(dt.bverfg.meta)
 - **Strings** können grundsätzlich alle in UTF-8 definierten Zeichen (insbesondere Buchstaben, Zahlen und Sonderzeichen) enthalten.
 
 
-
+\newpage
 ## Erläuterung der Variablen
 
 
