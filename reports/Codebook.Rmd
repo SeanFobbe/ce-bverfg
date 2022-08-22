@@ -248,7 +248,7 @@ Nutzer sollten folgende wichtige Grenzen beachten:
  
 - Der Datensatz enthält nur das, was das Gericht auch tatsächlich veröffentlicht, nämlich begründete Entscheidungen (\emph{publication bias}). Laut dem BVerfG sind dies \enquote{alle Senatsentscheidungen (nicht aber Nebenentscheidungen wie z.B. Streitwertbeschlüsse und Kostenfestsetzungen) und viele begründete Kammerbeschlüsse}.\footnote{\url{https://www.bundesverfassungsgericht.de/DE/Entscheidungen/Entscheidungen/Entscheidungen.html}} Bei mehreren gleichgelagerten Sachverhalten wird nur das Pilotverfahren veröffentlicht.
 - Es kann aufgrund technischer Grenzen bzw. Fehler sein, dass manche --- im Grunde verfügbare --- Entscheidungen nicht oder nicht korrekt abgerufen werden (\emph{automation bias}).
-- Es werden nur PDF- und HTML-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. Die Metadaten der Entscheidungen ohne PDF-Datei werden explizit im Compilation Report dokumentiert.
+- Es werden nur PDF- und HTML-Dateien abgerufen (\emph{file type bias}). Manche Entscheidungen sind nur als HTML verfügbar. Die Metadaten der Entscheidungen ohne PDF-Datei werden explizit in den Robustness Checks dokumentiert.
 - Erst ab dem Jahr 1998 sind begründete Entscheidungen des BVerfG einigermaßen vollständig veröffentlicht, auch wenn frühere Entscheidungen vereinzelt auf der Webseite verfügbar sind (\emph{temporal bias}). Die Frequenztabellen geben hierzu genauer Auskunft.
 
 
