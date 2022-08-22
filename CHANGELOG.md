@@ -3,9 +3,25 @@
 ## Version \version
 
 - Vollständige Aktualisierung der Daten
-- Strenge Versionskontrolle von R packages mit **renv**
+- Neuentwurf das gesamten Source Codes im {targets} framework
+- Entfernung von 2 englischen Zusammenfassungen aus dem Korpus
+- Große Anzahl zusätzlicher Unit Tests
+- Zusätzliche Variablen mit URLs zu originalen HTML- und PDF-Dateien
+- Variante mit linguistischen Annotationen temporär nicht mehr verfügbar
+- Robustness Checks sind nun in einem separaten Bericht dokumentiert
+- Frequenztabellen-Test berücksichtigt nun alle Variablen
+- Neues Diagramm um Kompilierungs-Prozess zu visualisieren
+- Diagramme sind in neuer Reihenfolge nummeriert, um die Reihenfolge im Codebook abzubilden
+
+
+
+
+## Version 2022-02-01
+
+- Vollständige Aktualisierung der Daten
+- Strenge Versionskontrolle von R packages mit {renv}
 - Kompilierung jetzt detailliert konfigurierbar, insbesondere die Parallelisierung
-- Parallelisierung nun vollständig mit *future* statt mit *foreach* und *doParallel*
+- Parallelisierung nun vollständig mit {future} statt mit {foreach} und {doParallel}
 - Codebook-Erstellung stark beschleunigt durch Verwendung vorberechneter Diagramme
 - Fehlerhafte Kompilierungen werden vor der nächsten Kompilierung vollautomatisch aufgeräumt
 - Alle Ergebnisse werden automatisch fertig verpackt in den Ordner 'output' sortiert
