@@ -999,7 +999,7 @@ ggplot(data = freqtable$registerzeichen[-.N]) +
     )
 ```
 
-\vspace{0.5cm}
+\newpage
 
 
 ```{r}
