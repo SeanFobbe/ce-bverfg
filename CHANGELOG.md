@@ -4,13 +4,13 @@
 
 - Vollständige Aktualisierung der Daten
 - Neuentwurf das gesamten Source Codes im {targets} framework
-- Entfernung von 2 englischen Zusammenfassungen aus dem Korpus
-- Große Anzahl zusätzlicher Unit Tests
+- Entfernung von englischen Zusammenfassungen aus dem Korpus
+- Vielzahl zusätzlicher Unit Tests
 - Zusätzliche Variablen mit URLs zu originalen HTML- und PDF-Dateien
 - Variante mit linguistischen Annotationen temporär nicht mehr verfügbar
 - Robustness Checks sind nun in einem separaten Bericht dokumentiert
 - Frequenztabellen-Test berücksichtigt nun alle Variablen
-- Neues Diagramm um Kompilierungs-Prozess zu visualisieren
+- Neues Diagramm: Visualisierung von Kompilierungs-Prozess
 - Diagramme sind in neuer Reihenfolge nummeriert, um die Reihenfolge im Codebook abzubilden
 
 
