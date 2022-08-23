@@ -159,6 +159,13 @@ f.download_table_make <- function(debug.toggle = FALSE,
 
     
 
+    ## Einzelkorrektur für AfD-Beitritt zu Mietendeckeln (PDF): hier weicht die Struktur des PDF-Links von der des HTML-Links ab. 
+
+    links.pdf <- gsub("fs20210325_2bvf000120_1",
+                      "fs20210325_2bvf000120",
+                      links.pdf)
+    
+
     
     ## Return Value erstellen
 
