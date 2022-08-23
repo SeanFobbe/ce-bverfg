@@ -744,6 +744,18 @@ tar_target(csv.meta,
            )
 ```
 
+### CSV schreiben: Segmentierte Variante
+
+
+```{targets tar.write3}
+tar_target(csv.segmented,
+           f.tar_fwrite(x = dt.segmented.final,
+                        filename = file.path("output",
+                                             paste0(prefix.files,
+                                                    "_DE_CSV_Segmentiert.csv"))
+                        )
+           )
+```
 
 
 
@@ -878,6 +890,18 @@ tar_target(zip.csv.meta,
                 format = "file")
 ```
 
+
+### ZIP erstellen: CSV-Datei (Segmentiert)
+
+
+```{targets tar.zip4}
+tar_target(zip.csv.segmented,
+                f.tar_zip(csv.segmented,
+                              filename = gsub("\\.csv", "\\.zip", basename(csv.segmented)),
+                              dir = "output",
+                              mode = "cherry-pick"),
+                format = "file")
+```
 
 
 
