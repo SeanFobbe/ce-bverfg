@@ -1087,6 +1087,16 @@ kable(meta[order(-seconds)],
 \newpage
 ## Warnungen
 
+Hinweis: für die folgenden Entscheidungen waren auch nach manueller Nachprüfung keine PDF-Downloads verfügbar:
+
+- ECLI:DE:BVerfG:2001:bs20011001.2bvb000101
+- ECLI:DE:BVerfG:2001:rk20011023.2bvr123601
+- ECLI:DE:BVerfG:2004:rk20040519.1bvr071104
+- ECLI:DE:BVerfG:2014:rk20140319.1bvr141710
+- ECLI:DE:BVerfG:2014:rk20140610.1bvr066914
+
+
+
 
 ```{r, pipeling-warnings}
 
