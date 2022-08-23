@@ -69,8 +69,9 @@ f.finalize <- function(x,
     ## Unit Test
     test_that("Ergebnis entspricht Erwartungen.", {
         expect_s3_class(dt.final, "data.table")
-        expect_equal(dt.final[,.N], html.meta[,.N])
-        expect_equal(dt.final[,.N], download.table[,.N])
+        expect_equal(dt.final[,.N], x[,.N])
+        expect_lte(dt.final[,.N], html.meta[,.N])
+        expect_lte(dt.final[,.N], download.table[,.N])
     })
 
     
