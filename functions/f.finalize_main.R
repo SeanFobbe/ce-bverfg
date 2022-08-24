@@ -71,7 +71,7 @@ f.finalize_main <- function(dt.bverfg.intermediate,
     ## Unit Test
     test_that("Ergebnis entspricht Erwartungen.", {
         expect_s3_class(dt.final, "data.table")
-        expect_equal(dt.final[,.N], x[,.N])
+        expect_equal(dt.final[,.N], dt.bverfg.intermediate[,.N])
         expect_lte(dt.final[,.N], dt.html.meta[,.N])
         expect_lte(dt.final[,.N], dt.download.final[,.N])
     })
