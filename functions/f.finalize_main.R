@@ -56,7 +56,9 @@ f.finalize_main <- function(x,
                       download.table,
                       by = "doc_id")
 
-    
+    ## Order by Date
+    setorder(dt.final,
+             datum)
 
 
     ## Unit Test: Check variables and set column order
