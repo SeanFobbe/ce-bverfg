@@ -657,6 +657,7 @@ tar_target(dt.bverfg.intermediate,
 tar_target(dt.segmented.final,
            f.finalize_segmented(dt.segmented = dt.segmented,
                                 dt.bverfg.intermediate = dt.bverfg.intermediate,
+								dt.download.final = dt.download.final,
                                 varnames = dt.var_codebook$varname))
 
 ```
@@ -669,9 +670,9 @@ Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengef
 
 ```{targets tar.enhance13}
 tar_target(dt.bverfg.final,
-           f.finalize_main(x = dt.bverfg.intermediate,
-                           download.table = dt.download.final,
-                           html.meta = dt.html.meta,
+           f.finalize_main(dt.bverfg.intermediate = dt.bverfg.intermediate,
+                           dt.download.final = dt.download.final,
+                           dt.html.meta = dt.html.meta,
                            varnames = dt.var_codebook$varname))
 
 ```
