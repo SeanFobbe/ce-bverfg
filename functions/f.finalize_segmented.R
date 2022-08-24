@@ -1,80 +1,80 @@
-#' Datensatz finalisieren
+#' Segmentierten Datensatz finalisieren
 #'
-#' Der Datensatz wird mit dieser Funktion um bereits berechnete Variablen angereichert und in Reihenfolge der Variablen-Dokumentation des Codebooks sortiert.
+#' Der segmentierte Datensatz wird mit dieser Funktion um bereits berechnete Variablen angereichert und in Reihenfolge der Variablen-Dokumentation des Codebooks sortiert.
 
-#' @param x Data.table. Der nach Datum sortierte und im Text bereinigte Datensatz mit allen zusätzlichen Variablen.
-#' @param downlod.table Data.table. Die Tabelle mit den Informationen zum Download. Wird mit dem Hauptdatensatz vereinigt.
-#' @param html.meta Data.table. Die aus den HTML-Dateien extrahierten Metadaten
+#' @param dt.segmented Data.table. Die segmentierte Variante des Datensatzes.
+#' @param dt.bverfg.intermediate Data.table. Der nach Datum sortierte und im Text bereinigte Hauptdatensatz mit allen zusätzlichen Variablen.
+#' @param dt.download.final Data.table. Die Tabelle mit den Informationen zum Download.
 #' @param varnames Character. Die im Datensatz erlaubten Variablen, in der im Codebook vorgegebenen Reihenfolge.
 
 
 
 
-f.finalize_segmented <- function(x,
-                                 download.table,
-                                 html.meta,
+f.finalize_segmented <- function(dt.segmented,
+                                 dt.bverfg.intermediate,
+                                 dt.download.final,
                                  varnames){
 
 
     ## Unit Test
     test_that("Argumente entsprechen Erwartungen.", {
-        expect_s3_class(x, "data.table")
-        expect_s3_class(download.table, "data.table")
-        expect_s3_class(html.meta, "data.table")
+        expect_s3_class(dt.segmented, "data.table")
+        expect_s3_class(dt.bverfg.intermediate, "data.table")
+        expect_s3_class(dt.download.final, "data.table")
         expect_type(varnames, "character")
     })
     
-
-
     
-    ## Merge HTML Metadata
+    ## Merge Main and Segmented
 
-    dt <- merge(x,
-                html.meta,
+    dt <- merge(dt.segmented,
+                dt.bverfg.intermediate[,!"text"],
                 by = "ecli",
                 all.x = TRUE,
                 sort = FALSE)
 
 
-
-
     ## Prepare Download Table
 
-    download.table$doc_id <- gsub("\\.pdf",
-                                  "\\.txt",
-                                  download.table$doc_id)
+    dt.download.final$doc_id <- gsub("\\.pdf",
+                                     "\\.txt",
+                                     dt.download.final$doc_id)
 
-    index.en <- grep("en.html", download.table$url_html)
+    index.en <- grep("en.html", dt.download.final$url_html)
 
     if(length(index.en) != 0){
-    download.table <- download.table[-index.en] # remove english docs
+        dt.download.final <- dt.download.final[-index.en] # remove english docs
     }
     
 
     ## Merge Download Table
     dt.final <- merge(dt,
-                      download.table,
-                      by = "doc_id")
+                      dt.download.final,
+                      by = "doc_id",
+                      all.x = TRUE)
 
-    
+    ## Order by Date
+    setorder(dt.final,
+             datum)
 
 
     ## Unit Test: Check variables and set column order
     
     varnames <- gsub("\\\\", "", varnames) # Remove LaTeX escape characters
-    varnames <- varnames[!varnames == "segment"]
     data.table::setcolorder(dt.final, varnames)
 
 
     ## Unit Test
     test_that("Ergebnis entspricht Erwartungen.", {
         expect_s3_class(dt.final, "data.table")
-        expect_equal(dt.final[,.N], x[,.N])
-        expect_lte(dt.final[,.N], html.meta[,.N])
-        expect_lte(dt.final[,.N], download.table[,.N])
+        expect_equal(dt.final[,.N], dt.segmented[,.N])
+        expect_lte(uniqueN(dt.final$doc_id), uniqueN(dt.download.final$doc_id))
+        expect_gte(dt.final[,.N], dt.bverfg.intermediate[,.N])
     })
 
     
     return(dt.final)
     
 }
+
+
