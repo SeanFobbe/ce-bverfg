@@ -201,7 +201,7 @@ Die Daten wurden unter Beachtung des Robot Exclusion Standard (RES) gesammelt. D
 
 
 
-```{r, CE-BVerfG_00_Pipeline_Graph, fig.width = 10, fig.height = 14, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
+```{r, CE-BVerfG_00_Pipeline_Graph, fig.width = 12, fig.height = 14, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
 
 
 edgelist <- tar_network(targets_only = TRUE)$edges
