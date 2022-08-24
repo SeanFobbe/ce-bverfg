@@ -2,25 +2,25 @@
 #'
 #' Der Hauptdatensatz wird mit dieser Funktion um bereits berechnete Variablen angereichert und in Reihenfolge der Variablen-Dokumentation des Codebooks sortiert.
 
-#' @param x Data.table. Der nach Datum sortierte und im Text bereinigte Hauptdatensatz mit allen zusätzlichen Variablen.
+#' @param dt.bverfg.intermediate Data.table. Der nach Datum sortierte und im Text bereinigte Hauptdatensatz mit allen zusätzlichen Variablen.
 #' @param downlod.table Data.table. Die Tabelle mit den Informationen zum Download. Wird mit dem Hauptdatensatz vereinigt.
-#' @param html.meta Data.table. Die aus den HTML-Dateien extrahierten Metadaten
+#' @param dt.html.meta Data.table. Die aus den HTML-Dateien extrahierten Metadaten
 #' @param varnames Character. Die im Datensatz erlaubten Variablen, in der im Codebook vorgegebenen Reihenfolge.
 
 
 
 
-f.finalize_main <- function(x,
-                            download.table,
-                            html.meta,
+f.finalize_main <- function(dt.bverfg.intermediate,
+                            dt.download.final,
+                            dt.html.meta,
                             varnames){
 
 
     ## Unit Test
     test_that("Argumente entsprechen Erwartungen.", {
-        expect_s3_class(x, "data.table")
-        expect_s3_class(download.table, "data.table")
-        expect_s3_class(html.meta, "data.table")
+        expect_s3_class(dt.bverfg.intermediate, "data.table")
+        expect_s3_class(dt.download.final, "data.table")
+        expect_s3_class(dt.html.meta, "data.table")
         expect_type(varnames, "character")
     })
     
@@ -29,8 +29,8 @@ f.finalize_main <- function(x,
     
     ## Merge HTML Metadata
 
-    dt <- merge(x,
-                html.meta,
+    dt <- merge(dt.bverfg.intermediate,
+                dt.html.meta,
                 by = "ecli",
                 all.x = TRUE,
                 sort = FALSE)
@@ -40,20 +40,20 @@ f.finalize_main <- function(x,
 
     ## Prepare Download Table
 
-    download.table$doc_id <- gsub("\\.pdf",
+    dt.download.final$doc_id <- gsub("\\.pdf",
                                   "\\.txt",
-                                  download.table$doc_id)
+                                  dt.download.final$doc_id)
 
-    index.en <- grep("en.html", download.table$url_html)
+    index.en <- grep("en.html", dt.download.final$url_html)
 
     if(length(index.en) != 0){
-        download.table <- download.table[-index.en] # remove english docs
+        dt.download.final <- dt.download.final[-index.en] # remove english docs
     }
     
 
     ## Merge Download Table
     dt.final <- merge(dt,
-                      download.table,
+                      dt.download.final,
                       by = "doc_id")
 
     ## Order by Date
@@ -72,8 +72,8 @@ f.finalize_main <- function(x,
     test_that("Ergebnis entspricht Erwartungen.", {
         expect_s3_class(dt.final, "data.table")
         expect_equal(dt.final[,.N], x[,.N])
-        expect_lte(dt.final[,.N], html.meta[,.N])
-        expect_lte(dt.final[,.N], download.table[,.N])
+        expect_lte(dt.final[,.N], dt.html.meta[,.N])
+        expect_lte(dt.final[,.N], dt.download.final[,.N])
     })
 
     
