@@ -41,7 +41,7 @@ tar_load(lingstats.summary)
 tar_load(az.brd)
 tar_load(presidents)
 tar_load(vpresidents)
-
+tar_load(zip.all)
 
 
 ## Frequenztabellen
