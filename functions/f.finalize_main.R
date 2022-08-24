@@ -1,8 +1,8 @@
-#' Datensatz finalisieren
+#' Hauptdatensatz finalisieren
 #'
-#' Der Datensatz wird mit dieser Funktion um bereits berechnete Variablen angereichert und in Reihenfolge der Variablen-Dokumentation des Codebooks sortiert.
+#' Der Hauptdatensatz wird mit dieser Funktion um bereits berechnete Variablen angereichert und in Reihenfolge der Variablen-Dokumentation des Codebooks sortiert.
 
-#' @param x Data.table. Der nach Datum sortierte und im Text bereinigte Datensatz mit allen zusätzlichen Variablen.
+#' @param x Data.table. Der nach Datum sortierte und im Text bereinigte Hauptdatensatz mit allen zusätzlichen Variablen.
 #' @param downlod.table Data.table. Die Tabelle mit den Informationen zum Download. Wird mit dem Hauptdatensatz vereinigt.
 #' @param html.meta Data.table. Die aus den HTML-Dateien extrahierten Metadaten
 #' @param varnames Character. Die im Datensatz erlaubten Variablen, in der im Codebook vorgegebenen Reihenfolge.
