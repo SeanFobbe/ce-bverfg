@@ -655,12 +655,10 @@ tar_target(dt.bverfg.intermediate,
 ```{targets tar.enhance12}
 
 tar_target(dt.segmented.final,
-           merge(dt.segmented,
-                 dt.bverfg.intermediate[,!"text"],
-                 by = "ecli",
-                 all.x = TRUE,
-                 sort = FALSE))
-				 
+           f.finalize_segmented(dt.segmented = dt.segmented,
+                                dt.bverfg.intermediate = dt.bverfg.intermediate,
+                                varnames = dt.var_codebook$varname))
+
 ```
 
 
@@ -671,10 +669,10 @@ Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengef
 
 ```{targets tar.enhance13}
 tar_target(dt.bverfg.final,
-           f.finalize(x = dt.bverfg.intermediate,
-                      download.table = dt.download.final,
-                      html.meta = dt.html.meta,
-                      varnames = dt.var_codebook$varname))
+           f.finalize_main(x = dt.bverfg.intermediate,
+                           download.table = dt.download.final,
+                           html.meta = dt.html.meta,
+                           varnames = dt.var_codebook$varname))
 
 ```
 
