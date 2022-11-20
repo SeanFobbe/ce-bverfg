@@ -1125,7 +1125,7 @@ kable(meta[order(-seconds)],
 
 
 
-```{r, pipeling-warnings}
+```{r, pipeline-warnings}
 
 meta <- tar_meta(fields = "warnings", complete_only = TRUE)
 setDT(meta)
