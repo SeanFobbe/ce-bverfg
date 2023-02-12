@@ -1,6 +1,19 @@
 # Changelog
 
+
+
 ## Version \version
+
+- Vollständige Aktualisierung der Daten 
+- Amtliche Sammlung bis inklusive Band 160 mit Name, Band und Seite versehen
+- 50 neue historische Entscheidungen aus dem Zeitraum 1951 bis 1998 (u.a. Elfes, Schleyer-Entführung, Kurzarbeitergeld, Nachtarbeiterinnen)
+
+
+
+
+## Version 
+
+
 
 - Vollständige Aktualisierung der Daten
 - Neuentwurf das gesamten Source Codes im {targets} framework
