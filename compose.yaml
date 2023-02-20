@@ -5,6 +5,6 @@ services:
     tty: true
     container_name: ce-bverfg
     volumes:
-      - .:/bverfg:z
+      - .:/ce-bverfg:z
 volumes:
   myapp:
