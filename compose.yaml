@@ -3,6 +3,7 @@ services:
   ce-bverfg:
     image: ce-bverfg:latest
     tty: true
+    container_name: ce-bverfg
     volumes:
       - type: bind
         source: .
