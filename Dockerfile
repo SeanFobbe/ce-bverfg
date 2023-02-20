@@ -4,6 +4,6 @@ WORKDIR /ce-bverfg
 
 RUN sudo apt-get remove -y rstudio-server
 
-RUN R -q -e 'install.packages(c("targets", "tarchetypes", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph"))'
+RUN R -q -e 'install.packages(c("future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe"))'
 
 CMD "R"
