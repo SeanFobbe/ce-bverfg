@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   ce-bverfg:
     image: ce-bverfg:latest
@@ -5,3 +6,5 @@ services:
       - type: bind
         source: "$(pwd)"/z
         target: /ce-bverfg
+volumes:
+  myapp:
