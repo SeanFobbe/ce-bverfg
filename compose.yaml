@@ -1,0 +1,9 @@
+services:
+  bverfg:
+    image: ce-bverfg:latest
+    volumes:
+      - type: bind
+        source: "$(pwd)"
+        target: /ce-bverfg
+volumes:
+  myapp:
