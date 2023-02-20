@@ -4,7 +4,7 @@ services:
     image: ce-bverfg:latest
     volumes:
       - type: bind
-        source: "$(pwd)"
+        source: .
         target: /ce-bverfg:z
 volumes:
   myapp:
