@@ -5,8 +5,6 @@ services:
     tty: true
     container_name: ce-bverfg
     volumes:
-      - type: bind
-        source: .
-        target: /ce-bverfg:z
+      - .:/bverfg:z
 volumes:
   myapp:
