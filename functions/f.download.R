@@ -51,7 +51,7 @@ f.download <- function(url,
     }
 
     ## Create folder
-    dir.create(dir, showWarnings = FALSE)
+    dir.create(dir, showWarnings = FALSE, recursive = TRUE)
 
     ## Clean folder: Only files included in 'filename' may be present
     files.all <- list.files(dir, full.names = TRUE)
