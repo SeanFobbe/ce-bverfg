@@ -6,7 +6,7 @@ RUN sudo apt-get update
 
 RUN sudo apt-get remove -y rstudio-server
 
-RUN sudo apt-get install -y pandoc
+RUN sudo apt-get install -y pandoc pandoc-citeproc
 
 RUN sudo apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev
 
