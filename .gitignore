@@ -3,8 +3,7 @@
 _targets/
 _targets_r/
 _targets.R
-pdf/
-txt/
+files/
 analysis/
 output/
 temp/
