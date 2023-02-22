@@ -348,12 +348,6 @@ PDF & \textbf{Traditionelle juristische Forschung.} Die PDF-Dokumente wie sie vo
 \label{variables}
 
 
-## Datenstruktur 
-
-```{r}
-str(dt.bverfg.meta)
-```
-
 
 ## Hinweise
 
