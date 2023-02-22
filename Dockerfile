@@ -6,7 +6,7 @@ WORKDIR /ce-bverfg
 
 
 # TeX layer
-RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
+RUN apt-get update && apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
 
 
 # System dependency layer
