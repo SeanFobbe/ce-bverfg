@@ -11,6 +11,6 @@ RUN apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-open
 RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
 
 
-RUN R -q -e 'install.packages(c("future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "renv", "qs", "testthat", "zip"))'
+RUN R -q -e 'install.packages(c("data.table", "future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "renv", "qs", "testthat", "zip"))'
 
 CMD "R"
