@@ -7,7 +7,7 @@ WORKDIR /ce-bverfg
 
 
 # System dependency layer
-RUN apt-get update && apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev libglpk-dev pip python3
+RUN apt-get update && apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev libglpk-dev pip python3 tesseract-ocr tesseract-ocr-deu
 
 
 
