@@ -236,12 +236,6 @@ names(dt.bverfg.final)
 ```
 
 
-## Beispiel-Werte
-
-```{r}
-str(dt.bverfg.final)
-```
-
 
 
 
