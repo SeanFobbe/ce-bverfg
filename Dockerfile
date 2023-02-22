@@ -18,6 +18,4 @@ RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extr
 COPY requirements.R .
 RUN Rscript requirements.R
 
-#RUN R -q -e 'install.packages(c("data.table", "future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "spacyr", "renv", "qs", "testthat", "zip"))'
-
 CMD "R"
