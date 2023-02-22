@@ -349,6 +349,7 @@ PDF & \textbf{Traditionelle juristische Forschung.} Die PDF-Dokumente wie sie vo
 
 
 
+
 ## Hinweise
 
 - **Fehlende Werte** sind immer mit \enquote{NA} codiert.
