@@ -7,5 +7,3 @@ services:
     tty: true
     volumes:
       - .:/ce-bverfg:z
-volumes:
-  myapp:
