@@ -2,15 +2,14 @@ FROM rocker/r-ver:4.2.2
 
 WORKDIR /ce-bverfg
 
-COPY requirements.txt .
-
 #RUN sudo apt-get remove -y rstudio-server
 
 # System dependency layer
 RUN apt-get update && apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev libglpk-dev pip python3
 
 
-# Python layer
+# Python layers
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # TeX layer
