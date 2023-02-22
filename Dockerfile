@@ -1,14 +1,14 @@
-FROM rocker/tidyverse:4.2.2
+FROM rocker/r-ver:4.2.2
 
 WORKDIR /ce-bverfg
 
 RUN sudo apt-get update
 
-RUN sudo apt-get remove -y rstudio-server
+#RUN sudo apt-get remove -y rstudio-server
 
-RUN sudo apt-get install -y pandoc pandoc-citeproc texlive-science
+RUN sudo apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
 
-RUN sudo apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev
+RUN sudo apt-get install -y libatlas3-base libopenblas-base libxml2-dev libcurl4-openssl-dev libssl-dev libmagick++-dev libpoppler-cpp-dev libsodium-dev libudunits2-dev libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev libv8-dev libzmq3-dev librdf0-dev
 
 RUN R -q -e 'install.packages(c("future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "renv", "qs"))'
 
