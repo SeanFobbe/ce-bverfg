@@ -2,6 +2,7 @@ FROM rocker/r-ver:4.2.2
 
 WORKDIR /ce-bverfg
 
+COPY requirements.txt .
 
 #RUN sudo apt-get remove -y rstudio-server
 
