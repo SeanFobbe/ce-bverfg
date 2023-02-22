@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y libatlas3-base libopenblas-base libxml2
 
 
 # Python layer
-RUN pip install requirements.txt
+RUN pip install -r requirements.txt
 
 # TeX layer
 #RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
