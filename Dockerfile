@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:4.2.2
+FROM rocker/r-ver:4.2.2
 
 WORKDIR /ce-bverfg
 
