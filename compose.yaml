@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  ce-bverfg-build:
+  ce-bverfg:
     container_name: ce-bverfg
     image: ce-bverfg:4.2.2
     tty: true
