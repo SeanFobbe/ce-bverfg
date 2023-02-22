@@ -13,10 +13,10 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # TeX layer
-#RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
+RUN apt-get install -y pandoc pandoc-citeproc texlive-science texlive-latex-extra texlive-lang-german
 
 # R layer
-#RUN R -q -e 'install.packages(c("data.table", "future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "spacyr", "renv", "qs", "testthat", "zip"))'
+RUN R -q -e 'install.packages(c("data.table", "future", "future.apply", "targets", "tarchetypes", "RcppTOML", "mgsub", "quanteda", "quanteda.textstats", "quanteda.textplots", "igraph", "ggraph", "kableExtra", "pdftools", "readtext", "udpipe", "spacyr", "renv", "qs", "testthat", "zip"))'
 
 
 
