@@ -44,8 +44,9 @@ f.var_aktenzeichen <- function(x,
                            " ",
                            x$eingangsnummer,
                            "/",
-                           x$eingangsjahr_az)
+                           formatC(x$eingangsjahr_az, flag = "0", width = 2))
 
+    
     ## NA entfernen
 
     if(remove.na == TRUE){
