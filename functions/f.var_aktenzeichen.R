@@ -69,7 +69,7 @@ f.var_aktenzeichen <- function(x,
                                   " ",
                                   "[0-9]+", # Eingangsnummer
                                   "/",
-                                  "[0-9]{1,2}" # Eingangsjahr
+                                  "[0-9]{2}" # Eingangsjahr
                                   ),
                            aktenzeichen,
                            value = TRUE,
@@ -83,7 +83,7 @@ f.var_aktenzeichen <- function(x,
                                   " ",
                                   "[0-9]+", # Eingangsnummer
                                   "/",
-                                  "[0-9]{1,2}" # Eingangsjahr
+                                  "[0-9]{2}" # Eingangsjahr
                                   ),
                            aktenzeichen,
                            value = TRUE,
@@ -97,7 +97,7 @@ f.var_aktenzeichen <- function(x,
                                   " ",
                                   "[0-9]+", # Eingangsnummer
                                   "/",
-                                  "[0-9]{1,2}" # Eingangsjahr
+                                  "[0-9]{2}" # Eingangsjahr
                                   ),
                            aktenzeichen,
                            value = TRUE,
