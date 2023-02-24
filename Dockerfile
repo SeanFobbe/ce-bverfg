@@ -21,7 +21,7 @@ COPY requirements-python.txt .
 RUN pip install -r requirements-python.txt
 
 # R layer
-COPY requirements.R .
+COPY requirements-R.R .
 RUN Rscript requirements.R
 
 CMD "R"
