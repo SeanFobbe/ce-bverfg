@@ -1278,10 +1278,9 @@ hashes$sha3.512 <- paste(substr(hashes$sha3.512, 1, 64),
 
 ## In Bericht anzeigen
 
-```{r}
 \ra{1.2}
 
-
+```{r}
 kable(hashes[,.(index,filename)],
       format = "latex",
       align = c("p{1cm}",
