@@ -1183,19 +1183,16 @@ if (meta[,.N > 0]){
 ## ZIP und CSV-Dateien
 
 
-```{r filesize}
-tar_load(zip.all)
-tar_load(csv.final)
-tar_load(csv.meta)
 
+## ZIP-Dateien
 
-files.all <- c(zip.all,
-               csv.final,
-               csv.meta)
+```{r filesize.zip}
 
-filesize <- round(file.size(files.all) / 10^6, digits = 2)
+files <- list.files("output", pattern = "\\.zip", full.names = TRUE)
 
-table.size <- data.table(basename(files.all),
+filesize <- round(file.size(files) / 10^6, digits = 2)
+
+table.size <- data.table(basename(files),
                          filesize)
 
 
@@ -1210,19 +1207,30 @@ kable(table.size,
 
 ```
 
-
 \newpage
+## CSV-Dateien
 
-## Datensatz in RAM (MB)
+```{r filesize.csv}
 
-```{r}
-tar_load(dt.bverfg.final)
-print(object.size(dt.bverfg.final),
-      standard = "SI",
-      humanReadable = TRUE,
-      units = "MB")
-      
+files <- list.files("output", pattern = "\\.csv", full.names = TRUE)
+
+filesize <- round(file.size(files) / 10^6, digits = 2)
+
+table.size <- data.table(basename(files),
+                         filesize)
+
+
+kable(table.size,
+      format = "latex",
+      align = c("l", "r"),
+      format.args = list(big.mark = ","),
+      booktabs = TRUE,
+      longtable = TRUE,
+      col.names = c("Datei",
+                    "Größe in MB"))
+
 ```
+
 
 
 
