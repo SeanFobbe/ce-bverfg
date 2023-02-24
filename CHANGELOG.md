@@ -16,8 +16,6 @@
 
 ## Version 2022-08-24
 
-
-
 - Vollständige Aktualisierung der Daten
 - Neuentwurf das gesamten Source Codes im {targets} framework
 - Entfernung von englischen Zusammenfassungen aus dem Korpus
@@ -46,6 +44,8 @@
 - REGEX-Tests im Detail kommentiert
 
 
+
+
 ## Version 2021-09-19
  
 - Vollständige Aktualisierung der Daten
@@ -57,6 +57,8 @@
 - Abgleich der selbst berechneten ECLI mit der in der HTML-Fassung dokumentierten ECLI
 - Variable für Entscheidungstyp wird nun aus dem Zitiervorschlag berechnet um eine höhere Genaugikeit zu gewährleisten
  
+ 
+ 
 ## Version 2021-05-20
 
 - Vollständige Aktualisierung der Daten
@@ -66,6 +68,8 @@
 - Neue Datenquellen für Präsident:in, Vize-Präsident:in und für Registerzeichen/Verfahrensarten
 - Zusammenfügen von über Zeilengrenzen getrennten Wörtern in der Variable \enquote{text} (nur CSV-Formate)
 - Einige Verbesserungen im Codebook
+
+
 
 ## Version 2021-01-08
  
@@ -82,11 +86,14 @@
 - Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
 - Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
  
+ 
+ 
 ## Version 2020-08-03
 
 - Vollständige Aktualisierung der Daten
 - Angleichung der Variablen-Namen an andere Datensätze der CE-Serie\footnote{Siehe: \url{https://zenodo.org/communities/sean-fobbe-data/}}
 - Einführung der Variable \enquote{Suffix} um weitere Entscheidungen korrekt erfassen zu können; aufgrund der fehlenden Berücksichtigung des Suffix sind die Metadaten von 36 Entscheidungen der Version 2020-06-20 fehlerhaft. Bitte verwenden Sie daher nur die neue Version. Alternativ können Sie die fehlerhaften Dateien (erkennbar an einem dreistelligen Eingangsjahr) aus der Analyse ausschließen oder per Hand korrigieren.
+
 
  
 ## Version 2020-06-20
