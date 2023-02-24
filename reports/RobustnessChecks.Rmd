@@ -90,9 +90,9 @@ ggraph(g,
 
 
 
-# Vollständigkeit der Texte
+# Vollständigkeit des Downloads
 
-## Download: Fehlende HTML-Dateien
+## Fehlende HTML-Dateien
 
 
 ```{r}
@@ -101,11 +101,26 @@ setdiff(basename(dt.download.final$url_html),
 ```
 
 
-## Download: Fehlende PDF-Dateien
+## Fehlende PDF-Dateien
 
 ```{r}
 setdiff(dt.download.final$doc_id,
         basename(files.pdf))
+```
+
+
+
+# Vollständigkeit der Konvertierung
+
+
+## Überblick
+
+
+```{r}
+length(files.pdf) == length(files.txt)
+
+length(files.pdf)
+length(files.txt)
 ```
 
 
