@@ -52,7 +52,7 @@ parallel.multihashes = true
 
 
 # Download
-download.timeout = 600			# Timeout für Downloads
+download.timeout = 30			# Timeout für Downloads
 
 
 
