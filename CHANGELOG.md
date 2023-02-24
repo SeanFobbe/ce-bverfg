@@ -12,7 +12,8 @@
 - Überarbeitung der Namen der Entscheidungen, u.a. Einfügung von Bindestrichen um Lesbarkeit zu verbessern und weitere Standardisierung
 - Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
 - Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
-- Update für f.download-Funktion 
+- Update für f.download-Funktion
+- Verbesserung des Robustness Check Reports
 
 
 
