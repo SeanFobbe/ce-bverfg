@@ -119,6 +119,6 @@ f.var_aktenzeichen <- function(x,
         expect_length(aktenzeichen, nrow(x))
     })
     
-    return(aktenzeichen)    
+    return(aktenzeichen)
     
 }
