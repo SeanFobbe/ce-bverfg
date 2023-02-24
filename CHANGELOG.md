@@ -14,7 +14,7 @@
 - Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
 - Update für f.download-Funktion
 - Verbesserung des Robustness Check Reports
-
+- Download-Timeout auf 30 Sekunden reduziert
 
 
 ## Version 2022-08-24
