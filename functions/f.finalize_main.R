@@ -80,3 +80,12 @@ f.finalize_main <- function(dt.bverfg.intermediate,
     return(dt.final)
     
 }
+
+
+
+## DEBUGGING
+
+#tar_load(dt.bverfg.intermediate)
+#tar_load(dt.download.final)
+#tar_load(dt.html.meta)
+#varnames  <-  tar_read(dt.var_codebook)$varname
