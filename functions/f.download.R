@@ -28,7 +28,6 @@ f.download <- function(url,
                        retries = 3,
                        retry.sleep.min = 2,
                        retry.sleep.max = 5,
-                       random.order = TRUE,
                        timeout = 300,
                        debug.toggle = FALSE,
                        debug.files = 500){
@@ -92,12 +91,6 @@ f.download <- function(url,
 
     if(nrow(df.todo) > 0){
         
-        if(random.order == TRUE){
-            
-            df.todo <- df.todo[sample(nrow(df.todo)),]
-
-        }
-        
         result.todo <- mapply(f.download_robust,
                               url = df.todo$url,
                               destfile = file.path(dir, df.todo$filename),
@@ -121,12 +114,6 @@ f.download <- function(url,
 
 
         if(nrow(df.missing) > 0){
-            
-            if(random.order == TRUE){
-                
-                df.missing <- df.todo[sample(nrow(df.missing)),]
-
-            }
             
             result.retry <- mapply(f.download_robust,
                                    url = df.missing$url,
