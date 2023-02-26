@@ -1,71 +1,74 @@
-# Project
+[project]
 
-project.fullname = "Corpus der Entscheidungen des Bundesverfassungsgerichts"
-project.shortname = "CE-BVerfG"
-project.author = "Seán Fobbe"
-
-
-
-# License
-
-license.data = "Creative Commons Zero 1.0 Universal"
-license.code = "MIT-0"
+fullname = "Corpus der Entscheidungen des Bundesverfassungsgerichts"
+shortname = "CE-BVerfG"
+author = "Seán Fobbe"
 
 
 
-# Digital Object Identifier (DOI)
+[license]
 
-doi.data.concept = "10.5281/zenodo.3902658" # checked
-doi.data.version = "10.5281/zenodo.7659109" # checked
-
-doi.software.concept = "10.5281/zenodo.4308216" # checked
-doi.software.version = "10.5281/zenodo.7659110" # checked
-
-doi.personendaten = "10.5281/zenodo.4568682" # checked
-doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
-
-
-# Debugging
-
-debug.toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"; Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten
-debug.pages = 20      # Die Anzahl der zufällig ausgewählten Seiten, die im Debugging-Modus berücksichtigt werden sollen (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen.
+data = "Creative Commons Zero 1.0 Universal"
+code = "MIT-0"
 
 
 
-# Annotation
+[doi] # Digital Object Identifier (DOI)
 
-annotate.toggle = false # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Sehr rechenintensiv!
+data.concept = "10.5281/zenodo.3902658" # checked
+data.version = "10.5281/zenodo.7659109" # checked
 
+software.concept = "10.5281/zenodo.4308216" # checked
+software.version = "10.5281/zenodo.7659110" # checked
 
-
-# Parallelization
-
-cores.max = true  # Ob die maximale Anzahl an logischen Kernen genutzt werden soll; Möglichkeiten sind "true" oder "false"
-cores.number = 8   # Die Anzahl Rechtenkerne, die verwendet werden soll; wird nur berücksichtigt falls "cores.max" auf "false" steht
-
-
-parallel.extractPDF = true
-parallel.lingsummarize = true
-parallel.spacyparse = false
-parallel.multihashes = true
+personendaten = "10.5281/zenodo.4568682" # checked
+aktenzeichen = "10.5281/zenodo.4569564" # checked
 
 
+[debug]
 
-# Download
-download.timeout = 30			# Timeout für Downloads
+toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"; Der Debugging-Modus reduziert den Such-Umfang auf den in der Variable "debug.scope" angegebenen Umfang Seiten
+pages = 20      # Die Anzahl der zufällig ausgewählten Seiten, die im Debugging-Modus berücksichtigt werden sollen (jede Seite enthält idR 10 Entscheidungen). Muss mindestens 10 betragen.
 
 
 
-# Quanteda
-quanteda.tokens_locale = "de_DE" # Locale in denen Tokens analyisert werden
+[annotate]
+
+toggle = false # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Sehr rechenintensiv!
 
 
 
-# Knitr
+[cores]
 
-fig.format = [ "pdf", "png" ] 	# Ausgabe-Format für Diagramme
-fig.dpi = 300     	 	# Auflösung für Diagramme
-fig.align = "center"    	# Ausrichtung von Diagrammen im Compilation Report
+max = true  # Ob die maximale Anzahl an logischen Kernen genutzt werden soll; Möglichkeiten sind "true" oder "false"
+number = 8   # Die Anzahl Rechtenkerne, die verwendet werden soll; wird nur berücksichtigt falls "cores.max" auf "false" steht
+
+
+
+[parallel]
+
+extractPDF = true
+lingsummarize = true
+spacyparse = false
+multihashes = true
+
+
+
+[download]
+timeout = 60			# Timeout für Downloads
+
+
+
+[quanteda]
+tokens_locale = "de_DE" # Locale in denen Tokens analyisert werden
+
+
+
+[fig] # Knitr
+
+format = [ "pdf", "png" ] 	# Ausgabe-Format für Diagramme
+dpi = 300     	 		# Auflösung für Diagramme
+align = "center"    		# Ausrichtung von Diagrammen im Compilation Report
 
 
 
