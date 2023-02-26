@@ -17,6 +17,9 @@
 - Download-Timeout auf 60 Sekunden reduziert
 - Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
 
+
+
+
 ## Version 2022-08-24
 
 - Vollständige Aktualisierung der Daten
