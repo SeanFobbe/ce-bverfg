@@ -23,8 +23,6 @@ f.download <- function(url,
                        filename,
                        dir,
                        clean = TRUE,
-                       multicore = FALSE,
-                       cores = parallel::detectCores(),
                        sleep.min = 0,
                        sleep.max = 0.1,
                        retries = 3,
@@ -35,21 +33,6 @@ f.download <- function(url,
                        debug.toggle = FALSE,
                        debug.files = 500){
 
-
-
-    if(multicore == TRUE){
-
-        future::plan("multicore",
-                     workers = cores)
-
-        sleep.min  <- 0
-        sleep.max  <- 0
-        
-    }else{
-
-        future::plan("sequential")
-
-    }
 
     
     ## Set timeout for downloads
@@ -86,9 +69,9 @@ f.download <- function(url,
     ## Clean folder: Only files included in 'filename' may be present
 
     if (clean == TRUE){
-    
-    files.all <- list.files(dir, full.names = TRUE)
-    delete <- setdiff(files.all, file.path(dir, df$filename))
+        
+        files.all <- list.files(dir, full.names = TRUE)
+        delete <- setdiff(files.all, file.path(dir, df$filename))
         unlink(delete)
 
     }
@@ -115,12 +98,11 @@ f.download <- function(url,
 
         }
         
-        result.todo <- future_mapply(f.download_robust,
-                                     url = df.todo$url,
-                                     destfile = file.path(dir, df.todo$filename),
-                                     sleep.min = sleep.min,
-                                     sleep.max = sleep.max,
-                                     future.seed = TRUE)
+        result.todo <- mapply(f.download_robust,
+                              url = df.todo$url,
+                              destfile = file.path(dir, df.todo$filename),
+                              sleep.min = sleep.min,
+                              sleep.max = sleep.max)
 
     }
     
@@ -146,12 +128,11 @@ f.download <- function(url,
 
             }
             
-            result.retry <- future_mapply(f.download_robust,
-                                          url = df.missing$url,
-                                          destfile = file.path(dir, df.todo$filename),
-                                          sleep.min = retry.sleep.min,
-                                          sleep.max = retry.sleep.max,
-                                          future.seed = TRUE)
+            result.retry <- mapply(f.download_robust,
+                                   url = df.missing$url,
+                                   destfile = file.path(dir, df.todo$filename),
+                                   sleep.min = retry.sleep.min,
+                                   sleep.max = retry.sleep.max)
 
         }
 
@@ -189,7 +170,7 @@ f.download <- function(url,
 #' Wrapper function for download.file that returns 'NA' instead of an error when a file is not available.
 #'
 #' @param url A valid URL.
-#' @param destile The destination file.
+#' @param destfile The destination file.
 #' @param sleep.min Positive Integer. Minimum number of seconds to randomly sleep between requests.
 #' @param sleep.max Positive Integer. Maximum number of seconds to randomly sleep between requests.
 #'
