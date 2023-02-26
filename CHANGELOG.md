@@ -11,11 +11,11 @@
 - Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
 - Überarbeitung der Namen der Entscheidungen, u.a. Einfügung von Bindestrichen um Lesbarkeit zu verbessern und weitere Standardisierung
 - Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
-- Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
-- Update für f.download-Funktion
+- Duplikat-Prüfung für Dateinamen eingeführt
+- Update für allgemeine Download-Funktion
 - Verbesserung des Robustness Check Reports
-- Download-Timeout auf 30 Sekunden reduziert
-
+- Download-Timeout auf 60 Sekunden reduziert
+- Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
 
 ## Version 2022-08-24
 
