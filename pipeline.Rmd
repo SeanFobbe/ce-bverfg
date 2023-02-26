@@ -400,9 +400,9 @@ tar_target(filenames.final,
 ### Finale Download-Tabelle erstellen
 
 ```{targets tar.download4}
-tar_target(dt.download.final,
-           data.table(dt.download,
-                      doc_id = filenames.final))
+tar_target(dt.download.final,           
+           f.download_finalize(dt.download = dt.download,
+                               filenames.final = filenames.final))
 ```
 
 
