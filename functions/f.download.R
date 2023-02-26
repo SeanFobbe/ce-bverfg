@@ -105,8 +105,6 @@ f.download <- function(url,
 
     for(i in 1:retries){
         
-        ## Missing files
-        
         files.present <- list.files(dir)
         filename.missing <- setdiff(df$filename, files.present)
         df.missing  <- df[df$filename %in% filename.missing,]
@@ -117,7 +115,7 @@ f.download <- function(url,
             
             result.retry <- mapply(f.download_robust,
                                    url = df.missing$url,
-                                   destfile = file.path(dir, df.todo$filename),
+                                   destfile = file.path(dir, df.missing$filename),
                                    sleep.min = retry.sleep.min,
                                    sleep.max = retry.sleep.max)
 
