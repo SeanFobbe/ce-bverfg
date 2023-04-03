@@ -5,6 +5,13 @@
 ## Version \version
 
 - Vollständige Aktualisierung der Daten
+- Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
+
+
+
+## Version 2023-02-26
+
+- Vollständige Aktualisierung der Daten
 - Gesamte Laufzeitumgebung mit Docker versionskontrolliert
 - Amtliche Sammlung bis inklusive Band 160 mit Name, Band und Seite versehen
 - 50 neue historische Entscheidungen aus dem Zeitraum 1951 bis 1998 (u.a. Elfes, Schleyer-Entführung, Kurzarbeitergeld, Nachtarbeiterinnen)
