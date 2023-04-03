@@ -1013,6 +1013,19 @@ tar_make()
 
 
 
+## Pipeline archivieren
+
+
+```{r pipeline-zip}
+zip(paste0("output/",
+           prefix.files,
+           "_Targets_Storage.zip"),
+    "_targets/")
+```
+
+
+
+
 ## Visualisierung
 
 ```{r, pipeline-graph, fig.width = 10, fig.height = 14}
