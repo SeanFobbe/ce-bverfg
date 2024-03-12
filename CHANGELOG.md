@@ -6,7 +6,8 @@
 
 - Vollständige Aktualisierung der Daten
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
-
+- Anpassung Docker Compose an Debian 11
+- Docker Zeitzone auf Berlin eingestellt
 
 
 ## Version 2023-02-26
