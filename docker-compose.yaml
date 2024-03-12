@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.7"
 
 services:
   ce-bverfg:
@@ -6,4 +6,6 @@ services:
     image: ce-bverfg:4.2.2
     tty: true
     volumes:
-      - .:/ce-bverfg:z
+      - .:/ce-bverfg
+    environment:
+      - TZ=Europe/Berlin
