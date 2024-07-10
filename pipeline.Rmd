@@ -1018,7 +1018,9 @@ tar_make()
 
 ```{r pipeline-zip}
 zip(paste0("output/",
-           prefix.files,
+           paste0(config$project$shortname,
+                  "_",
+                  datestamp),
            "_Targets_Storage.zip"),
     "_targets/")
 ```
