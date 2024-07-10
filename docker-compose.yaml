@@ -3,7 +3,7 @@ version: "3.7"
 services:
   ce-bverfg:
     container_name: ce-bverfg
-    image: ce-bverfg:4.2.2
+    image: ce-bverfg:4.4.0
     tty: true
     volumes:
       - .:/ce-bverfg
