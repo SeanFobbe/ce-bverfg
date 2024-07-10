@@ -4,10 +4,15 @@
 
 ## Version \version
 
+- LIZENZÄNDERUNG: Source Code jetzt unter GNU General Public License Version 3 (GPLv3) oder später lizenziert
 - Vollständige Aktualisierung der Daten
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
+- R-Version auf 4.4.0 aktualisiert (wegen CVE-2024-27322)
+- Vereinfachung der Repository-Struktur mit Ordner etc/ für Config Files
 - Anpassung Docker Compose an Debian 11
 - Docker Zeitzone auf Berlin eingestellt
+- Aktualisierung von Public GPG Key im Repository
+
 
 
 ## Version 2023-02-26
