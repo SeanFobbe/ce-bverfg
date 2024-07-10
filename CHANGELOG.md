@@ -12,6 +12,7 @@
 - Anpassung Docker Compose an Debian 11
 - Docker Zeitzone auf Berlin eingestellt
 - Aktualisierung von Public GPG Key im Repository
+- Zusätzliches Lösch-Skript mit Docker-Integration
 
 
 
