@@ -127,17 +127,18 @@ Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Wäh
 ├── data                       # Datensätze, auf denen die Pipeline aufbaut
 ├── delete_all_data.R          # Löscht den Datensatz und Zwischenschritte
 ├── docker-build-image.sh      # Docker Image erstellen
+├── docker-compose.yaml        # Konfiguration für Docker
+├── docker-delete-all-data.sh  # Löscht Datensatz und Zwischenergebnisse via Docker
 ├── Dockerfile                 # Definition des Docker Images
 ├── docker-run-project.sh      # Docker Image und Datensatz kompilieren
+├── etc                        # Weitere Konfigurationsdateien
 ├── functions                  # Wichtige Schritte der Pipeline
 ├── gpg                        # Persönlicher Public GPG-Key für Seán Fobbe
+├── LICENSE                    # Volltext der Lizenz für den Source Code
 ├── old                        # Alter Code aus früheren Versionen
 ├── pipeline.Rmd               # Zentrale Definition der Pipeline
 ├── README.md                  # Bedienungsanleitung
 ├── reports                    # Markdown-Dateien
-├── requirements-python.txt    # Benötigte Python packages
-├── requirements-R.R           # Benötigte R packages
-├── requirements-system.txt    # Benötigte system dependencies
 ├── run_project.R              # Kompiliert den gesamten Datensatz
 └── tex                        # LaTeX-Templates
 
@@ -163,7 +164,7 @@ Volltexte regulärer Publikationen  —  https://zenodo.org/communities/sean-fob
 
 ## Kontakt
 
-Fehler gefunden? Anregungen? Kommentieren Sie gerne im Issue Tracker auf GitHub oder schreiben Sie mir eine E-Mail an [fobbe-data@posteo.de](fobbe-data@posteo.de)
+Fehler gefunden? Anregungen? Kommentieren Sie gerne im Issue Tracker auf GitHub oder kontaktieren Sie mich via https://www.seanfobbe.de/contact
 
 
 
