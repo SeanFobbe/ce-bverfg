@@ -85,14 +85,17 @@ f.finalize_main <- function(dt.bverfg.intermediate,
 
 ## DEBUGGING
 
-#tar_load(dt.bverfg.intermediate)
-#tar_load(dt.download.final)
-#tar_load(dt.html.meta)
-#varnames  <-  tar_read(dt.var_codebook)$varname
+
+## library(data.table)
+## library(testthat)
+## tar_load(dt.bverfg.intermediate)
+## tar_load(dt.download.final)
+## tar_load(dt.html.meta)
+## varnames  <-  tar_read(dt.var_codebook)$varname
 
 
-#setdiff(dt.bverfg.intermediate$ecli, dt.html.meta$ecli)
+## setdiff(dt.bverfg.intermediate$ecli, dt.html.meta$ecli)
 
 
-#uniqueN(dt.bverfg.intermediate$ecli)
-#uniqueN(dt.html.meta$ecli)
+## uniqueN(dt.bverfg.intermediate$ecli)
+## uniqueN(dt.html.meta$ecli)
