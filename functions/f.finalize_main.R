@@ -60,11 +60,11 @@ f.finalize_main <- function(dt.bverfg.intermediate,
     setorder(dt.final,
              datum)
 
-
-    ## Unit Test: Check variables and set column order
-    
+    ## Unit Test: Check if all variables are documented
     varnames <- gsub("\\\\", "", varnames) # Remove LaTeX escape characters
-    varnames <- varnames[!varnames == "segment"]
+    stopifnot(length(setdiff(names(dt.final), varnames)) == 0)
+
+    ## Order variables as in Codebook
     data.table::setcolorder(dt.final, varnames)
 
 
