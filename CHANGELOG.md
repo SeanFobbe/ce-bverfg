@@ -15,6 +15,7 @@
 - Aktualisierung von Public GPG Key im Repository
 - Zusätzliches Lösch-Skript mit Docker-Integration
 - Neuer Test auf Vollständigkeit der Dokumentation von Variablen im Codebook
+- Vollständigkeit der Datenbankabfrage wird nun alle 3 Tage automatisch überprüft
 
 
 ## Version 2023-02-26
