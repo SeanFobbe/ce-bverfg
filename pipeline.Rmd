@@ -375,7 +375,7 @@ list(
 
 ### Vorläufige Download-Tabelle erstellen
 
-```{targets tar.download1}
+```{targets tar.download.make}
 tarchetypes::tar_age(dt.download,
                      f.download_table_make(debug.toggle = config$debug$toggle,
                                            debug.pages = config$debug$pages),
@@ -385,14 +385,14 @@ tarchetypes::tar_age(dt.download,
 
 ### Vorläufige Dateinamen erstellen
 
-```{targets tar.download2}
+```{targets tar.download.filenames.prelim}
 tar_target(filenames.raw,
            f.filenames_raw(url.pdf = dt.download$url_pdf))
 ```
 
 ### Finale Dateinamen erstellen
 
-```{targets tar.download3}
+```{targets tar.download.filenames.final}
 tar_target(filenames.final,
            f.filenames_final(filenames.raw = filenames.raw,
                              var.bverfge = dt.var_bverfge))
@@ -401,7 +401,7 @@ tar_target(filenames.final,
 
 ### Finale Download-Tabelle erstellen
 
-```{targets tar.download4}
+```{targets tar.download.final}
 tar_target(dt.download.final,
            f.download_finalize(dt.download = dt.download,
                                filenames.final = filenames.final))
@@ -411,7 +411,7 @@ tar_target(dt.download.final,
 ### Download durchführen (PDF)
 
 
-```{targets tar.download5}
+```{targets tar.download.pdf}
 tar_target(files.pdf,
                 f.download(url = dt.download.final$url_pdf,
                            filename = dt.download.final$doc_id,
@@ -432,7 +432,7 @@ tar_target(files.pdf,
 ### Download durchführen (HTML)
 
 
-```{targets tar.download6}
+```{targets tar.download.html}
 tar_target(files.html,
                 f.download(url = dt.download.final$url_html,
                            filename = basename(dt.download.final$url_html),
