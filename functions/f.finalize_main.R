@@ -69,13 +69,48 @@ f.finalize_main <- function(dt.bverfg.intermediate,
     data.table::setcolorder(dt.final, varnames)
 
 
-    ## Unit Test
-    test_that("Ergebnis entspricht Erwartungen.", {
+    ## Unit Tests
+    test_that("Klasse ist korrekt.", {
         expect_s3_class(dt.final, "data.table")
+    })
+
+    test_that("Keine Probleme beim zusammenfügen der Daten.", {
         expect_equal(dt.final[,.N], dt.bverfg.intermediate[,.N])
         expect_lte(dt.final[,.N], dt.html.meta[,.N])
         expect_lte(dt.final[,.N], dt.download.final[,.N])
     })
+
+    test_that("Datum ist plausibel.", {
+        expect_true(all(dt.final$datum > "1951-01-01"))
+        expect_true(all(dt.final$datum <= Sys.Date()))
+    })
+
+    
+    test_that("Entscheidungsjahr ist plausibel.", {
+        expect_true(all(dt.final$entscheidungsjahr >= 1951))
+        expect_true(all(dt.final$entscheidungsjahr <= year(Sys.Date())))
+    })
+
+    test_that("Spruchkörpertypen sind korrekt.", {
+        expect_setequal(dt.final$spruchkoerper_typ, c("S", "K", "P", "B"))
+    })
+    
+    test_that("Spruchkörpernummern sind korrekt.", {
+        expect_setequal(dt.final$spruchkoerper_az, c(1, 2, NA))
+    })
+    
+    test_that("Registerzeichen sind korrekt.", {
+        expect_setequal(dt.final$registerzeichen, c("BvQ", "BvR", "BvE", "BvL",
+                                                    "BvB", "BvF", "BvH", "BvG",
+                                                    "BvP", "BvN", "BvC", "BvK",
+                                                    "BvM", "PBvU", "Vz"))
+    })
+    
+    test_that("Eingangsnummern sind plausibel.", {
+        expect_true(all(dt.final$eingangsnummer > 0))
+        expect_true(all(dt.final$eingangsnummer < 1e4))
+    })
+
 
     
     return(dt.final)
