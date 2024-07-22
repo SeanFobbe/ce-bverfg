@@ -706,7 +706,7 @@ tar_target(dt.bverfg.annotated,
 
 ```{targets tar.citations}
 tar_target(igraph_citations,
-           f.citation_extraction_bverfg(dt.final = dt.final))
+           f.citation_extraction_bverfg(dt.final = dt.bverfg.final))
 
 ```
 
