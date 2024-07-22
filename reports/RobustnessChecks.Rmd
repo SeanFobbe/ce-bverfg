@@ -41,6 +41,7 @@ tar_load(dt.segmented)
 tar_load(files.pdf)
 tar_load(files.txt)
 tar_load(files.html)
+tar_load(igraph_citations)
 
 ```
 
@@ -86,6 +87,42 @@ ggraph(g,
 ```
 
 
+# Zitationsnetzwerk visualisieren
+
+
+```{r, CE-BVerfG_Zitationsnetzwerk_red, fig.width = 40, fig.height = 40, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
+
+g <- igraph_citations
+g <- igraph::subgraph(g, which(V(g)$bverfge == TRUE)) # nur BVerfGE
+
+# Keine isolated nodes
+isolated  <-  which(degree(g) == 0)
+g  <- delete_vertices(g, isolated)
+
+
+ggraph(g, "sugiyama") + 
+    geom_edge_diagonal(colour = "#ca2129", edge_width = 0.05)+
+    geom_node_point(size = 0.3,
+                    color = "white")+
+    theme_void()+
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE ab 1997"),
+        caption = caption
+    )+
+    theme(
+        plot.title = element_text(size = 30,
+                                  face = "bold",
+                                  color = "white"),                        
+        plot.background = element_rect(fill = "black"),
+        plot.caption = element_text(color = "white"),
+        plot.margin = margin(10, 20, 10, 10)
+    )
+#ggsave("test.png", dev ="png", width = 40, height = 40, dpi = 50)
+
+
+
+```
 
 
 
