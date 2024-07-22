@@ -93,11 +93,11 @@ ggraph(g,
 ```{r, CE-BVerfG_Zitationsnetzwerk_red, fig.width = 40, fig.height = 40, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
 
 g <- igraph_citations
-g <- igraph::subgraph(g, which(V(g)$bverfge == TRUE)) # nur BVerfGE
+g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
 
 # Keine isolated nodes
-isolated  <-  which(degree(g) == 0)
-g  <- delete_vertices(g, isolated)
+isolated  <-  which(igraph::degree(g) == 0)
+g  <- igraph::delete_vertices(g, isolated)
 
 
 ggraph(g, "sugiyama") + 
