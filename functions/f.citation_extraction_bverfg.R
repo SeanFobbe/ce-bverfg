@@ -116,32 +116,6 @@ f.citation_extraction_bverfg <- function(dt.final,
 
 
 
-test3.na <- is.na(test3)
-
-test[test3.na]
-
-test[unlist(!is.na(test))]
-
-length(test)
-
-length(test2)
-
-test2 <- lapply(test, gsub, pattern = "\\d{1,3}\\s*\\d{1,3}\\s*<.+?>", replacement = "")
-
-test2[8193]
-
-length(unlist(test))
-
-
-
-regex.test <- paste0(regex.bverfge,
-                     "\\s*;\\s*[0-9]{1,3},\\s*[0-9]{1,4}")
-
-test <- stringi::stri_extract_all(dt.final$text,
-                                  regex = regex.test)
-
-
-
 
 ## DEBUGGING Code
 
