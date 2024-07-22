@@ -1006,6 +1006,7 @@ tar_target(zip.all,
              zip.csv.final,
              zip.csv.meta,
 			 zip.csv.segmented,
+			 zip.graphml,
              zip.analysis,
              zip.source))
 ```
