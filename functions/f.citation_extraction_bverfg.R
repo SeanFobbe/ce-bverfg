@@ -34,8 +34,8 @@ f.citation_extraction_bverfg <- function(dt.final,
     ## Create full Aktenzeichen search REGEX, example: "2 BvR 454/71"
     regex.az <- paste0("[12]\\s*", # Senatsnummer 
                        registerzeichen.regex, # Registerzeichen
-                       "\\s*[0-9]{1,5}/", # Eingangsnummer
-                       "[0-9]{2}") # Jahr
+                       "\\s*\\d{1,5}/", # Eingangsnummer
+                       "\\d{2}") # Jahr
     
     ## Extract BVerfG citations to Aktenzeichen targets
     target.az <- stringi::stri_extract_all(dt.final$text,
@@ -52,8 +52,8 @@ f.citation_extraction_bverfg <- function(dt.final,
 
     ## Extract individual BVerfGE citations from blocks
     regex.bverfge.cite <- paste0("(BVerfGE|;)\\s*", # hooks
-                                 "[0-9]{1,3},\\s*", # Volume
-                                 "[0-9]{1,3}") # Page
+                                 "\\d{1,3},\\s*", # Volume
+                                 "\\d{1,3}") # Page
 
 
     target.bverfge <- stringi::stri_extract_all(target.bverfge.blocks,
@@ -95,11 +95,11 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt$target <- trimws(dt$target)
 
     ## Add whitespace if missing; example "1 BvL100/58"
-    dt$source <- gsub("([A-Z])([0-9])", "\\1 \\2", dt$source)
-    dt$target <- gsub("([A-Z])([0-9])", "\\1 \\2", dt$target)
+    dt$source <- gsub("([A-Z])(\\d)", "\\1 \\2", dt$source)
+    dt$target <- gsub("([A-Z])(\\d)", "\\1 \\2", dt$target)
 
-    
-    ## Resolve BVerfGE to Aktenzeichen
+    dt$source <- gsub("(\\d)B", "\\1 B", dt$source)
+    dt$target <- gsub("(\\d)B", "\\1 B", dt$target)
     
 
     ## Remove self-citations    
@@ -109,6 +109,15 @@ f.citation_extraction_bverfg <- function(dt.final,
     ## Create Graph Object
     g  <- igraph::graph_from_data_frame(dt,
                                         directed = TRUE)
+
+    ## Convert Parallel Edges to Weights
+    
+    igraph::E(g)$weight <- 1
+    g <- igraph::simplify(g, edge.attr.comb = list(weight = "sum"))
+
+
+
+    return(g)
     
 
 }
@@ -129,8 +138,8 @@ f.citation_extraction_bverfg <- function(dt.final,
 
 ## ## Create BVerfGE REGEX (single cite: "BVerfGE 131, 152"; multiples with semicola TBD!
 ## regex.bverfge <- paste0("BVerfGE\\s*", # hook
-##                         "[0-9]{1,3},\\s", # Band
-##                         "[0-9]{1,4}") # Seite
+##                         "\\d{1,3},\\s", # Band
+##                         "\\d{1,4}") # Seite
 
 
 ## ## Extract BVerfG citations to BVerfGE targets
