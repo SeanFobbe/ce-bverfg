@@ -11,6 +11,7 @@
 
 #' TODO:
 #' - Distinguish decisions by date
+#' - extract Vz decisions
 
 
 #' Example citation blocks BVerfGE
@@ -59,10 +60,12 @@ f.citation_extraction_bverfg <- function(dt.final,
                                                 regex = regex.bverfge.cite)
 
     
-
-
     ## Define source Aktenzeichen
-    source <- dt.final$aktenzeichen
+    source <- ifelse(is.na(dt.final$band),
+                     dt.final$aktenzeichen,
+                     paste0("BVerfGE ", dt.final$band, ", ", dt.final$seite))
+
+        
 
     
     ## Combine source Aktenzeichen and target Aktenzeichen
