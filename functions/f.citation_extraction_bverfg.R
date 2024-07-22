@@ -30,7 +30,7 @@ f.citation_extraction_bverfg <- function(dt.final,
     
 
     
-    ## Create BVerfGE REGEX (single cite: BVerfGE 131, 152; multiples with semicola TBD!
+    ## Create BVerfGE REGEX (single cite: "BVerfGE 131, 152"; multiples with semicola TBD!
     regex.bverfge <- paste0("BVerfGE[[:space:]]*", # hook
                             "[0-9]{1,3},[[:space:]]", # Band
                             "[0-9]{1,4}") # Seite
@@ -71,7 +71,11 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt$source <- trimws(dt$source)
     dt$target <- trimws(dt$target)
 
+    ## Add whitespace if missing; example "1 BvL100/58"
+    dt$source <- gsub("([A-Z])([0-9])", "\\1 \\2", dt$source)
+    dt$target <- gsub("([A-Z])([0-9])", "\\1 \\2", dt$target)
 
+    
     ## Resolve BVerfGE to Aktenzeichen
     
 
