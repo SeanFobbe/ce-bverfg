@@ -81,6 +81,10 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt.bverfge <- rbindlist(bind)
     setnames(dt.bverfge, new = c("source", "target"))
 
+    ## Remove non-citations
+    dt.az <- dt.az[!is.na(target)]
+    dt.bverfge <- dt.bverfge[!is.na(target)]
+
     ## Clean BVerfGE hooks
     dt.bverfge$target <-  gsub(";", "BVerfGE", dt.bverfge$target)
     
