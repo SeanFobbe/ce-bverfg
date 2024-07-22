@@ -46,8 +46,13 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt$target <- trimws(dt$target)
 
 
-
+    ## Remove self-citations    
+    dt <- dt[!(dt$source == dt$target)]
     
+
+    ## Create Graph Object
+    g  <- igraph::graph.data.frame(dt,
+                                   directed = TRUE)
     
 
 }
