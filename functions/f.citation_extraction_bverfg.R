@@ -34,7 +34,7 @@ f.citation_extraction_bverfg <- function(dt.final,
     ## Create full Aktenzeichen search REGEX, example: "2 BvR 454/71"
     regex.az <- paste0("[12]\\s*", # Senatsnummer 
                        registerzeichen.regex, # Registerzeichen
-                       "\\s*\\d{1,5}/", # Eingangsnummer
+                       "\\s*\\d{1,4}/", # Eingangsnummer
                        "\\d{2}") # Jahr
     
     ## Extract BVerfG citations to Aktenzeichen targets
@@ -114,8 +114,8 @@ f.citation_extraction_bverfg <- function(dt.final,
     g  <- igraph::graph_from_data_frame(dt,
                                         directed = TRUE)
 
-    ## Convert Parallel Edges to Weights
     
+    ## Convert Parallel Edges to Weights
     igraph::E(g)$weight <- 1
     g <- igraph::simplify(g, edge.attr.comb = list(weight = "sum"))
 
