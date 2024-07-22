@@ -18,25 +18,53 @@ f.citation_extraction_bverfg <- function(dt.final,
     registerzeichen.regex <- paste0("(", registerzeichen.regex, ")")
 
 
-    ## Create full REGEX, example: "2 BvR 454/71"
-    regex <- paste0("[12][[:space:]]*", # Senatsnummer 
-                    registerzeichen.regex, # Registerzeichen
-                    "[[:space:]]*[0-9]{1,5}/", # Eingangsnummer
-                    "[0-9]{2}") # Jahr
+    ## Create full Aktenzeichen search REGEX, example: "2 BvR 454/71"
+    regex.az <- paste0("[12][[:space:]]*", # Senatsnummer 
+                       registerzeichen.regex, # Registerzeichen
+                       "[[:space:]]*[0-9]{1,5}/", # Eingangsnummer
+                       "[0-9]{2}") # Jahr
     
-    ## Extract BVerfG citations to target Aktenzeichen
-    target <- stringi::stri_extract_all(dt.final$text,
-                                        regex = regex)
+    ## Extract BVerfG citations to Aktenzeichen targets
+    target.az <- stringi::stri_extract_all(dt.final$text,
+                                        regex = regex.az)
+    
+
+    
+    ## Create BVerfGE REGEX (single cite: BVerfGE 131, 152; multiples with semicola TBD!
+    regex.bverfge <- paste0("BVerfGE[[:space:]]*", # hook
+                            "[0-9]{1,3},[[:space:]]", # Band
+                            "[0-9]{1,4}") # Seite
+
+    
+    ## Extract BVerfG citations to BVerfGE targets
+    target.bverfge <- stringi::stri_extract_all(dt.final$text,
+                                                regex = regex.bverfge)
+
+
 
     ## Define source Aktenzeichen
     source <- dt.final$aktenzeichen
 
-    ## Bind source and target
-    bind <- mapply(cbind, source, target)
-    bind2 <- lapply(bind, as.data.table)
     
-    dt <- rbindlist(bind2)
+    ## Combine source Aktenzeichen and target Aktenzeichen
+    bind <- mapply(cbind, source, target.az)
+    bind <- lapply(bind, as.data.table)
+    dt.az <- rbindlist(bind)
     setnames(dt, new = c("source", "target"))
+
+
+    
+
+    ## Combine source Aktenzeichen and target BVerfGE
+    bind <- mapply(cbind, source, target.bverfge)
+    bind <- lapply(bind, as.data.table)
+    dt.bverfge <- rbindlist(bind)
+    setnames(dt, new = c("source", "target"))
+
+    
+    ## Combine Tables
+    dt <- rbind(dt.az, dt.bverfge)
+    
     
     ## Clean whitespace
     dt$source <- gsub("[[:space:]]+", " ", dt$source)
@@ -45,6 +73,8 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt$source <- trimws(dt$source)
     dt$target <- trimws(dt$target)
 
+
+    
 
     ## Remove self-citations    
     dt <- dt[!(dt$source == dt$target)]
