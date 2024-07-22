@@ -11,7 +11,8 @@
 
 #' TODO:
 #' - Distinguish decisions by date
-#' - extract Vz decisions
+#' - Extract Vz decisions
+#' - Add metadata
 
 
 #' Example citation blocks BVerfGE
