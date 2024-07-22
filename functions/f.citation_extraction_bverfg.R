@@ -61,5 +61,8 @@ f.citation_extraction_bverfg <- function(dt.final,
 
 ## DEBUGGING Code
 
+## library(stringi)
+## library(data.table)                     
+## library(igraph)
 ## dt.final <-  tar_read(dt.bverfg.final)  
 ## tar_load(az.brd)
