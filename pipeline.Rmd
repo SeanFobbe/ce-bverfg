@@ -268,7 +268,7 @@ Mit diesem Abschnitt der Pipeline werden Input-Dateien getrackt und eingelesen. 
 
 Dies sind alle Dateien, die den Source Code für den Datensatz bereitstellen.
 
-```{targets tar.file1}
+```{targets tar.file.source}
 tar_target(files.source,
            files.source.raw,
            format = "file")
@@ -278,7 +278,7 @@ tar_target(files.source,
 
 ### Changelog
 
-```{targets tar.file2}
+```{targets tar.file.changelog}
 tar_target(changelog,
            "CHANGELOG.md",
            format = "file")
@@ -291,7 +291,7 @@ tar_target(changelog,
 Diese Tabelle enthält Name, Band und Seite der Entscheidung in der BVerfGE. 
 
 
-```{targets tar.file3}
+```{targets tar.file.bverfge}
 list(
     tar_target(file.var_bverfge,
                "data/BVerfGE_Variablen_NameBandSeite.csv",
@@ -310,7 +310,7 @@ list(
 Die Variablen des Datensatzes, inklusive ihrer Erläuterung.
 
 
-```{targets tar.file4}
+```{targets tar.file.vars}
 list(
     tar_target(file.var_codebook,
                "data/CE-BVerfG_Variables.csv",
@@ -328,7 +328,7 @@ Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stamm
 
 `
 
-```{targets tar.file5}
+```{targets tar.file.azbrd}
 list(
     tar_target(file.az.brd,
            "data/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv",
@@ -343,7 +343,7 @@ list(
  Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
-```{targets tar.file6}
+```{targets tar.file.presi}
 list(
     tar_target(file.presidents,
            "data/PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv",
@@ -355,7 +355,7 @@ list(
 
 
 
-```{targets tar.file7}
+```{targets tar.vpresi}
 list(
     tar_target(file.vpresidents,
            "data/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv",
@@ -460,7 +460,7 @@ Es werden die PDF-Dateien in TXT konvertiert und mitsamt den Variablen in ihren 
 
 
 
-```{targets tar.convert1}
+```{targets tar.convert.txt}
 
 list(tar_target(files.txt,
                 f.tar_pdf_extract(x = files.pdf,
@@ -478,7 +478,7 @@ list(tar_target(files.txt,
 
 ### HTML-Dateien parsen
 
-```{targets tar.convert2}
+```{targets tar.convert.html.parse}
 
 tar_target(html.parsed,
            f.parse_html_bverfg(html = files.html))
@@ -490,7 +490,7 @@ tar_target(html.parsed,
 
 
 
-```{targets tar.convert3}
+```{targets tar.convert.html.split}
 
 list(
     tar_target(dt.html.meta,
@@ -516,7 +516,7 @@ Dieser Abschnitt der Pipeline berechnet diverse Verbesserungen für den Datensat
 Das Datum wird im ISO-Format standardisiert und die Variablen \enquote{entscheidungsjahr} und \enquote{eingangsjahr\_iso} hinzugefügt.
 
 
-```{targets tar.enhance1}
+```{targets tar.enhance.dateclean}
 tar_target(dt.bverfg.datecleaned,
            f.clean_dates(dt.bverfg))
 ```
@@ -527,7 +527,7 @@ tar_target(dt.bverfg.datecleaned,
 
 Die Variable \enquote{verfahrensart} wird aus den Registerzeichen berechnet.
 
-```{targets tar.enhance2}
+```{targets tar.enhance.verfahrensart}
 tar_target(var_verfahrensart,
                 f.var_verfahrensart(dt.bverfg.datecleaned$registerzeichen,
                                     az.brd = az.brd,
@@ -540,7 +540,7 @@ tar_target(var_verfahrensart,
 Das Aktenzeichen wird aus seinen Komponenten berechnet.
 
 
-```{targets tar.enhance3}
+```{targets tar.enhance.aktenzeichen}
 tar_target(var_aktenzeichen,
                 f.var_aktenzeichen(dt.bverfg.datecleaned,
                                    az.brd = az.brd,
@@ -555,7 +555,7 @@ Die ECLI wird aus ihren Komponenten berechnet.
 
 
 
-```{targets tar.enhance4}
+```{targets tar.enhance.ecli}
 tar_target(var_ecli,
            f.var_ecli_bverfg(x = dt.bverfg.datecleaned))
 ```
@@ -566,7 +566,7 @@ tar_target(var_ecli,
 ### Variable erstellen: \enquote{praesi}
 
 
-```{targets tar.enhance5}
+```{targets tar.enhance.praesi}
 tar_target(var_praesi,
            f.presidents(datum = dt.bverfg.datecleaned$datum,
                         gericht = "BVerfG",
@@ -576,7 +576,7 @@ tar_target(var_praesi,
 ### Variable erstellen: \enquote{vpraesi}
 
 
-```{targets tar.enhance6}
+```{targets tar.enhance.vpraesi}
 tar_target(var_vpraesi,
            f.presidents(datum = dt.bverfg.datecleaned$datum,
                         gericht = "BVerfG",
@@ -592,7 +592,7 @@ Berechnung klassischer linguistischer Kennzahlen.
 
 
 
-```{targets tar.enhance8}
+```{targets tar.enhance.lingstats}
 tar_target(var_lingstats,
                 f.lingstats(dt.bverfg.datecleaned,
                             multicore = config$parallel$lingsummarize,
@@ -610,7 +610,7 @@ Konstanten die dem Datensatz wichtige Herkunftsinformationen hinzufügen. Darunt
 
 
 
-```{targets tar.enhance9}
+```{targets tar.enhance.constants}
 tar_target(var_constants,
            data.frame(version = as.character(datestamp),
                       doi_concept = config$doi$data$concept,
@@ -625,7 +625,7 @@ tar_target(var_constants,
 
 ### Zusätzliche Variablen zusammenführen
 
-```{targets tar.enhance10}
+```{targets tar.enhance.additional}
 tar_target(vars_additional,
            data.table(verfahrensart = var_verfahrensart,
                       aktenzeichen = var_aktenzeichen,
@@ -640,7 +640,7 @@ tar_target(vars_additional,
 
 ### Datensatz und zusätzliche Variablen verbinden
 
-```{targets tar.enhance11}
+```{targets tar.enhance.varmerge}
 tar_target(dt.bverfg.intermediate,
            cbind(dt.bverfg.datecleaned,
                  vars_additional))
@@ -649,7 +649,7 @@ tar_target(dt.bverfg.intermediate,
 
 ### Hauptdatensatz in segmentierte Variante mergen
 
-```{targets tar.enhance12}
+```{targets tar.enhance.segmented}
 
 tar_target(dt.segmented.final,
            f.finalize_segmented(dt.segmented = dt.segmented,
@@ -665,7 +665,7 @@ tar_target(dt.segmented.final,
 Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
 
 
-```{targets tar.enhance13}
+```{targets tar.enhance.final}
 tar_target(dt.bverfg.final,
            f.finalize_main(dt.bverfg.intermediate = dt.bverfg.intermediate,
                            dt.download.final = dt.download.final,
@@ -682,7 +682,7 @@ Hier wird die Text-Variable entfernt, um eine deutlich platzsparendere Variante 
 
 
 
-```{targets tar.enhance14}
+```{targets tar.enhance.meta}
 tar_target(dt.bverfg.meta,
                 dt.bverfg.final[, !"text"])
 
@@ -692,7 +692,7 @@ tar_target(dt.bverfg.meta,
 ### Variante erstellen: Annotiert
 
 
-```{targets tar.enhance15, eval = FALSE}
+```{targets tar.enhance.annotated, eval = FALSE}
 tar_target(dt.bverfg.annotated,
            f.tar_udpipe(dt.bverfg.final,
                         language = "german-hdt",
@@ -725,7 +725,7 @@ Dieser Abschnitt der Pipeline schreibt den Datensatz und alle Hash-Prüfsummen a
 
 ### CSV schreiben: Voller Datensatz
 
-```{targets tar.write1}
+```{targets tar.write.final}
 tar_target(csv.final,
            f.tar_fwrite(x = dt.bverfg.final,
                         filename = file.path("output",
@@ -740,7 +740,7 @@ tar_target(csv.final,
 ### CSV schreiben: Metadaten
 
 
-```{targets tar.write2}
+```{targets tar.write.meta}
 tar_target(csv.meta,
            f.tar_fwrite(x = dt.bverfg.meta,
                         filename = file.path("output",
@@ -753,7 +753,7 @@ tar_target(csv.meta,
 ### CSV schreiben: Segmentierte Variante
 
 
-```{targets tar.write3}
+```{targets tar.write.segmented}
 tar_target(csv.segmented,
            f.tar_fwrite(x = dt.segmented.final,
                         filename = file.path("output",
@@ -792,7 +792,7 @@ Dieser Abschnitt der Pipeline erstellt die finalen Berichte (Codebook und Robust
 
 Um Variablen aus der Pipeline in die LaTeX-Kompilierung einzuführen, müssen diese als .tex-Datei auf die Festplatte geschrieben werden.
 
-```{targets tar.report1}
+```{targets tar.report.latex}
 tar_target(latexdefs,
                 f.latexdefs(config,
                             dir = "temp",
@@ -805,7 +805,7 @@ tar_target(latexdefs,
 
 ### Zusammenfassungen linguistischer Kennwerte berechnen
 
-```{targets tar.report2}
+```{targets tar.report.lingstats}
 tar_target(lingstats.summary,
                 f.lingstats_summary(dt.bverfg.final,
                                     germanvars = TRUE))
@@ -815,7 +815,7 @@ tar_target(lingstats.summary,
 
 ### Report erstellen: Robustness Checks
 
-```{targets tar.report3}
+```{targets tar.report.robustness}
 tarchetypes::tar_render(report.robustness,
                         file.path("reports",
                                   "RobustnessChecks.Rmd"),
@@ -833,7 +833,7 @@ tarchetypes::tar_render(report.robustness,
 
 
 
-```{targets tar.report4}
+```{targets tar.report.codebook}
 tarchetypes::tar_render(report.codebook,
                         file.path("reports",
                                   "Codebook.Rmd"),
@@ -855,7 +855,7 @@ Diese Abschnitt der Pipeline erstellt ZIP-Archive für alle zentralen Rechenerge
 ### ZIP erstellen: Source Code
 
 
-```{targets tar.zip1}
+```{targets tar.zip.source}
 tar_target(zip.source,
                 f.tar_zip(files.source,
                               filename = paste0(prefix.files,
@@ -870,7 +870,7 @@ tar_target(zip.source,
 
 ### ZIP erstellen: Analyse-Dateien
 
-```{targets tar.zip2}
+```{targets tar.zip.analysis}
 tar_target(zip.analysis,
            f.tar_zip("analysis/",
                      filename = paste(prefix.files,
@@ -887,7 +887,7 @@ tar_target(zip.analysis,
 ### ZIP erstellen: CSV-Datei (voller Datensatz)
 
 
-```{targets tar.zip3}
+```{targets tar.zip.csv.full}
 tar_target(zip.csv.final,
                 f.tar_zip(csv.final,
                               filename = gsub("\\.csv", "\\.zip", basename(csv.final)),
@@ -901,7 +901,7 @@ tar_target(zip.csv.final,
 ### ZIP erstellen: CSV-Datei (nur Metadaten)
 
 
-```{targets tar.zip4}
+```{targets tar.zip.csv.meta}
 tar_target(zip.csv.meta,
                 f.tar_zip(csv.meta,
                               filename = gsub("\\.csv", "\\.zip", basename(csv.meta)),
@@ -914,7 +914,7 @@ tar_target(zip.csv.meta,
 ### ZIP erstellen: CSV-Datei (Segmentiert)
 
 
-```{targets tar.zip5}
+```{targets tar.zip.csv.segmented}
 tar_target(zip.csv.segmented,
                 f.tar_zip(csv.segmented,
                               filename = gsub("\\.csv", "\\.zip", basename(csv.segmented)),
@@ -930,7 +930,7 @@ tar_target(zip.csv.segmented,
 
 ### ZIP erstellen: PDF-Dateien (alle Entscheidungen)
 
-```{targets tar.zip6}
+```{targets tar.zip.pdf.all}
 tar_target(zip.pdf.all,
            f.tar_zip(files.pdf,
                      filename = paste(prefix.files,
@@ -946,7 +946,7 @@ tar_target(zip.pdf.all,
 
 ### ZIP erstellen: TXT-Dateien
 
-```{targets tar.zip7}
+```{targets tar.zip.txt}
 tar_target(zip.txt,
            f.tar_zip(files.txt,
                      filename = paste(prefix.files,
@@ -961,7 +961,7 @@ tar_target(zip.txt,
 
 ### ZIP erstellen: HTML-Dateien
 
-```{targets tar.zip8}
+```{targets tar.zip.html}
 tar_target(zip.html,
            f.tar_zip(files.html,
                      filename = paste(prefix.files,
@@ -998,7 +998,7 @@ tar_target(zip.graphml,
 ### Zu hashende ZIP-Archive definieren
 
 
-```{targets tar.hashes1}
+```{targets tar.hashes.manifest}
 tar_target(zip.all,
            c(zip.pdf.all,
              zip.txt,
@@ -1014,7 +1014,7 @@ tar_target(zip.all,
 ### Kryptographische Hashes berechnen
 
 
-```{targets tar.hashes2}
+```{targets tar.hashes.calc}
 tar_target(hashes,
            f.tar_multihashes(c(zip.all,
                                report.codebook[1],
@@ -1028,7 +1028,7 @@ tar_target(hashes,
 ### CSV schreiben: Kryptographische Hashes
 
 
-```{targets tar.hashes3}
+```{targets tar.hashes.write}
 tar_target(csv.hashes,
            f.tar_fwrite(x = hashes,
                         filename = file.path("output",
