@@ -5,6 +5,7 @@
 ## Version \version
 
 - LIZENZÄNDERUNG: Source Code jetzt unter GNU General Public License Version 3 (GPLv3) oder später lizenziert
+- NEU: Zitationsnetzwerke BVerfGE-BVerfGE, BVerfGE-Aktenzeichen und Aktenzeichen-Aktenzeichen
 - Vollständige Aktualisierung der Daten
 - Amtliche Sammlung bis inklusive Band 164 mit Name, Band und Seite versehen
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
