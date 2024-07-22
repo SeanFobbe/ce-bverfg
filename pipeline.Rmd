@@ -764,6 +764,20 @@ tar_target(csv.segmented,
 ```
 
 
+### GraphML schreiben
+
+```{targets tar.write.graphs}
+
+tar_target(graphml_citations, 
+           f.tar_write_graph(graph = igraph_citations,
+                             file = file.path("output",
+                                              paste0(prefix.files, 
+                                                     "_GraphML_Zitationsnetzwerk.graphml")),
+                             format = "graphml"),
+           format = "file")
+
+```
+
 
 
 
