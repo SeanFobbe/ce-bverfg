@@ -12,16 +12,15 @@ f.citation_extraction_bverfg <- function(dt.final,
                                          az.brd){
 
 
-
-    ## Extract outgoing BVerfG citations, example: "2 BvR 454/71"
-
+    ## Combine Registerzeichen into REGEX
     registerzeichen <- az.brd[stelle == "BVerfG"]$zeichen_original
     registerzeichen.regex <- paste0(registerzeichen, collapse = "|")
     registerzeichen.regex <- paste0("(", registerzeichen.regex, ")")
-    
-    regex <- paste0("[1-2][[:space:]]", # Senatsnummer 
+
+    ## Extract outgoing BVerfG citations, example: "2 BvR 454/71"
+    regex <- paste0("[12][[:space:]]*", # Senatsnummer 
                     registerzeichen.regex, # Registerzeichen
-                    "[[:space:]][0-9]{1,5}/", # Eingangsnummer
+                    "[[:space:]]*[0-9]{1,5}/", # Eingangsnummer
                     "[0-9]{2}") # Jahr
     
     
