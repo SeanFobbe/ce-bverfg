@@ -50,16 +50,14 @@ f.citation_extraction_bverfg <- function(dt.final,
     bind <- mapply(cbind, source, target.az)
     bind <- lapply(bind, as.data.table)
     dt.az <- rbindlist(bind)
-    setnames(dt, new = c("source", "target"))
+    setnames(dt.az, new = c("source", "target"))
 
-
-    
 
     ## Combine source Aktenzeichen and target BVerfGE
     bind <- mapply(cbind, source, target.bverfge)
     bind <- lapply(bind, as.data.table)
     dt.bverfge <- rbindlist(bind)
-    setnames(dt, new = c("source", "target"))
+    setnames(dt.bverfge, new = c("source", "target"))
 
     
     ## Combine Tables
