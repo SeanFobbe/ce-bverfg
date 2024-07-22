@@ -60,8 +60,7 @@ f.citation_extraction_bverfg <- function(dt.final){
                      dt.final$aktenzeichen,
                      paste0("BVerfGE ", dt.final$band, ", ", dt.final$seite))
 
-        
-
+       
     
     ## Combine source Aktenzeichen and target Aktenzeichen
     bind <- mapply(cbind, source, target.az)
@@ -114,6 +113,14 @@ f.citation_extraction_bverfg <- function(dt.final){
     igraph::E(g)$weight <- 1
     g <- igraph::simplify(g, edge.attr.comb = list(weight = "sum"))
 
+    ## Add BVerfGE attribute
+    g <- igraph::set_vertex_attr(graph = g,
+                                 name = "bverfge",
+                                 value = ifelse(grepl("BVerfGE",
+                                                      igraph::vertex_attr(g, "name")),
+                                                TRUE,
+                                                FALSE))
+    
 
 
     return(g)
