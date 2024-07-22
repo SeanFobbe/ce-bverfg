@@ -74,6 +74,7 @@ f.citation_extraction_bverfg <- function(dt.final,
     dt$target <- trimws(dt$target)
 
 
+    ## Resolve BVerfGE to Aktenzeichen
     
 
     ## Remove self-citations    
@@ -81,8 +82,8 @@ f.citation_extraction_bverfg <- function(dt.final,
     
 
     ## Create Graph Object
-    g  <- igraph::graph.data.frame(dt,
-                                   directed = TRUE)
+    g  <- igraph::graph_from_data_frame(dt,
+                                        directed = TRUE)
     
 
 }
