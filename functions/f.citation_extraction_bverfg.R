@@ -119,13 +119,61 @@ f.citation_extraction_bverfg <- function(dt.final){
     igraph::E(g)$weight <- 1
     g <- igraph::simplify(g, edge.attr.comb = list(weight = "sum"))
 
-    ## Add BVerfGE attribute
+
+
+    ## Extract vertex names
+    g.names <- igraph::vertex_attr(g, "name")
+
+    ## Create limited metadata table
+    dt.final$graphkey <-  ifelse(is.na(dt.final$band),
+                                 dt.final$aktenzeichen,
+                                 paste0("BVerfGE ", dt.final$band, ", ", dt.final$seite))
+    
+    
+    dt.meta <- dt.final[,.(graphkey,
+                           bverfge,
+                           entscheidungsjahr,
+                           spruchkoerper_typ,
+                           spruchkoerper_az,
+                           registerzeichen,
+                           verfahrensart,
+                           eingangsnummer,
+                           eingangsjahr_az,
+                           eingangsjahr_iso,
+                           band,
+                           aktenzeichen,
+                           aktenzeichen_alle,
+                           praesi,
+                           v_praesi)]
+
+
+    dt.meta <-  unique(dt.meta, by = "graphkey")
+
+    
+    ## Match metadata to graph
+    match <- match(g.names, dt.meta$graphkey)
+    dt.graphmeta <- dt.meta[match]
+
+    
+    ## Set Vertex Attributes (all)
+    varnames <- names(dt.graphmeta)
+    
+    for(i in varnames){
     g <- igraph::set_vertex_attr(graph = g,
-                                 name = "bverfge",
-                                 value = ifelse(grepl("BVerfGE",
-                                                      igraph::vertex_attr(g, "name")),
-                                                TRUE,
-                                                FALSE))
+                                 name = i,
+                                 value = unname(unlist(dt.graphmeta[, ..i])))
+
+    }
+
+
+    
+    ## Add BVerfGE attribute
+    ## g <- igraph::set_vertex_attr(graph = g,
+    ##                              name = "bverfge",
+    ##                              value = ifelse(grepl("BVerfGE",
+    ##                                                   igraph::vertex_attr(g, "name")),
+    ##                                             TRUE,
+    ##                                             FALSE))
     
 
 
