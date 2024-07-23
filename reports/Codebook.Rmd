@@ -409,6 +409,8 @@ kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
 
 # Zitationsnetzwerk des Bundesverfassungsgerichts (Beta)
 
+## Überblick
+
 Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Das Verfahren orientiert sich an Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), pp. 241--244, benutzt aber andere reguläre Ausdrücke, um die Erkennung von langen Blöcken mit Rechtsprechungszitaten zu verbessern.
 
 Diese Variante ist noch in der Beta-Testphase. Folgende Rechtsprechungszitate sind enthalten:
@@ -477,6 +479,48 @@ kable(dt.g.split,
 
 
 ```
+
+## Methodik BVerfGE
+
+Die Zitate zur BVerfGE werden aus dem Volltext in einem Zwei-Stufen-Verfahren extrahiert, ähnlich wie in Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), S. 241--244.
+
+In der **ersten Stufe** werden die Zitierblöcke lokalisiert und aus dem Volltext gesammelt. Es wird die starke Annahme getroffen, dass Zitierblöcke mit \enquote{BVerfGE} (ignoriert Groß- und Kleinschreibung) eingeleitet werden und nur whitespace, Zahlen, gewisse Sonderzeichen und gewisse Buchstaben enthalten. Zitierblöcke enden in der Regel mit einer runden Klammer, die in der REGEX nicht enthalten ist um sie als Grenzzeichen zu nutzen.
+
+Die konkrete regular expression (REGEX) ist die folgende:
+
+```{r}
+"BVerfGE[\\s\\d\\[\\];,\\.<>Rnfu-]+"
+```
+
+Ein gefundener Zitierblock sieht beispielsweise so aus:
+
+> BVerfGE 84, 133 <146 f.>; 85, 360 <372 f.>; 92, 140 <150> BVerfGE 89, 214 <232> BVerfGE 81, 242 <255>; 89, 214 <232 ff.> BVerfGE\n81, 242 <254> BVerfGE 7, 198 <204 ff.> BVerfGE 84, 133 <154 ff.>;  BVerfGE 89, 276 <289 f.> BVerfGE 88, 87 <96 f.> BVerfGE 82, 126 <146> BVerfGE 11, 245 <254>;  BVerfGE 89, 15 <24> BVerfGE 5, 85\n<198>; 59, 231 <263> BVerfGE 85, 337 <345> 
+
+
+In der **zweiten Stufe** werden aus allen Zitierblöcken die einzelnen Zitate extrahiert, standardisiert und mit der Ausgangsentscheidung verbunden. Die Extraktion trifft die starke Annahme, dass eine Entscheidung der amtlichen Sammlung entweder mit \enquote{BVerfGE} oder bei einem Mehrfachzitat in einem Zitierblock mit einem Semikolon eingeleitet wird. Folgende REGEX kommt dabei zum Einsatz:
+
+
+```{r}
+paste0("(BVerfGE|;)\\s*", # hooks
+       "\\d{1,3},\\s*", # Volume
+       "\\d{1,3}") # Page
+
+```
+
+Damit findet man:
+
+- \enquote{BVerfGE 5, 85}
+- \enquote{; 59, 231}
+
+
+Coupette (2019) nutzt in der ersten Stufe eine REGEX, die strenger ist und die konkrete Form des Zitats (3 Nummern gefolgt von Komma und 3 Nummern) berücksichtigt. In der zweiten Stufe entfernt Coupette (2019) erst Inhalte in spitzen Klammern und extrahiert dann die Einzelzitate. Meine Vorgehensweise ist in der ersten Stufe liberaler, in der zweiten Stufe strenger. 
+
+Aktuell ist unklar, welche Strategie insgesamt besser ist, da die Prüfung auf falsch-negative und falsch-positive Fehler bei Coupette (2019: 245) N=33 Entscheidungen per Hand umfasste und ich bisher nur informell falsch-positive Fehler und falsch-negative Fehler gar nicht geprüft habe.
+
+
+
+## Methodik Aktenzeichen
+
 
 
 
