@@ -537,7 +537,7 @@ Aktuell ist unklar, welche Strategie insgesamt besser ist, da die Prüfung auf f
 
 ## Methodik Aktenzeichen
 
-Über Coupette (2019) hinaus enthält dieser Datensatz auch zitierte Aktenzeichen (Aktenzeichen-Aktenzeichen-Zitate) und Zitate von nicht-BVerfGE-Aktenzeichen zu BVerfGE-Entscheidungen (Aktenzeichen-BVerfGE-Zitate). BVerfGE-BVerfGE-Zitate werden vorrangig so benannt, in diesem Fall ist 
+Über Coupette (2019) hinaus enthält dieser Datensatz auch zitierte Aktenzeichen (Aktenzeichen-Aktenzeichen-Zitate) und Zitate von nicht-BVerfGE-Aktenzeichen zu BVerfGE-Entscheidungen (Aktenzeichen-BVerfGE-Zitate). 
 
 Diese sind einfacher zu erfassen und werden mit folgender REGEX gesucht:
 
@@ -549,7 +549,9 @@ regex.az <- paste0("[12]\\s*", # Senatsnummer
 print(regex.az)
 ```
 
-Um konkrete Entscheidungen zu zitieren müsste noch das Datum berücksichtigt werden. Daran arbeite ich noch.
+Um konkrete Entscheidungen zu zitieren müsste zusätzlich zum Aktenzeichen noch das Datum berücksichtigt werden. Weil dies die REGEX deutlich komplizierter macht, ist dieser Schritt noch ni Arbeit. Im Datensatz sind allerdings `r round(uniqueN(dt.final$aktenzeichen)/dt.final[,.N] * 100 , digits = 2) `% aller ausgehenden Aktenzeichen einzigartig (unabhängig vom Datum), sodaß das Aktenzeichen eine gute Näherung darstellt.
+
+Falls eine BVerfGE-Entscheidung eine BVerfGE-Entscheidung zitiert hat diese Zitierweise absoluten Vorrang. Für BVerfGE-BVerfGE-Zitate besteht im Datensatz daher eine direkte Entscheidung-Entscheidung-Relation.
 
 
 
