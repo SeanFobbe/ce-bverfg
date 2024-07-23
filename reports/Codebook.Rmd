@@ -549,7 +549,7 @@ regex.az <- paste0("[12]\\s*", # Senatsnummer
 print(regex.az)
 ```
 
-Um konkrete Entscheidungen zu zitieren müsste zusätzlich zum Aktenzeichen noch das Datum berücksichtigt werden. Weil dies die REGEX deutlich komplizierter macht, ist dieser Schritt noch ni Arbeit. Im Datensatz sind allerdings `r round(uniqueN(dt.final$aktenzeichen)/dt.final[,.N] * 100 , digits = 2) `% aller ausgehenden Aktenzeichen einzigartig (unabhängig vom Datum), sodaß das Aktenzeichen eine gute Näherung darstellt.
+Um konkrete Entscheidungen zu zitieren müsste zusätzlich zum Aktenzeichen noch das Datum berücksichtigt werden. Weil dies die REGEX deutlich komplizierter macht, ist dieser Schritt noch ni Arbeit. Im Datensatz sind allerdings `r round(uniqueN(dt.final$aktenzeichen)/dt.final[,.N] * 100, digits = 2)` % aller ausgehenden Aktenzeichen einzigartig (unabhängig vom Datum), sodaß das Aktenzeichen eine gute Näherung darstellt.
 
 Falls eine BVerfGE-Entscheidung eine BVerfGE-Entscheidung zitiert hat diese Zitierweise absoluten Vorrang. Für BVerfGE-BVerfGE-Zitate besteht im Datensatz daher eine direkte Entscheidung-Entscheidung-Relation.
 
