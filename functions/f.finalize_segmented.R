@@ -124,3 +124,12 @@ f.finalize_segmented <- function(dt.segmented,
 }
 
 
+## DEBUGGING CODE
+
+## library(data.table)
+## library(testthat)
+
+## tar_load(dt.segmented)
+## tar_load(dt.bverfg.intermediate)
+## tar_load(dt.download.final)
+## varnames  <-  tar_read(dt.var_codebook$varname)
