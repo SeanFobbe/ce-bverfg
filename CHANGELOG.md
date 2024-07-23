@@ -19,6 +19,7 @@
 - Viele neue Tests zur Sicherung der Datenqualität des finalen tabellarischen Datensatzes
 - Vollständigkeit der Datenbankabfrage wird nun alle 3 Tage automatisch überprüft
 - Diagramme nicht mehr nummeriert, sondern nach Typ sortiert
+- Neue Variable "bverfge": TRUE/FALSE ob eine Entscheidung in der BVerfGE enthalten ist
 
 
 ## Version 2023-02-26
