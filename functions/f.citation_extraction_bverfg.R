@@ -166,7 +166,7 @@ f.citation_extraction_bverfg <- function(dt.final){
 
 
     
-    ##Add BVerfGE attribute
+    ## Add BVerfGE attribute
     g <- igraph::set_vertex_attr(graph = g,
                                  name = "bverfge",
                                  value = ifelse(grepl("BVerfGE",
