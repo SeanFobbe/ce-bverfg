@@ -79,7 +79,7 @@ f.finalize_main <- function(dt.bverfg.intermediate,
         expect_s3_class(dt.final, "data.table")
     })
 
-    test_that("Keine Probleme beim zusammenfügen der Daten.", {
+    test_that("Keine Probleme beim Zusammenfügen der Daten.", {
         expect_equal(dt.final[,.N], dt.bverfg.intermediate[,.N])
         expect_lte(dt.final[,.N], dt.html.meta[,.N])
         expect_lte(dt.final[,.N], dt.download.final[,.N])
