@@ -407,7 +407,7 @@ kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
 ```
 
 
-# Internes Zitationsnetzwerk des Bundesverfassungsgerichts (Beta)
+# Zitationsnetzwerk des Bundesverfassungsgerichts (Beta)
 
 Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Das Verfahren orientiert sich an Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), pp. 241--244, benutzt aber andere reguläre Ausdrücke, um die Erkennung von langen Blöcken mit Rechtsprechungszitaten zu verbessern.
 
@@ -421,9 +421,9 @@ Zitate unter Angabe des Aktenzeichens sind weniger genau als Zitate zu konkreten
 
 **Achtung:** Zitierende Entscheidungen können nur solche sein, für die im Korpus der Volltext enthalten ist. Zitierte Entscheidungen können alle aus der gesamten Rechtsprechung sein (keine Begrenzung).
 
-Das Zitationsnetzwerk wird als GraphML-Datei angeboten und kann z.B. einfach in graphische Softwre wie Gephi importiert werden. Formal handelt sich um einen gewichteten, gerichteten Graphen (Digraph). Die Anzahl der Knoten gibt die Anzahl der Entscheidungen/Aktenzeichen mit eingehenden und/oder ausgehenden Zitaten an. Die Anzahl der Kanten gibt die Anzahl der Entscheidungen/Aktenzeichen-Paare mit mindestens einem Zitat an. Die Gewichte für die Kanten geben die Anzahl der Zitate an. 
+Das Zitationsnetzwerk wird als GraphML-Datei angeboten und kann z.B. einfach in graphische Softwre wie Gephi importiert werden. Formal handelt sich um einen gewichteten, gerichteten Graphen (Digraph). Die Anzahl der Knoten gibt die Anzahl der Entscheidungen/Aktenzeichen mit eingehenden und/oder ausgehenden Zitaten an. Die Anzahl der Kanten gibt die Anzahl der Entscheidungen/Aktenzeichen-Paare mit mindestens einem Zitat an. Die Gewichte für die Kanten geben die Anzahl der Zitate an. Die Ausgangsstärke gibt die gesamte Zahl aller einfachen Zitate an.
 
-
+\bigskip
 
 \ra{1.1}
 ```{r}
@@ -506,8 +506,8 @@ ggplot(data = degree.all) +
         y = "Anteil"
     )+
     theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
+        text = element_text(size = 13),
+        plot.title = element_text(size = 13,
                                   face = "bold"),
         legend.position = "none",
         plot.margin = margin(10, 20, 10, 10)
@@ -545,8 +545,8 @@ ggplot(data = degree.in) +
         y = "Anteil"
     )+
     theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
+        text = element_text(size = 13),
+        plot.title = element_text(size = 13,
                                   face = "bold"),
         legend.position = "none",
         plot.margin = margin(10, 20, 10, 10)
