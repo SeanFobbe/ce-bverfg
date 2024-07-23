@@ -38,12 +38,18 @@ f.citation_extraction_bverfg <- function(dt.final){
     
 
     ## Extract BVerfGE citation blocks
-    regex.bverfge.blocks <- "BVerfGE[\\s\\d;,\\.<>Rnf-]+"
+    regex.bverfge.blocks <- "BVerfGE[\\s\\d\\[\\];,\\.<>Rnf-]+"
     
-    target.bverfge.blocks.list <- stringi::stri_extract_all(dt.final$text,
-                                                            regex = regex.bverfge.blocks)
+    target.bverfge.blocks <- stringi::stri_extract_all(dt.final$text,
+                                                            regex = regex.bverfge.blocks,
+                                                            case_insensitive = TRUE)
     
-    target.bverfge.blocks <- lapply(target.bverfge.blocks.list, paste0, collapse = " ")
+    target.bverfge.blocks <- lapply(target.bverfge.blocks, paste0, collapse = " ")
+    target.bverfge.blocks <- lapply(target.bverfge.blocks, # Fix case typos
+                                    gsub,
+                                    pattern = "BVerfG",
+                                    replacement = "BVerfG",
+                                    ignore.case = TRUE)
 
     ## Extract individual BVerfGE citations from blocks
     regex.bverfge.cite <- paste0("(BVerfGE|;)\\s*", # hooks
