@@ -409,7 +409,9 @@ kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
 
 # Internes Zitationsnetzwerk des Bundesverfassungsgerichts (Beta)
 
-Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Diese Variante ist noch in der Beta-Testphase, wertet aber bereits folgende Zitate aus:
+Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Das Verfahren orientiert sich an Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), pp. 241--244, benutzt aber andere reguläre Ausdrücke, um die Erkennung von langen Blöcken mit Rechtsprechungszitaten zu verbessern.
+
+Diese Variante ist noch in der Beta-Testphase. Folgende Rechtsprechungszitate sind enthalten:
 
 - Zitate innerhalb der amtlichen Sammlung (inklusive langer Blockzitate mehrer BVerfGE-Entscheidungen)
 - Zitate von amtlicher Sammlung zu Aktenzeichen
