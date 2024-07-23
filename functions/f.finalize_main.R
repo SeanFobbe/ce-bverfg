@@ -61,9 +61,9 @@ f.finalize_main <- function(dt.bverfg.intermediate,
              datum)
 
     ## Add BVerfGE variable
-    dt.final  <- ifelse(is.na(dt.final$band),
-                        TRUE,
-                        FALSE)
+    dt.final$bverfge  <- ifelse(is.na(dt.final$band),
+                                TRUE,
+                                FALSE)
     
     ## Unit Test: Check if all variables are documented
     varnames <- gsub("\\\\", "", varnames) # Remove LaTeX escape characters
