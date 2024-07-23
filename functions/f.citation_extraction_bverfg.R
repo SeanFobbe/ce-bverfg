@@ -38,7 +38,7 @@ f.citation_extraction_bverfg <- function(dt.final){
     
 
     ## Extract BVerfGE citation blocks
-    regex.bverfge.blocks <- "BVerfGE[\\s\\d\\[\\];,\\.<>Rnf-]+"
+    regex.bverfge.blocks <- "BVerfGE[\\s\\d\\[\\];,\\.<>Rnfu-]+"
     
     target.bverfge.blocks <- stringi::stri_extract_all(dt.final$text,
                                                             regex = regex.bverfge.blocks,
