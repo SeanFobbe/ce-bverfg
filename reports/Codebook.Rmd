@@ -201,7 +201,7 @@ Die Daten wurden unter Beachtung des Robot Exclusion Standard (RES) gesammelt. D
 
 
 
-```{r, CE-BVerfG_00_Pipeline_Graph, fig.width = 12, fig.height = 14, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
+```{r, CE-BVerfG_Workflow_Graph_blackwhite, fig.width = 12, fig.height = 14, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
 
 
 edgelist <- tar_network(targets_only = TRUE)$edges
@@ -806,7 +806,7 @@ kable(lingstats.summary,
 ## Verteilung Zeichen
 
 
-```{r, CE-BVerfG_01_Density_Zeichen, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Zeichen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = zeichen),
                  fill = "#ca2129")+
@@ -835,7 +835,7 @@ ggplot(data = dt.bverfg.meta)+
 
 ## Verteilung Tokens
 
-```{r,  CE-BVerfG_02_Density_Tokens, fig.height = 6, fig.width = 9}
+```{r,  CE-BVerfG_Density_Tokens, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = tokens),
                  fill = "#ca2129")+
@@ -863,7 +863,7 @@ ggplot(data = dt.bverfg.meta)+
 
 ## Verteilung Typen
 
-```{r, CE-BVerfG_03_Density_Typen, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Typen, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = typen),
                  fill = "#ca2129")+
@@ -892,7 +892,7 @@ ggplot(data = dt.bverfg.meta)+
 
 ## Verteilung Sätze
 
-```{r, CE-BVerfG_04_Density_Saetze, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Saetze, fig.height = 6, fig.width = 9}
 ggplot(data = dt.bverfg.meta)+
     geom_density(aes(x = saetze),
                  fill = "#ca2129")+
@@ -985,7 +985,7 @@ kable(dt.stats.docvars,
 
 
 
-```{r, CE-BVerfG_05_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$entscheidung_typ[-.N]) +
     geom_bar(aes(x = reorder(entscheidung_typ,
                              -N),
@@ -1038,7 +1038,7 @@ kable(freqtable$entscheidung_typ,
 
 ## Nach Typ des Spruchkörpers
 
-```{r, CE-BVerfG_06_Barplot_Spruchkoerper_Typ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_Spruchkoerper_Typ, fig.height = 6, fig.width = 9}
 
 ggplot(data = freqtable$spruchkoerper_typ[-.N]) +
     geom_bar(aes(x = reorder(spruchkoerper_typ,
@@ -1095,7 +1095,7 @@ kable(freqtable$spruchkoerper_typ,
 
 
 
-```{r, CE-BVerfG_07_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$spruchkoerper_az[-.N]) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
@@ -1149,7 +1149,7 @@ kable(freqtable$spruchkoerper_az,
 
 
 
-```{r, CE-BVerfG_08_Barplot_Registerzeichen, fig.height = 10, fig.width = 8}
+```{r, CE-BVerfG_Barplot_Registerzeichen, fig.height = 10, fig.width = 8}
 ggplot(data = freqtable$registerzeichen[-.N]) +
     geom_bar(aes(x = reorder(registerzeichen,
                              N),
@@ -1199,7 +1199,7 @@ kable(freqtable$registerzeichen,
 
 
 
-```{r, CE-BVerfG_09_Barplot_PraesidentIn, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_PraesidentIn, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$praesi[-.N]) +
     geom_bar(aes(x = reorder(praesi,
                              N),
@@ -1248,7 +1248,7 @@ kable(freqtable$praesi,
 
 
 
-```{r, CE-BVerfG_10_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$v_praesi[-.N]) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
@@ -1300,7 +1300,7 @@ kable(freqtable$v_praesi,
 
 
 
-```{r, CE-BVerfG_11_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$entscheidungsjahr[-.N]) +
     geom_bar(aes(x = as.integer(entscheidungsjahr),
                  y = N),
@@ -1346,7 +1346,7 @@ kable(freqtable$entscheidungsjahr,
 
 
 
-```{r, CE-BVerfG_12_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable$eingangsjahr_iso[-.N]) +
     geom_bar(aes(x = as.integer(eingangsjahr_iso),
                  y = N),
@@ -1392,7 +1392,7 @@ kable(freqtable$eingangsjahr_iso,
 # Dateigrößen
 
 
-```{r, CE-BVerfG_13_Density_Dateigroessen_PDF, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Dateigroessen_PDF, fig.height = 6, fig.width = 9}
 
 
 pdf.MB <- file.size(files.pdf) / 10^6
@@ -1428,7 +1428,7 @@ ggplot(data = dt.plot,
 
 
 
-```{r, CE-BVerfG_14_Density_Dateigroessen_TXT, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Dateigroessen_TXT, fig.height = 6, fig.width = 9}
 
 txt.MB <- file.size(files.txt) / 10^6
 
@@ -1460,7 +1460,7 @@ ggplot(data = dt.plot,
 ```
 
 
-```{r, CE-BVerfG_15_Density_Dateigroessen_HTML, fig.height = 6, fig.width = 9}
+```{r, CE-BVerfG_Density_Dateigroessen_HTML, fig.height = 6, fig.width = 9}
 
 html.MB <- file.size(files.html) / 10^6
 
