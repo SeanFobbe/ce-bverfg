@@ -131,7 +131,6 @@ f.citation_extraction_bverfg <- function(dt.final){
     
     
     dt.meta <- dt.final[,.(graphkey,
-                           bverfge,
                            entscheidungsjahr,
                            spruchkoerper_typ,
                            spruchkoerper_az,
@@ -167,13 +166,13 @@ f.citation_extraction_bverfg <- function(dt.final){
 
 
     
-    ## Add BVerfGE attribute
-    ## g <- igraph::set_vertex_attr(graph = g,
-    ##                              name = "bverfge",
-    ##                              value = ifelse(grepl("BVerfGE",
-    ##                                                   igraph::vertex_attr(g, "name")),
-    ##                                             TRUE,
-    ##                                             FALSE))
+    ##Add BVerfGE attribute
+    g <- igraph::set_vertex_attr(graph = g,
+                                 name = "bverfge",
+                                 value = ifelse(grepl("BVerfGE",
+                                                      igraph::vertex_attr(g, "name")),
+                                                TRUE,
+                                                FALSE))
     
 
 
