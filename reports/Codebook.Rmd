@@ -41,6 +41,7 @@ tar_load(lingstats.summary)
 tar_load(az.brd)
 tar_load(presidents)
 tar_load(vpresidents)
+tar_load(igraph_citations)
 
 
 ## Frequenztabellen
@@ -406,6 +407,189 @@ kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
 ```
 
 
+# Internes Zitationsnetzwerk des Bundesverfassungsgerichts (Beta)
+
+Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Diese Variante ist noch in der Beta-Testphase, wertet aber bereits folgende Zitate aus:
+
+- Zitate innerhalb der amtlichen Sammlung (inklusive langer Blockzitate mehrer BVerfGE-Entscheidungen)
+- Zitate von amtlicher Sammlung zu Aktenzeichen
+- Zitate von Aktenzeichen zu Aktenzeichen
+
+Zitate unter Angabe des Aktenzeichens sind weniger genau als Zitate zu konkreten Entscheidungen (bei denen Datum und ggf. Kollisionsziffer nötig sind), aber sind eine gute Näherung. Zitate konkreter Entscheidung unter Angabe des Datums sind für die Zukunft vorgesehen, benötigen aber noch zusätzlichen Entwicklungsaufwand.
+
+**Achtung:** Zitierende Entscheidungen können nur solche sein, für die im Korpus der Volltext enthalten ist. Zitierte Entscheidungen können alle aus der gesamten Rechtsprechung sein (keine Begrenzung).
+
+Das Zitationsnetzwerk wird als GraphML-Datei angeboten und kann z.B. einfach in graphische Softwre wie Gephi importiert werden. Formal handelt sich um einen gewichteten, gerichteten Graphen (Digraph). Die Anzahl der Knoten gibt die Anzahl der Entscheidungen/Aktenzeichen mit eingehenden und/oder ausgehenden Zitaten an. Die Anzahl der Kanten gibt die Anzahl der Entscheidungen/Aktenzeichen-Paare mit mindestens einem Zitat an. Die Gewichte für die Kanten geben die Anzahl der Zitate an. 
+
+
+
+\ra{1.1}
+```{r}
+
+g <- igraph_citations
+
+
+dt.g <- data.table(Metric = c("Number of Nodes",
+                              "Number of Edges",
+                              "Strength (Out)",
+                              "Mean Degree",
+                              "Max Degree",
+                              "Min Degree",
+                              "Mean In-Degree",
+                              "Max In-Degree",
+                              "Min In-Degree",
+                              "Mean Out-Degree",
+                              "Max Out-Degree",
+                              "Min Out-Degree",
+                              "Diameter",
+                              "Radius",
+                              "Assortativity (Degree)",
+                              "Mean Distance"),
+                   Value = c(vcount(g),
+                             ecount(g),
+                             sum(strength(g, mode = "out")),
+                             mean(degree(g, mode = "all")),
+                             max(degree(g, mode = "all")),
+                             min(degree(g, mode = "all")),
+                             mean(degree(g, mode = "in")),
+                             max(degree(g, mode = "in")),
+                             min(degree(g, mode = "in")),
+                             mean(degree(g, mode = "out")),
+                             max(degree(g, mode = "out")),
+                             min(degree(g, mode = "out")),
+                             diameter(g),
+                             radius(g),
+                             assortativity_degree(g),
+                             mean_distance(g)
+                             )
+                   )
+
+dt.g.split <- cbind(dt.g[1:8], dt.g[9:16])
+
+kable(dt.g.split,
+      digits = 2,
+      format.args = list(big.mark = ","),
+      format = "latex",
+      booktabs = TRUE,
+      longtable = TRUE)
+
+
+```
+
+
+
+```{r, CE-BVerfG_Zitationsnetzwerk_Knotengrad, fig.width = 9, fig.height = 6, fig.cap = "Verteilung der Knotengrade im Zitationsnetzwerk des BVerfG."}
+
+
+g <- igraph_citations
+degree.all <- data.table(prop = degree_distribution(g, mode = "all"))
+degree.all$degree <- 1:length(degree.all$prop)
+
+
+
+ggplot(data = degree.all) +
+    geom_bar(aes(x = degree,
+                 y = prop),
+             stat = "identity",
+             fill = "black",
+             color = "black",
+             width = 0.5) +
+    theme_bw() +
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Verteilung der Knotengrade im Zitationsnetzwerk"),
+        caption = caption,
+        x = "Knotengrad",
+        y = "Anteil"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+```
+
+
+
+
+```{r, CE-BVerfG_Zitationsnetzwerk_Eingangsgrad, fig.width = 9, fig.height = 6, fig.cap = "Verteilung der Eingangsgrade im Zitationsnetzwerk des BVerfG."}
+
+
+g <- igraph_citations
+degree.in <- data.table(prop = degree_distribution(g, mode = "in"))
+degree.in$degree <- 1:length(degree.in$prop)
+
+
+
+ggplot(data = degree.in) +
+    geom_bar(aes(x = degree,
+                 y = prop),
+             stat = "identity",
+             fill = "black",
+             color = "black",
+             width = 0.5) +
+    theme_bw() +
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Verteilung der Eingangsgrade im Zitationsnetzwerk"),
+        caption = caption,
+        x = "Eingangsgrad",
+        y = "Anteil"
+    )+
+    theme(
+        text = element_text(size = 14),
+        plot.title = element_text(size = 14,
+                                  face = "bold"),
+        legend.position = "none",
+        plot.margin = margin(10, 20, 10, 10)
+    )
+
+
+
+
+
+
+
+```
+
+```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyama_schwarz, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
+
+g <- igraph_citations
+g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
+
+# Keine isolated nodes
+isolated  <-  which(igraph::degree(g) == 0)
+g  <- igraph::delete_vertices(g, isolated)
+
+
+ggraph(g, "sugiyama") + 
+    geom_edge_diagonal(colour = "black", edge_width = 0.05)+
+    geom_node_point(size = 0.3,
+                    color = "black")+
+    theme_void()+
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE ab 1997"),
+        caption = caption
+    )+
+    theme(
+        plot.title = element_text(size = 30,
+                                  face = "bold",
+                                  color = "black"),                        
+        plot.background = element_rect(fill = "white"),
+        plot.caption = element_text(color = "black"),
+        plot.margin = margin(10, 20, 10, 10)
+    )
+#ggsave("test.png", dev ="png", width = 40, height = 50, dpi = 50, limitsize = FALSE)
+
+
+
+```
 
 
 
