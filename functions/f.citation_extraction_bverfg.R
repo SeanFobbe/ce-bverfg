@@ -138,16 +138,4 @@ f.citation_extraction_bverfg <- function(dt.final){
 ## library(data.table)                     
 ## library(igraph)
 ## dt.final <-  tar_read(dt.bverfg.final)  
-## tar_load(az.brd)
 
-
-
-## ## Create BVerfGE REGEX (single cite: "BVerfGE 131, 152"; multiples with semicola TBD!
-## regex.bverfge <- paste0("BVerfGE\\s*", # hook
-##                         "\\d{1,3},\\s", # Band
-##                         "\\d{1,4}") # Seite
-
-
-## ## Extract BVerfG citations to BVerfGE targets
-## target.bverfge <- stringi::stri_extract_all(dt.final$text,
-##                                             regex = regex.bverfge)
