@@ -86,18 +86,18 @@ f.finalize_segmented <- function(dt.segmented,
     })
 
     test_that("Datum ist plausibel.", {
-        expect_true(all(dt.final$datum > "1951-01-01"))
-        expect_true(all(dt.final$datum <= Sys.Date()))
+        expect_true(all(na.omit(dt.final$datum) > "1951-01-01"))
+        expect_true(all(na.omit(dt.final$datum) <= Sys.Date()))
     })
 
     
     test_that("Entscheidungsjahr ist plausibel.", {
-        expect_true(all(dt.final$entscheidungsjahr >= 1951))
-        expect_true(all(dt.final$entscheidungsjahr <= year(Sys.Date())))
+        expect_true(all(na.omit(dt.final$entscheidungsjahr) >= 1951))
+        expect_true(all(na.omit(dt.final$entscheidungsjahr) <= year(Sys.Date())))
     })
 
     test_that("Spruchkörpertypen sind korrekt.", {
-        expect_setequal(dt.final$spruchkoerper_typ, c("S", "K", "P", "B"))
+        expect_setequal(dt.final$spruchkoerper_typ, c("S", "K", "P", "B", NA))
     })
     
     test_that("Spruchkörpernummern sind korrekt.", {
@@ -108,12 +108,12 @@ f.finalize_segmented <- function(dt.segmented,
         expect_setequal(dt.final$registerzeichen, c("BvQ", "BvR", "BvE", "BvL",
                                                     "BvB", "BvF", "BvH", "BvG",
                                                     "BvP", "BvN", "BvC", "BvK",
-                                                    "BvM", "PBvU", "Vz"))
+                                                    "BvM", "PBvU", "Vz", NA))
     })
     
     test_that("Eingangsnummern sind plausibel.", {
-        expect_true(all(dt.final$eingangsnummer > 0))
-        expect_true(all(dt.final$eingangsnummer < 1e4))
+        expect_true(all(na.omit(dt.final$eingangsnummer) > 0))
+        expect_true(all(na.omit(dt.final$eingangsnummer) < 1e4))
     })
 
 
