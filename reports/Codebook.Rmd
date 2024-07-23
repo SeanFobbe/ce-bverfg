@@ -636,7 +636,7 @@ ggplot(data = degree.in) +
 
 ```
 
-```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyama_schwarz, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
+```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyama_schwarz, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1998", dev = "png"}
 
 g <- igraph_citations
 g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
@@ -653,7 +653,7 @@ ggraph(g, "sugiyama") +
     theme_void()+
     labs(
         title = paste(prefix.figuretitle,
-                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE ab 1997"),
+                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE ab 1998"),
         caption = caption
     )+
     theme(
