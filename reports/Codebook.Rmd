@@ -494,7 +494,7 @@ Die konkrete regular expression (REGEX) ist die folgende:
 
 Ein gefundener Zitierblock sieht beispielsweise so aus:
 
-> BVerfGE 84, 133 <146 f.>; 85, 360 <372 f.>; 92, 140 <150> BVerfGE 89, 214 <232> BVerfGE 81, 242 <255>; 89, 214 <232 ff.> BVerfGE\n81, 242 <254> BVerfGE 7, 198 <204 ff.> BVerfGE 84, 133 <154 ff.>;  BVerfGE 89, 276 <289 f.> BVerfGE 88, 87 <96 f.> BVerfGE 82, 126 <146> BVerfGE 11, 245 <254>;  BVerfGE 89, 15 <24> BVerfGE 5, 85\n<198>; 59, 231 <263> BVerfGE 85, 337 <345> 
+> BVerfGE 84, 133 <146 f.>; 85, 360 <372 f.>; 92, 140 <150> BVerfGE 89, 214 <232> BVerfGE 81, 242 <255>; 89, 214 <232 ff.> BVerfGE 81, 242 <254> BVerfGE 7, 198 <204 ff.> BVerfGE 84, 133 <154 ff.>;  BVerfGE 89, 276 <289 f.> BVerfGE 88, 87 <96 f.> BVerfGE 82, 126 <146> BVerfGE 11, 245 <254>;  BVerfGE 89, 15 <24> BVerfGE 5, 85 <198>; 59, 231 <263> BVerfGE 85, 337 <345> 
 
 
 In der **zweiten Stufe** werden aus allen Zitierblöcken die einzelnen Zitate extrahiert, standardisiert und mit der Ausgangsentscheidung verbunden. Die Extraktion trifft die starke Annahme, dass eine Entscheidung der amtlichen Sammlung entweder mit \enquote{BVerfGE} oder bei einem Mehrfachzitat in einem Zitierblock mit einem Semikolon eingeleitet wird. Folgende REGEX kommt dabei zum Einsatz:
