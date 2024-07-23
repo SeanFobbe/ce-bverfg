@@ -595,7 +595,7 @@ ggplot(data = degree.all) +
 
 ```
 
-
+\vspace{-0.5cm}
 
 
 ```{r, CE-BVerfG_Zitationsnetzwerk_Eingangsgrad, fig.width = 9, fig.height = 6, fig.cap = "Verteilung der Eingangsgrade im Zitationsnetzwerk des BVerfG."}
