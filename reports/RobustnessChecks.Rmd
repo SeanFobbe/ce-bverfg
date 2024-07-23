@@ -90,7 +90,7 @@ ggraph(g,
 # Zitationsnetzwerk visualisieren
 
 
-```{r, CE-BVerfG_Zitationsnetzwerk_red, fig.width = 40, fig.height = 40, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
+```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyma_rot, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk des BVerfG ab 1997", dev = "png"}
 
 g <- igraph_citations
 g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
@@ -118,7 +118,7 @@ ggraph(g, "sugiyama") +
         plot.caption = element_text(color = "white"),
         plot.margin = margin(10, 20, 10, 10)
     )
-#ggsave("test.png", dev ="png", width = 40, height = 40, dpi = 50)
+#ggsave("test.png", dev ="png", width = 40, height = 50, dpi = 50, limitsize = FALSE)
 
 
 
