@@ -66,7 +66,6 @@ f.finalize_segmented <- function(dt.segmented,
     ## Unit Test: Check if all variables are documented
     varnames <- gsub("\\\\", "", varnames) # Remove LaTeX escape characters
     stopifnot(length(setdiff(names(dt.final), varnames)) == 0)
-    varnames <- varnames[!varnames == "segment"] # Remove var for segmented variant
 
     ## Order variables as in Codebook
     data.table::setcolorder(dt.final, varnames)
