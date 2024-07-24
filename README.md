@@ -123,7 +123,6 @@ Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Wäh
 .
 ├── buttons                    # Buttons (nur optische Bedeutung)
 ├── CHANGELOG.md               # Alle Änderungen
-├── compose.yaml               # Konfiguration für Docker
 ├── config.toml                # Zentrale Konfigurations-Datei
 ├── data                       # Datensätze, auf denen die Pipeline aufbaut
 ├── delete_all_data.R          # Löscht den Datensatz und Zwischenschritte
@@ -136,7 +135,6 @@ Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Wäh
 ├── functions                  # Wichtige Schritte der Pipeline
 ├── gpg                        # Persönlicher Public GPG-Key für Seán Fobbe
 ├── LICENSE                    # Volltext der Lizenz für den Source Code
-├── old                        # Alter Code aus früheren Versionen
 ├── pipeline.Rmd               # Zentrale Definition der Pipeline
 ├── README.md                  # Bedienungsanleitung
 ├── reports                    # Markdown-Dateien
