@@ -488,7 +488,7 @@ Die Zitate zur BVerfGE werden aus dem Volltext in einem Zwei-Stufen-Verfahren ex
 
 ### Erste Stufe
 
-In der **ersten Stufe** werden die Zitierblöcke lokalisiert und aus dem Volltext gesammelt. Es wird die starke Annahme getroffen, dass Zitierblöcke mit \enquote{BVerfGE} (ignoriert Groß- und Kleinschreibung) eingeleitet werden und nur whitespace, Zahlen, gewisse Sonderzeichen und gewisse Buchstaben enthalten. Zitierblöcke enden in der Regel mit einer runden Klammer, die in der REGEX nicht enthalten ist um sie als Grenzzeichen zu nutzen.
+In der **ersten Stufe** werden die Zitierblöcke lokalisiert und aus dem Volltext gesammelt. Es wird die starke Annahme getroffen, dass Zitierblöcke mit \enquote{BVerfGE} (ignoriert Groß- und Kleinschreibung) eingeleitet werden und nur Whitespace, Zahlen, gewisse Sonderzeichen und gewisse Buchstaben enthalten. Zitierblöcke enden in der Regel mit einer runden Klammer, die in der REGEX nicht enthalten ist um, sie als Grenzzeichen zu nutzen.
 
 Die konkrete regular expression (REGEX) ist die folgende:
 
@@ -513,12 +513,12 @@ regex.bverfge.cite <- paste0("(BVerfGE|;)\\s*", # hooks
 print(regex.bverfge.cite)
 ```
 
-Damit findet man zwei Mögliche Einzelzitate:
+Damit findet man zwei Varianten von Einzelzitaten:
 
 - \enquote{BVerfGE 5, 85}
 - \enquote{; 59, 231}
 
-Die Einzelzitate werden in einem späteren Schritt bereinigt und standardisiert. Zum Ende hin werden Selbstzitate entfernt und Metadaten hinzugefügt.
+Die Einzelzitate werden anschließend bereinigt und standardisiert. Zum Ende hin werden Selbstzitate entfernt und Metadaten hinzugefügt.
 
 
 
@@ -529,19 +529,19 @@ Die Extraktion mit regulären Ausdrücken hat Grenzen. Insbesondere folgende Pro
 - Tippfehler (außer Groß- und Kleinschreibung)
 - Unregelmäßge Zitierweise
 - Verkürzte Schreibweise wie in BVerfGE 60, 162: \enquote{BVerfGE 3, 19 (27), 383 (394); 4, 375 (381 f.);} --- das Beispiel stammt aus Coupette (2019: 246)
-- Einfügung von Entscheidungsnamen wie in BVerfGE 42, 143: \enquote{BVerfGE 7, 198 (205ff) - Lüth -; 18, 85 (92f); 30, 173 (187f, 196f) - Mephisto -; 32, 311 (316)} ---  --- das Beispiel stammt aus Coupette (2019: 246)
+- Einfügung von Entscheidungsnamen wie in BVerfGE 42, 143: \enquote{BVerfGE 7, 198 (205ff) - Lüth -; 18, 85 (92f); 30, 173 (187f, 196f) - Mephisto -; 32, 311 (316)}  --- das Beispiel stammt aus Coupette (2019: 246)
 
-Coupette (2019) nutzt in der ersten Stufe eine REGEX, die strenger ist und die konkrete Form des Zitats (3 Nummern gefolgt von Komma und 3 Nummern) berücksichtigt. In der zweiten Stufe entfernt Coupette (2019) erst Inhalte in spitzen Klammern und extrahiert dann die Einzelzitate. Meine Vorgehensweise ist in der ersten Stufe liberaler, in der zweiten Stufe strenger. 
+Coupette (2019) nutzt in der ersten Stufe eine REGEX, die strenger ist und die konkrete Form des Zitats (3 Zahlen gefolgt von einem Komma und weiteren 3 Zahlen) berücksichtigt. In der zweiten Stufe entfernt Coupette (2019) erst Inhalte in spitzen Klammern und extrahiert dann die Einzelzitate. Meine Vorgehensweise ist in der ersten Stufe liberaler, in der zweiten Stufe strenger. 
 
-Aktuell ist unklar, welche Strategie insgesamt besser ist, da die Prüfung auf falsch-negative und falsch-positive Fehler bei Coupette (2019: 245) N=33 Entscheidungen per Hand umfasste und ich bisher nur informell falsch-positive Fehler und falsch-negative Fehler gar nicht geprüft habe.
+Aktuell ist unklar, welche Strategie insgesamt besser ist, da die Prüfung auf falsch-negative und falsch-positive Fehler bei Coupette (2019: 245) N=33 Entscheidungen per Hand umfasste und ich falsch-positive und falsch-negative Fehler bisher nur informell mit kleinen Stichproben und Sichtkontrollen geprüft habe.
 
 
 
 ## Methodik Aktenzeichen
 
-Über Coupette (2019) hinaus enthält dieser Datensatz auch zitierte Aktenzeichen (Aktenzeichen-Aktenzeichen-Zitate) und Zitate von nicht-BVerfGE-Aktenzeichen zu BVerfGE-Entscheidungen (Aktenzeichen-BVerfGE-Zitate). 
+Über Coupette (2019) hinaus enthält dieser Datensatz auch zitierte Aktenzeichen (Aktenzeichen-zu-Aktenzeichen-Zitate) und Zitate von nicht-BVerfGE-Aktenzeichen zu BVerfGE-Entscheidungen (Aktenzeichen-zu-BVerfGE-Zitate). 
 
-Diese sind einfacher zu erfassen und werden mit folgender REGEX gesucht:
+Aktenzeichen sind einfacher zu erfassen und werden mit folgender REGEX gesucht:
 
 ```{r  echo = TRUE}
 regex.az <- paste0("[12]\\s*", # Senatsnummer 
@@ -551,9 +551,9 @@ regex.az <- paste0("[12]\\s*", # Senatsnummer
 print(regex.az)
 ```
 
-Um konkrete Entscheidungen zu zitieren müsste zusätzlich zum Aktenzeichen noch das Datum berücksichtigt werden. Weil dies die REGEX deutlich komplizierter macht, ist dieser Schritt noch ni Arbeit. Im Datensatz sind allerdings `r round(uniqueN(dt.bverfg.meta$aktenzeichen)/dt.bverfg.meta[,.N] * 100, digits = 2)` % aller ausgehenden Aktenzeichen einzigartig (unabhängig vom Datum), sodaß das Aktenzeichen eine gute Näherung darstellt.
+Um konkrete Entscheidungen zu zitieren müsste zusätzlich zum Aktenzeichen noch das Datum berücksichtigt werden. Weil dies die REGEX deutlich komplizierter macht, ist dieser Schritt noch in Arbeit. Im Datensatz sind allerdings `r round(uniqueN(dt.bverfg.meta$aktenzeichen)/dt.bverfg.meta[,.N] * 100, digits = 2)` % aller ausgehenden Aktenzeichen einzigartig (unabhängig vom Datum), sodaß das Aktenzeichen eine gute Näherung darstellt.
 
-Falls eine BVerfGE-Entscheidung eine BVerfGE-Entscheidung zitiert hat diese Zitierweise absoluten Vorrang. Für BVerfGE-BVerfGE-Zitate besteht im Datensatz daher eine direkte Entscheidung-Entscheidung-Relation.
+Falls eine BVerfGE-Entscheidung ebenfalls eine BVerfGE-Entscheidung zitiert, hat diese Zitierweise absoluten Vorrang. Für BVerfGE-zu-BVerfGE-Zitate besteht im Datensatz daher eine direkte Entscheidung-zu-Entscheidung-Relation.
 
 
 
