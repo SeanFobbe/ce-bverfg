@@ -411,19 +411,19 @@ kbl(az.brd[stelle == "BVerfG" & position == "hauptzeichen",
 
 ## Überblick
 
-Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Das Verfahren orientiert sich an Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), pp. 241--244, benutzt aber andere reguläre Ausdrücke, um die Erkennung von langen Blöcken mit Rechtsprechungszitaten zu verbessern.
+Der Datensatz enthält zusätzlich eine spezialisierte Variante, die Zitate des BVerfG aus den Entscheidungstexten zu seiner eigenen Rechtsprechung extrahiert und in strukturierter Form aufbereitet. Das Verfahren orientiert sich an Coupette, *Juristische Netzwerkforschung* (Mohr Siebeck 2019), S. 241--244, benutzt aber andere reguläre Ausdrücke, um die Erkennung von langen Blöcken mit Rechtsprechungszitaten zu verbessern.
 
 Diese Variante ist noch in der Beta-Testphase. Folgende Rechtsprechungszitate sind enthalten:
 
-- Zitate innerhalb der amtlichen Sammlung (inklusive langer Blockzitate mehrer BVerfGE-Entscheidungen)
+- Zitate innerhalb der amtlichen Sammlung (inklusive langer Blockzitate)
 - Zitate von amtlicher Sammlung zu Aktenzeichen
 - Zitate von Aktenzeichen zu Aktenzeichen
 
 Zitate unter Angabe des Aktenzeichens sind weniger genau als Zitate zu konkreten Entscheidungen (bei denen Datum und ggf. Kollisionsziffer nötig sind), aber sind eine gute Näherung. Zitate konkreter Entscheidung unter Angabe des Datums sind für die Zukunft vorgesehen, benötigen aber noch zusätzlichen Entwicklungsaufwand.
 
-**Achtung:** Zitierende Entscheidungen können nur solche sein, für die im Korpus der Volltext enthalten ist. Zitierte Entscheidungen können alle aus der gesamten Rechtsprechung sein (keine Begrenzung).
+**Achtung:** Zitierende Entscheidungen können nur solche sein, für die im Korpus der Volltext dokumentiert ist (d.h. normalerweise ab 1998). Zitierte Entscheidungen können aus der gesamten Rechtsprechung stammen (d.h. aus allen Jahren).
 
-Das Zitationsnetzwerk wird als GraphML-Datei angeboten und kann z.B. einfach in graphische Softwre wie Gephi importiert werden. Formal handelt sich um einen gewichteten, gerichteten Graphen (Digraph). Die Anzahl der Knoten gibt die Anzahl der Entscheidungen/Aktenzeichen mit eingehenden und/oder ausgehenden Zitaten an. Die Anzahl der Kanten gibt die Anzahl der Entscheidungen/Aktenzeichen-Paare mit mindestens einem Zitat an. Die Gewichte für die Kanten geben die Anzahl der Zitate an. Die Ausgangsstärke gibt die gesamte Zahl aller einfachen Zitate an.
+Das Zitationsnetzwerk wird als GraphML-Datei angeboten und kann z.B. einfach in graphische Software wie Gephi\footnote{\url{https://gephi.github.io/}} importiert und ohne Programmierkenntnisse genutzt werden. Formal handelt sich um einen gewichteten, gerichteten Graphen (Digraph). Die Anzahl der Knoten gibt die Anzahl der BVerfGE-Entscheidungen/Aktenzeichen mit eingehenden und/oder ausgehenden Zitaten an. Die Anzahl der Kanten gibt die Anzahl der BVerfGE-Entscheidungen/Aktenzeichen-Paare mit mindestens einem Zitat an. Die Gewichte der Kanten geben die Anzahl der Zitate zwischen Knoten an. Die Ausgangsstärke gibt die Summe aller einfachen Zitate an.
 
 \bigskip
 
@@ -479,6 +479,8 @@ kable(dt.g.split,
 
 
 ```
+
+\newpage
 
 ## Methodik BVerfGE
 
