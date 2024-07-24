@@ -5,11 +5,13 @@
 ## Version \version
 
 - LIZENZÄNDERUNG: Source Code jetzt unter GNU General Public License Version 3 (GPLv3) oder später lizenziert
-- NEU: Zitationsnetzwerke BVerfGE-BVerfGE, BVerfGE-Aktenzeichen und Aktenzeichen-Aktenzeichen
+- NEU: Zitationsnetzwerke BVerfGE-zu-BVerfGE, BVerfGE-zu-Aktenzeichen und Aktenzeichen-zu-Aktenzeichen als GraphML
+- Neue Variable "bverfge": TRUE/FALSE, ob eine Entscheidung in der BVerfGE enthalten ist
 - Vollständige Aktualisierung der Daten
 - Amtliche Sammlung bis inklusive Band 164 mit Name, Band und Seite versehen
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
 - R-Version auf 4.4.0 aktualisiert (wegen CVE-2024-27322)
+- Python Toolchain aktualisiert
 - Vereinfachung der Repository-Struktur mit Ordner etc/ für Config Files
 - Anpassung Docker Compose an Debian 11
 - Docker Zeitzone auf Berlin eingestellt
@@ -19,7 +21,7 @@
 - Viele neue Tests zur Sicherung der Datenqualität des finalen tabellarischen Datensatzes
 - Vollständigkeit der Datenbankabfrage wird nun alle 3 Tage automatisch überprüft
 - Diagramme nicht mehr nummeriert, sondern nach Typ sortiert
-- Neue Variable "bverfge": TRUE/FALSE ob eine Entscheidung in der BVerfGE enthalten ist
+
 
 
 ## Version 2023-02-26
