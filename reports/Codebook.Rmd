@@ -559,7 +559,7 @@ Falls eine BVerfGE-Entscheidung eine BVerfGE-Entscheidung zitiert hat diese Ziti
 \newpage
 	
 
-```{r, CE-BVerfG_Zitationsnetzwerk_Knotengrad, fig.width = 9, fig.height = 6, fig.cap = "Verteilung der Knotengrade im Zitationsnetzwerk des BVerfG."}
+```{r, CE-BVerfG_Zitationsnetzwerk_Knotengrad, fig.width = 9, fig.height = 6}
 
 
 g <- igraph_citations
@@ -595,10 +595,9 @@ ggplot(data = degree.all) +
 
 ```
 
-\vspace{-0.5cm}
 
 
-```{r, CE-BVerfG_Zitationsnetzwerk_Eingangsgrad, fig.width = 9, fig.height = 6, fig.cap = "Verteilung der Eingangsgrade im Zitationsnetzwerk des BVerfG."}
+```{r, CE-BVerfG_Zitationsnetzwerk_Eingangsgrad, fig.width = 9, fig.height = 6}
 
 
 g <- igraph_citations
