@@ -573,7 +573,7 @@ g  <- igraph::delete_vertices(g, isolated)
 
 ggraph(g, "sugiyama") + 
     geom_edge_diagonal(colour = "black", edge_width = 0.05)+
-    geom_node_point(size = 0.3,
+    geom_node_point(size = 0.5,
                     color = "black")+
     theme_void()+
     labs(
