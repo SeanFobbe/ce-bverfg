@@ -357,7 +357,7 @@ PDF & \textbf{Traditionelle juristische Forschung.} Die PDF-Dokumente wie sie vo
 - **Strings** können grundsätzlich alle in UTF-8 definierten Zeichen (insbesondere Buchstaben, Zahlen und Sonderzeichen) enthalten.
 
 
-\newpage
+
 ## Erläuterung der Variablen
 
 
