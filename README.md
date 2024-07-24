@@ -34,7 +34,7 @@ Alle Ergebnisse werden im Ordner `output` abgelegt. Zusätzlich werden für alle
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- 8 GB Speicherplatz auf Festplatte
+- 5 GB Speicherplatz auf Festplatte
 - Multi-core CPU empfohlen (8 cores/16 threads für die Referenzdatensätze). 
 
 
