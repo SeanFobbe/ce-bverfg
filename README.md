@@ -17,6 +17,7 @@ Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
  
 - Der volle Datensatz im CSV-Format
 - Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
+- Zitationsnetzwerk des BVerfG im GraphML-Format
 - (Optional) Tokenisierte Form aller Texte mit linguistischen Annotationen im CSV-Format
 - Alle Entscheidungen im HTML-Format
 - Alle Entscheidungen im TXT-Format (reduzierter Umfang an Metadaten)
