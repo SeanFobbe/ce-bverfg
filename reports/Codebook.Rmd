@@ -561,6 +561,43 @@ Falls eine BVerfGE-Entscheidung ebenfalls eine BVerfGE-Entscheidung zitiert, hat
 \newpage
 	
 
+```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyama_schwarz, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk von BVerfGE-Entscheidungen ab 1998", dev = "png"}
+
+g <- igraph_citations
+g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
+
+# Keine isolated nodes
+isolated  <-  which(igraph::degree(g) == 0)
+g  <- igraph::delete_vertices(g, isolated)
+
+
+ggraph(g, "sugiyama") + 
+    geom_edge_diagonal(colour = "black", edge_width = 0.05)+
+    geom_node_point(size = 0.3,
+                    color = "black")+
+    theme_void()+
+    labs(
+        title = paste(prefix.figuretitle,
+                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE in Entscheidungstexten ab 1998"),
+        caption = caption
+    )+
+    theme(
+        plot.title = element_text(size = 30,
+                                  face = "bold",
+                                  color = "black"),                        
+        plot.background = element_rect(fill = "white"),
+        plot.caption = element_text(color = "black"),
+        plot.margin = margin(10, 20, 10, 10)
+    )
+#ggsave("test.png", dev ="png", width = 40, height = 50, dpi = 50, limitsize = FALSE)
+
+
+
+```
+
+
+
+
 ```{r, CE-BVerfG_Zitationsnetzwerk_Knotengrad, fig.width = 9, fig.height = 6}
 
 
@@ -632,40 +669,6 @@ ggplot(data = degree.in) +
         plot.margin = margin(10, 20, 10, 10)
     )
 
-
-
-
-```
-
-```{r, CE-BVerfG_Zitationsnetzwerk_Sugiyama_schwarz, fig.width = 40, fig.height = 50, fig.dpi = 50, fig.pos = "p", fig.cap = "Das Zitationsnetzwerk von BVerfGE-Entscheidungen ab 1998", dev = "png"}
-
-g <- igraph_citations
-g <- igraph::subgraph(g, which(igraph::V(g)$bverfge == TRUE)) # nur BVerfGE
-
-# Keine isolated nodes
-isolated  <-  which(igraph::degree(g) == 0)
-g  <- igraph::delete_vertices(g, isolated)
-
-
-ggraph(g, "sugiyama") + 
-    geom_edge_diagonal(colour = "black", edge_width = 0.05)+
-    geom_node_point(size = 0.3,
-                    color = "black")+
-    theme_void()+
-    labs(
-        title = paste(prefix.figuretitle,
-                      "| Zitationsnetzwerk BVerfGE-zu-BVerfGE in Entscheidungstexten ab 1998"),
-        caption = caption
-    )+
-    theme(
-        plot.title = element_text(size = 30,
-                                  face = "bold",
-                                  color = "black"),                        
-        plot.background = element_rect(fill = "white"),
-        plot.caption = element_text(color = "black"),
-        plot.margin = margin(10, 20, 10, 10)
-    )
-#ggsave("test.png", dev ="png", width = 40, height = 50, dpi = 50, limitsize = FALSE)
 
 
 
